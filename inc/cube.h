@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/18 18:22:42 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:25:46 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define WE 2
 # define EA 3
 
-# define WIDTH	1920
-# define HEIGHT	1080
+# define WIDTH	800
+# define HEIGHT	600
 
 # define TILE 256
 # define SPEED 0.1
@@ -54,11 +54,32 @@ typedef struct s_arena
 	char		data[];
 }				t_arena;
 
+typedef	struct s_caster
+{
+	double	rayX;
+	double	rayY;
+	double	sideX;
+	double	sideY;
+	double	deltaX;
+	double	deltaY;
+	int		stepX;
+	int		stepY;
+	double	distance;
+	int		height;
+	int		bottom;
+	int		top;
+}	t_caster;
+
+
 typedef	struct s_player
 {
-	double	pos[2];
-	double	dir[2];
-	double	plane[2];
+	double		pos[2];
+	int			map_pos[2];
+	double		dir[2];
+	double		plane[2];
+	double		pdx;
+	double		pdy;
+	t_caster	ray;
 }	t_player;
 
 typedef struct s_data
