@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/18 18:20:37 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/20 18:53:55 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	find_start_pos(t_data	*data)
 		col = 0;
 		while (data->map[row][col])
 		{
+			puts(data->map[row]);
 			if ((data->map[row][col] == 'N' || data->map[row][col] == 'S')
 			|| data->map[row][col] == 'E' || data->map[row][col] == 'W')
 			{
@@ -81,4 +82,5 @@ void	load_game(t_data	*data)
 		data->player.dir[1] = 0.0;
 	}
 	start_game(data);
+	puts("here load");
 }

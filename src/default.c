@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/19 15:27:22 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/20 18:54:17 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,32 @@ t_data	*load_default()
 {
 	t_data			*data;
 	mlx_t			*mlx;
-
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
-	mlx_set_setting(MLX_FULLSCREEN, 1);
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!mlx)
 		ft_exit("Error initializing mlx", 1);
 	data = get_data();
 	data->mlx = mlx;
 	load_walls(data);
-	data->map = ft_split(DEFMAP, '\n');
+	data->map = arena_malloc(sizeof(char *) * 12);
+	for (int i = 0; i < 11; i++)
+	{
+		if (i == 1 || i == 10)
+		{
+			data->map[i] = arena_malloc(16);
+			ft_memset(data->map[i], '1', 15);
+			data->map[i][15] = 0;
+		}
+		else
+		{
+			data->map[i] = arena_malloc(16);
+			ft_memset(data->map[i], '1', 15);
+			ft_memset(data->map[i] + 1, '0', 13);
+			data->map[i][15] = 0;
+			if (i == 4)
+				data->map[i][6] = 'N';
+		}
+	}
 	return (data);
 }
 
@@ -45,6 +61,7 @@ static void	load_walls(t_data	*data)
 	data->wall_txt[EA] = mlx_load_png(DEA);
 	if (!data->wall_txt[EA])
 		ft_exit("Error loading texture", 1);
+	puts("here");
 	data->ceiling[0] = 0;
 	data->ceiling[1] = 255;
 	data->ceiling[2] = 0;

@@ -12,15 +12,16 @@ CYAN='\033[0;36m'
 WHITE='\033[0;37m'
 
 SRC_DIR	= src/
-SRCF = main.c data.c camera.c default.c helpers.c memory_arena.c memory_arena_helpers.c movement.c \
-	game_load.c game.c
+SRCF = main.c data.c camera.c default.c helpers.c memory_arena.c \
+	memory_arena_helpers.c movement.c \
+	game_load.c game.c rayCast.c textures.c image.c
 SRCS = $(addprefix $(SRC_DIR), $(SRCF))
 OBJS = $(SRCS:.c=.o)
 HEADERS = ./inc/cube.h
 INC = ./inc
 NAME = cub3d
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -I ./MLX42/include/MLX42/
+CFLAGS = -Wall -Wextra -Werror -Iinc -Ilibft -I./MLX42/include/MLX42/ -g3 -fsanitize=address -fsanitize=undefined
 EFLAGS = -Llibft -lft -L./MLX42/build -ldl -lglfw -pthread -lm
 MAKE = @make -s
 all: $(NAME)
@@ -30,7 +31,7 @@ all: $(NAME)
 	@echo -e $(LGREEN)Compiling OBJ files$(OFF)
 
 $(NAME): $(OBJS) libft/libft.a MLX42/build/libmlx42.a
-		$(CC) $(CFLAGS) -I $(INC) $(OBJS) $(EFLAGS) -o $(NAME)
+		$(CC) $(CFLAGS) -I $(INC) $^ $(EFLAGS) -o $(NAME)
 		@echo -e $(GREEN)Compiled $(NAME)$(OFF)
 
 MLX42/build/libmlx42.a:
@@ -53,4 +54,4 @@ re: fclean all
 libft/libft.a:
 	$(MAKE) -C libft
 
-.PHONY: clean flcean re all
+.PHONY: clean flcean re all debug

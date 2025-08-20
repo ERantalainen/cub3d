@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/19 17:25:46 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/20 18:43:34 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define DNO "./textures/dlv_metaltrm4a.png"
 # define DSO "./textures/dlv_metaltrm3c.png"
 # define DWE "./textures/dlv_metaltrm4c.png"
-# define DEA "./texturesdlv_metaltrm4c.png"
+# define DEA "./textures/dlv_metaltrm4c.png"
 # define PI 3.14159
 
 # define ARENA_SIZE 32768
@@ -121,5 +121,10 @@ void	ft_move_north(t_data *data);
 void	ft_move_south(t_data *data);
 void	ft_move_west(t_data *data);
 void	ft_move_east(t_data *data);
+
+// RayCasting
+
+void	render_frame(t_data	*data, t_player player, int x);
+void	RayCaster(t_player player);
 
 #endif

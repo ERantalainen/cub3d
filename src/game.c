@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/18 18:23:38 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/20 18:37:37 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,19 @@ void	start_game(t_data *data)
 {
 	mlx_close_hook(data->mlx, ft_close, NULL);
 	mlx_loop_hook(data->mlx, game_hook, data);
+	puts("here start");
+	mlx_loop(data->mlx);
 }
 
 void	draw_game(t_data	*data)
 {
+	static double	posY = 0.0;
+	static double	posX = 0.0;
 
+	if (data->player.pos[0] != posY || data->player.pos[1] != posX)
+		RayCaster(data->player);
+	else
+		return ;
 }
 
 void	game_hook(void *param)
