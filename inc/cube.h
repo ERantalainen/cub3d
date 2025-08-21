@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/20 18:43:34 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:51:35 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define WIDTH	800
 # define HEIGHT	600
-
+# define TXT	128
 # define TILE 256
 # define SPEED 0.1
 
@@ -68,6 +68,8 @@ typedef	struct s_caster
 	int		height;
 	int		bottom;
 	int		top;
+	double	point;
+	int		tex_x;
 }	t_caster;
 
 
@@ -91,6 +93,7 @@ typedef struct s_data
 	mlx_t			*mlx;
 	char			**map;
 	t_player		player;
+	mlx_image_t		*wall_full;
 }	t_data;
 
 // Default

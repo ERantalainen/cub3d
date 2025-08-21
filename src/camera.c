@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:59:56 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/20 17:42:58 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:26:10 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	ft_look_right(t_data *data)
 
 void	ft_look_left(t_data *data)
 {
-	(void)data;
+	data->player.dir[0] -= -0.1;
+	if (data->player.dir[0] > 2 * PI)
+		data->player.dir[0] = 0;
+	data->player.pdx = (cos(data->player.dir[0]));
+	data->player.pdy = (sin(data->player.dir[0]));
 }
 
 

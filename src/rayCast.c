@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/20 18:39:07 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:41:37 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	RayCaster(t_player player)
 
 	data = get_data();
 	x = 0;
-	player.pos[0] = 0;
-	player.pos[1] = 1;
+	player.pos[0] = 1.0;
+	player.pos[1] = 1.0;
+	mlx_delete_image(data->mlx, data->wall_full);
+	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1;
@@ -35,7 +37,9 @@ void	RayCaster(t_player player)
 		player.map_pos[0] = (int)player.pos[0];
 		player.map_pos[1] = (int)player.pos[1];
 		calc_ray(&player, x);
+		x++;
 	}
+	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 }
 
 static	void calc_ray(t_player *player, int x)
@@ -101,18 +105,28 @@ static void	dda(t_player *player, int x)
 	wall_dist(player, dir, x);
 }
 
-static void	wall_dist(t_player *player, int dir, int x)
+static void	wall_dist(t_player *pr, int dir, int x)
 {
 	if (dir == 0)
-		player->ray.distance = (player->ray.sideX - player->ray.deltaX);
+		pr->ray.distance = (pr->ray.sideX - pr->ray.deltaX);
 	else
-		player->ray.distance = (player->ray.sideY - player->ray.deltaY);
-	player->ray.height = (int)(HEIGHT / player->ray.distance);
-	player->ray.bottom = player->ray.height / 2 + HEIGHT / 2;
-	if (player->ray.bottom < 0)
-		player->ray.bottom = 0;
-	player->ray.top = player->ray.height / 2 + HEIGHT / 2;
-	if (player->ray.top > HEIGHT)
-		player->ray.top = HEIGHT - 1;
-	render_frame(get_data(), *player, x);
+		pr->ray.distance = (pr->ray.sideY - pr->ray.deltaY);
+	pr->ray.height = (int)(HEIGHT / pr->ray.distance);
+	pr->ray.bottom = pr->ray.height / 2 + HEIGHT / 2;
+	if (pr->ray.bottom < 0)
+		pr->ray.bottom = 0;
+	pr->ray.top = pr->ray.height / 2 + HEIGHT / 2;
+	if (pr->ray.top > HEIGHT)
+		pr->ray.top = HEIGHT - 1;
+	if (dir == 0)
+		pr->ray.point = pr->pos[0] + pr->ray.distance * pr->ray.rayY;
+	else
+		pr->ray.point = pr->pos[1] + pr->ray.distance * pr->ray.rayX;
+	pr->ray.point -= floor(pr->ray.point);
+	pr->ray.tex_x = (int)(pr->ray.point * TXT);
+	if (dir == 0 && pr->ray.rayX > 0)
+		pr->ray.tex_x = TXT - pr->ray.tex_x - 1;
+	if (dir == 1 && pr->ray.rayY > 0)
+		pr->ray.tex_x = TXT - pr->ray.tex_x - 1;
+	render_frame(get_data(), *pr, x);
 }

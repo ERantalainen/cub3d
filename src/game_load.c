@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/20 18:53:55 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:25:37 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	load_images(t_data	*data)
 	data->wall_img[EA] = mlx_texture_to_image(data->mlx, data->wall_txt[EA]);
 	if (!data->wall_img[EA])
 		ft_exit("Error initializing images", 1);
+	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->wall_full)
+		ft_exit("ERROR", 1);
 }
 
 char	find_start_pos(t_data	*data)

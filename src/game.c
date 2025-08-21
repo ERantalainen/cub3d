@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/20 18:37:37 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:32:36 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,18 @@ void	draw_game(t_data	*data)
 {
 	static double	posY = 0.0;
 	static double	posX = 0.0;
+	static double	dirX = 0.0;
+	static double	dirY = 0.0;
 
-	if (data->player.pos[0] != posY || data->player.pos[1] != posX)
+	if ((data->player.pos[0] != posY || data->player.pos[1] != posX)
+		|| data->player.dir[0] != dirY || data->player.dir[1] != dirX)
+	{
 		RayCaster(data->player);
+		posY = data->player.pos[0];
+		posX = data->player.pos[1];
+		dirY = data->player.dir[0];
+		dirX = data->player.dir[1];
+	}
 	else
 		return ;
 }
