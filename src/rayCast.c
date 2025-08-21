@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/21 18:41:37 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:42:12 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	RayCaster(t_player player)
 
 	data = get_data();
 	x = 0;
-	player.pos[0] = 1.0;
-	player.pos[1] = 1.0;
 	mlx_delete_image(data->mlx, data->wall_full);
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	while (x < WIDTH)
