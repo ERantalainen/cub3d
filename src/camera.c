@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:59:56 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/21 18:26:10 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 02:49:24 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,32 @@
 
 void	ft_look_right(t_data *data)
 {
-	data->player.dir[0] += -0.1;
+	double	temp_x;
+
+	temp_x = data->player.pdx;
+	data->player.pdx = data->player.pdx * cos(-ROT) - data->player.pdy * sin(-ROT);
+	data->player.pdy = temp_x * sin(-ROT) + data->player.pdy * cos(-ROT);
+	temp_x = data->player.planeX;
+	data->player.planeX = data->player.planeX * cos(-ROT) - data->player.planeY * sin(-ROT);
+	data->player.planeY = temp_x * sin(-ROT) + data->player.planeY * cos(-ROT);
+	data->player.dir[0] -= ROT;
 	if (data->player.dir[0] < 0)
 		data->player.dir[0] += 2 * PI;
-	data->player.pdx = (cos(data->player.dir[0]));
-	data->player.pdy = (sin(data->player.dir[0]));
 }
 
 void	ft_look_left(t_data *data)
 {
-	data->player.dir[0] -= -0.1;
+	double	temp_x;
+	
+	temp_x = data->player.pdx;
+	data->player.pdx = data->player.pdx * cos(ROT) - data->player.pdy * sin(ROT);
+	data->player.pdy = temp_x * sin(ROT) + data->player.pdy * cos(ROT);
+	temp_x = data->player.planeX;
+	data->player.planeX = data->player.planeX * cos(ROT) - data->player.planeY * sin(ROT);
+	data->player.planeY = temp_x * sin(ROT) + data->player.planeY * cos(ROT);
+	data->player.dir[0] += ROT;
 	if (data->player.dir[0] > 2 * PI)
-		data->player.dir[0] = 0;
-	data->player.pdx = (cos(data->player.dir[0]));
-	data->player.pdy = (sin(data->player.dir[0]));
+		data->player.dir[0] -= 2 * PI;
 }
 
 

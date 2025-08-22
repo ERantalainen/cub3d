@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/21 18:42:28 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 02:50:54 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_data	*load_default()
 	data->map = arena_malloc(sizeof(char *) * 12);
 	for (int i = 0; i < 11; i++)
 	{
-		if (i == 1 || i == 10)
+		if (i == 0 || i == 10)
 		{
 			data->map[i] = arena_malloc(16);
 			ft_memset(data->map[i], '1', 15);
@@ -44,8 +44,21 @@ t_data	*load_default()
 				data->map[i][6] = 'N';
 		}
 	}
+	data->map_h = 11;
+	data->map_w = 15;
 	data->player.pos[0] = 1.0;
 	data->player.pos[1] = 1.0;
+	data->player.planeY = 0.66;
+	data->player.planeX = 0.0;
+	data->player.pdx = -1.0;
+	data->player.dir[0] = -1.0;
+	data->player.dir[1] = 0.0;
+	data->player.pdy = 0.0;
+	make_player(data);
+	for(int i = 0; data->map[i]; i++)
+	{
+		printf("%s\n", data->map[i]);
+	}
 	return (data);
 }
 
@@ -63,7 +76,6 @@ static void	load_walls(t_data	*data)
 	data->wall_txt[EA] = mlx_load_png(DEA);
 	if (!data->wall_txt[EA])
 		ft_exit("Error loading texture", 1);
-	puts("here");
 	data->ceiling[0] = 0;
 	data->ceiling[1] = 255;
 	data->ceiling[2] = 0;

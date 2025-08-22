@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/21 17:51:35 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 02:43:29 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@
 # define HEIGHT	600
 # define TXT	128
 # define TILE 256
+# define MM 10
 # define SPEED 0.1
+# define ROT 0.01
 
 # define DEFMAP "1111111111111111 \
 				100111000011110111 \
@@ -78,10 +80,15 @@ typedef	struct s_player
 	double		pos[2];
 	int			map_pos[2];
 	double		dir[2];
-	double		plane[2];
+	double		angleX;
+	double		angleY;
+	double		planeX;
+	double		planeY;
 	double		pdx;
 	double		pdy;
 	t_caster	ray;
+	mlx_image_t	*mm;
+	mlx_image_t	*arrow;
 }	t_player;
 
 typedef struct s_data
@@ -92,8 +99,11 @@ typedef struct s_data
 	int				ceiling[3];
 	mlx_t			*mlx;
 	char			**map;
+	int				map_w;
+	int				map_h;
 	t_player		player;
 	mlx_image_t		*wall_full;
+	mlx_image_t		*minimap;
 }	t_data;
 
 // Default
@@ -109,10 +119,12 @@ t_data	*get_data();
 void	*arena_malloc(size_t n);
 void	ft_exit(char *s, int code);
 void	ft_close(void *s);
+unsigned int make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
 // Setting up game
 
 void	load_game(t_data	*data);
+void	make_player(t_data *data);
 
 // Main game functionality
 
@@ -125,9 +137,11 @@ void	ft_move_south(t_data *data);
 void	ft_move_west(t_data *data);
 void	ft_move_east(t_data *data);
 
+void	render_minimap(t_data *data);
+
 // RayCasting
 
-void	render_frame(t_data	*data, t_player player, int x);
+void	render_frame(t_data	*data, t_player player, int x, int tex_x);
 void	RayCaster(t_player player);
 
 #endif
