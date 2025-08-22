@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 02:43:29 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:10:04 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 # include "../libft/include/libft.h"
 
 # define NO 0
@@ -67,9 +68,9 @@ typedef	struct s_caster
 	int		stepX;
 	int		stepY;
 	double	distance;
-	int		height;
+	long	height;
 	int		bottom;
-	int		top;
+	long		top;
 	double	point;
 	int		tex_x;
 }	t_caster;
@@ -95,8 +96,8 @@ typedef struct s_data
 {
 	mlx_texture_t	*wall_txt[4];
 	mlx_image_t		*wall_img[4];
-	int				floor[3];
-	int				ceiling[3];
+	unsigned int	f_c;
+	unsigned int	r_c;
 	mlx_t			*mlx;
 	char			**map;
 	int				map_w;
@@ -104,6 +105,8 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
+	mlx_image_t		*roof;
+	mlx_image_t		*floor;
 }	t_data;
 
 // Default

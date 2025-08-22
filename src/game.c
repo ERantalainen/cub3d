@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 02:51:43 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 15:55:18 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	start_game(t_data *data)
 	mlx_loop_hook(data->mlx, game_hook, data);
 	puts("here start");
 	mlx_image_to_window(data->mlx, data->player.mm, data->player.map_pos[1], data->player.map_pos[0]);
-	mlx_set_instance_depth(data->player.mm->instances, 3);
+	mlx_set_instance_depth(data->player.mm->instances, 4);
 	mlx_loop(data->mlx);
 }
 

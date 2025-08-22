@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 21:24:24 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 02:50:49 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 15:54:24 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	render_minimap(t_data *data)
 		y++;
 	}
 	mlx_image_to_window(data->mlx, data->minimap, 0, 0);
-	mlx_set_instance_depth(data->minimap->instances, 1);
+	mlx_set_instance_depth(data->minimap->instances, 2);
 	string = mlx_put_string(data->mlx, ft_itoa(data->player.dir[0] * (180 / PI)), WIDTH / 2 - 20, 50);
-	puts("here");
 }

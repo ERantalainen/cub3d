@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 03:40:44 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:11:14 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	RayCaster(t_player player)
 	x = 0;
 	mlx_delete_image(data->mlx, data->wall_full);
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	printf("%f %f\n", player.pdx, player.pdy);
+	// printf("Pos: %f %f facing: %f %f\n", player.pos[0], player.pos[1], player.pdx, player.pdy);
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1;
@@ -114,8 +114,9 @@ static void	wall_dist(t_player *pr, int dir, int x)
 		pr->ray.distance = (pr->ray.sideX - pr->ray.deltaX);
 	else
 		pr->ray.distance = (pr->ray.sideY - pr->ray.deltaY);
+	if (pr->ray.distance == 0)
+		pr->ray.distance = 1;
 	pr->ray.height = (int)(HEIGHT / pr->ray.distance);
-	printf("%f\n", pr->ray.distance);
 	pr->ray.top = -pr->ray.height / 2 + HEIGHT / 2;
 	if (pr->ray.top < 0)
 		pr->ray.top = 0;
@@ -127,7 +128,7 @@ static void	wall_dist(t_player *pr, int dir, int x)
 	else
 		pr->ray.point = pr->pos[1] + pr->ray.distance * pr->ray.rayX;
 	pr->ray.point -= floor(pr->ray.point);
-	
+
 	pr->ray.tex_x = (int)(pr->ray.point * TXT);
 	if (dir == 0 && pr->ray.rayX > 0)
 		pr->ray.tex_x = TXT - pr->ray.tex_x - 1;

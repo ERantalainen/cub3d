@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 02:50:54 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:14:47 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_data	*load_default()
 	data->mlx = mlx;
 	load_walls(data);
 	data->map = arena_malloc(sizeof(char *) * 12);
+	ft_memset(&data->player, 0, sizeof(t_player));
+	ft_memset(&data->player.ray, 0, sizeof(t_caster));
 	for (int i = 0; i < 11; i++)
 	{
 		if (i == 0 || i == 10)
@@ -55,6 +57,8 @@ t_data	*load_default()
 	data->player.dir[1] = 0.0;
 	data->player.pdy = 0.0;
 	make_player(data);
+	data->r_c = make_color(255, 0, 0, 255);
+	data->f_c = make_color(255, 255, 255, 255);
 	for(int i = 0; data->map[i]; i++)
 	{
 		printf("%s\n", data->map[i]);
@@ -76,10 +80,4 @@ static void	load_walls(t_data	*data)
 	data->wall_txt[EA] = mlx_load_png(DEA);
 	if (!data->wall_txt[EA])
 		ft_exit("Error loading texture", 1);
-	data->ceiling[0] = 0;
-	data->ceiling[1] = 255;
-	data->ceiling[2] = 0;
-	data->floor[0] = 200;
-	data->floor[1] = 200;
-	data->floor[2] = 200;
 }

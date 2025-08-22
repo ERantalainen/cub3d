@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:17:09 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 00:13:52 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:16:35 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,32 @@ static	unsigned int get_color(mlx_texture_t *txt, int index)
 	alpha = txt->pixels[index + 3];
 	return (red << 24 | green << 16 | blue << 8 | alpha);
 }
+// static void draw_roof(t_data *data, int high, int y, int x)
+// {
+// 	if (y < high)
+// 	{
+// 			mlx_put_pixel(data->wall_full, x, y, data->r_c);
+// 	}
+// }
+
+// static void	draw_floor(t_data	*data, int low, int y, int x)
+// {
+// 	if (y > low)
+// 			mlx_put_pixel(data->wall_full, x, y, data->f_c);
+// }
+
+// static void make_roof(t_data *data, t_player player, int x, int y)
+// {
+// 	static int low = HEIGHT;
+// 	static int high = 0;
+
+// 	if (player.ray.top > high)
+// 		high = player.ray.top;
+// 	if (player.ray.bottom < low)
+// 		low = player.ray.bottom;
+// 	// draw_floor(data, low, y, x);
+// 	// draw_roof(data, high, y, x);
+// }
 
 void	render_frame(t_data	*data, t_player player, int x, int tex_x)
 {
@@ -45,7 +71,7 @@ void	render_frame(t_data	*data, t_player player, int x, int tex_x)
 		tex_y = (int)pos & (TXT - 1);
 		tex_y = abs(tex_y);
 		pos += step;
-		color = get_color(data->wall_txt[0], (tex_y * TXT + tex_x) * 4);	
+		color = get_color(data->wall_txt[0], (tex_y * TXT + tex_x) * 4);
 		mlx_put_pixel(data->wall_full, x, y, color);
 		y++;
 	}
