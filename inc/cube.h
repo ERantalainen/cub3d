@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 18:10:04 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/23 02:10:01 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define TXT	128
 # define TILE 256
 # define MM 10
-# define SPEED 0.1
-# define ROT 0.01
+# define SPEED 0.05
+# define ROT 0.05
 
 # define DEFMAP "1111111111111111 \
 				100111000011110111 \
@@ -42,8 +42,8 @@
 				1110000111000000N1 \
 				111111111111111111"
 # define DNO "./textures/dlv_metaltrm4a.png"
-# define DSO "./textures/dlv_metaltrm3c.png"
-# define DWE "./textures/dlv_metaltrm4c.png"
+# define DSO "./textures/dlv_metaltrm1b.png"
+# define DWE "./textures/dlv_metalpan4a.png"
 # define DEA "./textures/dlv_metaltrm4c.png"
 # define PI 3.14159
 
@@ -73,6 +73,7 @@ typedef	struct s_caster
 	long		top;
 	double	point;
 	int		tex_x;
+	int		side;
 }	t_caster;
 
 

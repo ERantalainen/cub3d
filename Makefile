@@ -22,7 +22,7 @@ HEADERS = ./inc/cube.h
 INC = ./inc
 NAME = cub3d
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -Iinc -Ilibft -I./MLX42/include/MLX42/
+CFLAGS = -Wall -Wextra -Werror -Iinc -Ilibft -I./MLX42/include/MLX42/ -g3 -fsanitize=address -fsanitize=undefined
 # -g3 -fsanitize=address -fsanitize=undefined
 EFLAGS = -Llibft -lft -L./MLX42/build -ldl -lglfw -pthread -lm
 MAKE = @make -s

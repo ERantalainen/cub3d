@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 15:55:18 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/23 00:24:48 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,27 @@ void	start_game(t_data *data)
 	mlx_close_hook(data->mlx, ft_close, NULL);
 	mlx_loop_hook(data->mlx, game_hook, data);
 	puts("here start");
+	RayCaster(data->player);
+	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
+	render_minimap(data);
 	mlx_image_to_window(data->mlx, data->player.mm, data->player.map_pos[1], data->player.map_pos[0]);
-	mlx_set_instance_depth(data->player.mm->instances, 4);
+	mlx_set_instance_depth(data->player.mm->instances, 2);
 	mlx_loop(data->mlx);
+}
+
+static void	compass(t_data *data)
+{
+	static	mlx_image_t	*string = NULL;
+	char				*dir;
+	
+	if (string)
+	{
+		mlx_delete_image(data->mlx, string);
+		string = NULL;
+	}
+	dir = ft_itoa(data->player.dir[0] * (180 / PI));
+	string = mlx_put_string(data->mlx, dir, WIDTH / 2 - 20, 50);
+	free(dir);
 }
 
 void	draw_game(t_data	*data)
@@ -35,7 +53,7 @@ void	draw_game(t_data	*data)
 		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
 	{
 		RayCaster(data->player);
-		render_minimap(data);
+		compass(data);
 		data->player.mm->instances->x = ceil(data->player.pos[1]) * 10;
 		data->player.mm->instances->y = ceil(data->player.pos[0]) * 10;
 		posY = data->player.pos[0];

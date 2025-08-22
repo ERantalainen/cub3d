@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 18:11:14 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/23 02:24:57 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	RayCaster(t_player player)
 
 	data = get_data();
 	x = 0;
-	mlx_delete_image(data->mlx, data->wall_full);
-	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	// printf("Pos: %f %f facing: %f %f\n", player.pos[0], player.pos[1], player.pdx, player.pdy);
+	ft_memset(data->wall_full->pixels, 0, sizeof(data->wall_full->pixels));
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1;
@@ -38,8 +36,7 @@ void	RayCaster(t_player player)
 		calc_ray(&player, x);
 		x++;
 	}
-	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
-	mlx_set_instance_depth(data->wall_full->instances, 0);
+
 }
 
 static	void calc_ray(t_player *player, int x)
@@ -51,6 +48,8 @@ static	void calc_ray(t_player *player, int x)
 		player->ray.deltaX = 0;
 	if (player->ray.rayY != 0)
 		player->ray.deltaY = fabs(1 / player->ray.rayY);
+	else
+		player->ray.deltaY = 0;
 	calc_step(player, x);
 }
 
@@ -74,14 +73,13 @@ static	void	calc_step(t_player *pr, int x)
 	else
 	{
 		pr->ray.stepY = 1;
-		pr->ray.sideY = (pr->map_pos[0] + 1.0 - pr->pos[1]) * pr->ray.deltaY;
+		pr->ray.sideY = (pr->map_pos[0] + 1.0 - pr->pos[0]) * pr->ray.deltaY;
 	}
 	dda(pr, x);
 }
 
 static void	dda(t_player *player, int x)
 {
-	int	dir;
 	t_data	*data;
 
 	data = get_data();
@@ -91,13 +89,13 @@ static void	dda(t_player *player, int x)
 		{
 			player->ray.sideX += player->ray.deltaX;
 			player->map_pos[1] += player->ray.stepX;
-			dir = 0;
+			player->ray.side = 0;
 		}
 		else
 		{
 			player->ray.sideY += player->ray.deltaY;
 			player->map_pos[0] += player->ray.stepY;
-			dir = 1;
+			player->ray.side = 1;
 		}
 		if ((player->map_pos[0] < 0 || player->map_pos[0] >= data->map_h)
 		||	player->map_pos[1] < 0 || player->map_pos[1] >= data->map_w)
@@ -105,7 +103,7 @@ static void	dda(t_player *player, int x)
 		if  (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
 			break ;
 	}
-	wall_dist(player, dir, x);
+	wall_dist(player, player->ray.side, x);
 }
 
 static void	wall_dist(t_player *pr, int dir, int x)
@@ -121,8 +119,8 @@ static void	wall_dist(t_player *pr, int dir, int x)
 	if (pr->ray.top < 0)
 		pr->ray.top = 0;
 	pr->ray.bottom = pr->ray.height / 2 + HEIGHT / 2;
-	if (pr->ray.bottom < 0)
-		pr->ray.bottom = 0;
+	if (pr->ray.bottom > HEIGHT)
+		pr->ray.bottom = HEIGHT;
 	if (dir == 0)
 		pr->ray.point = pr->pos[0] + pr->ray.distance * pr->ray.rayY;
 	else

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 21:24:24 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 15:54:24 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/23 00:20:48 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,8 @@ void	render_minimap(t_data *data)
 {
 	int	x;
 	int	y;
-	static mlx_image_t	*string;
 
 	y = 0;
-	mlx_delete_image(data->mlx, data->minimap);
-	mlx_delete_image(data->mlx, string);
-	data->minimap = mlx_new_image(data->mlx, data->map_w * MM, data->map_h * MM);
-	if (!data->minimap)
-		ft_exit("error", 1);
 	while (data->map[y])
 	{
 		x = 0;
@@ -78,6 +72,5 @@ void	render_minimap(t_data *data)
 		y++;
 	}
 	mlx_image_to_window(data->mlx, data->minimap, 0, 0);
-	mlx_set_instance_depth(data->minimap->instances, 2);
-	string = mlx_put_string(data->mlx, ft_itoa(data->player.dir[0] * (180 / PI)), WIDTH / 2 - 20, 50);
+	mlx_set_instance_depth(data->minimap->instances, 1);
 }

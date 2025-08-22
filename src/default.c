@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/22 18:14:47 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/23 01:40:35 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ t_data	*load_default()
 			ft_memset(data->map[i], '1', 15);
 			data->map[i][15] = 0;
 		}
+		else if (i == 5)
+		{
+			data->map[i] = arena_malloc(16);
+			ft_memset(data->map[i], '1', 15);
+			data->map[i][7] = '0';
+			data->map[i][15] = 0;
+		}
 		else
 		{
 			data->map[i] = arena_malloc(16);
@@ -57,8 +64,14 @@ t_data	*load_default()
 	data->player.dir[1] = 0.0;
 	data->player.pdy = 0.0;
 	make_player(data);
-	data->r_c = make_color(255, 0, 0, 255);
-	data->f_c = make_color(255, 255, 255, 255);
+	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->wall_full)
+		ft_exit("WALL ERROR", 1);
+	data->minimap = mlx_new_image(data->mlx, data->map_w * MM, data->map_h * MM);
+	if (!data->minimap)
+		ft_exit("error", 1);
+	data->r_c = make_color(100, 0, 0, 255);
+	data->f_c = make_color(200, 200, 200, 255);
 	for(int i = 0; data->map[i]; i++)
 	{
 		printf("%s\n", data->map[i]);
