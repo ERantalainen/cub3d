@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/23 02:24:57 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/24 03:21:28 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	RayCaster(t_player player)
 
 	data = get_data();
 	x = 0;
+	printf("%f %f\n", player.pos[1], player.pos[0]);
 	ft_memset(data->wall_full->pixels, 0, sizeof(data->wall_full->pixels));
 	while (x < WIDTH)
 	{

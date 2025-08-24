@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/23 01:40:35 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:51:16 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ t_data	*load_default()
 	data->player.planeY = 0.66;
 	data->player.planeX = 0.0;
 	data->player.pdx = -1.0;
-	data->player.dir[0] = -1.0;
-	data->player.dir[1] = 0.0;
+
 	data->player.pdy = 0.0;
 	make_player(data);
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
@@ -74,7 +73,7 @@ t_data	*load_default()
 	data->f_c = make_color(200, 200, 200, 255);
 	for(int i = 0; data->map[i]; i++)
 	{
-		printf("%s\n", data->map[i]);
+		printf("%d: %s\n", i, data->map[i]);
 	}
 	return (data);
 }
