@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:17:09 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/23 02:02:44 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/26 01:39:26 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void make_roof(t_data *data, t_player player, int x)
 	}
 }
 
-void	render_frame(t_data	*data, t_player player, int x, int tex_x)
+void	render_frame(t_data	*data, t_player player, int x, int dir)
 {
 	int		y;
 	double	step;
@@ -71,21 +71,21 @@ void	render_frame(t_data	*data, t_player player, int x, int tex_x)
 	int		tex_y;
 	unsigned int color;
 
-	if (player.ray.side == 0 && player.pos[1] > player.map_pos[1])
-		player.ray.side = EA;
-	else if (player.ray.side == 0)
-		player.ray.side = WE;
-	else if (player.pos[0] < player.map_pos[0])
-		player.ray.side = NO;
+	player.ray.txt_size = data->wall_txt[player.ray.side]->height;
+	player.ray.tex_x = (int)(player.ray.point *  player.ray.txt_size);
+	if (dir == 0 && player.ray.rayX > 0)
+		player.ray.tex_x =  player.ray.txt_size - player.ray.tex_x - 1;
+	if (dir == 1 && player.ray.rayY > 0)
+		player.ray.tex_x =  player.ray.txt_size - player.ray.tex_x - 1;
 	make_roof(data, player, x);
-	step = 1.0 * TXT / player.ray.height;
+	step = 1.0 * player.ray.txt_size / player.ray.height;
 	pos = (player.ray.top - HEIGHT / 2 + player.ray.height / 2) * step;
 	y = player.ray.top;
 	while (y < player.ray.bottom)
 	{
-		tex_y = (int)pos & (TXT - 1);
+		tex_y = (int)pos & ( player.ray.txt_size - 1);
 		pos += step;
-		color = get_color(data->wall_txt[player.ray.side], (tex_y * TXT + tex_x) * 4);
+		color = get_color(data->wall_txt[player.ray.side], (tex_y *  player.ray.txt_size + player.ray.tex_x) * 4);
 		mlx_put_pixel(data->wall_full, x, y, color);
 		y++;
 	}

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/24 03:21:28 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:12:49 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	RayCaster(t_player player)
 
 	data = get_data();
 	x = 0;
-	printf("%f %f\n", player.pos[1], player.pos[0]);
 	ft_memset(data->wall_full->pixels, 0, sizeof(data->wall_full->pixels));
 	while (x < WIDTH)
 	{
@@ -127,11 +126,12 @@ static void	wall_dist(t_player *pr, int dir, int x)
 	else
 		pr->ray.point = pr->pos[1] + pr->ray.distance * pr->ray.rayX;
 	pr->ray.point -= floor(pr->ray.point);
-
-	pr->ray.tex_x = (int)(pr->ray.point * TXT);
-	if (dir == 0 && pr->ray.rayX > 0)
-		pr->ray.tex_x = TXT - pr->ray.tex_x - 1;
-	if (dir == 1 && pr->ray.rayY > 0)
-		pr->ray.tex_x = TXT - pr->ray.tex_x - 1;
-	render_frame(get_data(), *pr, x, pr->ray.tex_x);
+	pr->ray.point -= floor(pr->ray.point);
+	if (pr->ray.side == 0 && pr->pos[1] > pr->map_pos[1])
+		pr->ray.side = EA;
+	else if (pr->ray.side == 0)
+		pr->ray.side = WE;
+	else if (pr->pos[0] < pr->map_pos[0])
+		pr->ray.side = NO;
+	render_frame(get_data(), *pr, x, dir);
 }

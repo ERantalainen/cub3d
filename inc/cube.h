@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/24 02:46:36 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/26 01:38:38 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef	struct s_caster
 	double	point;
 	int		tex_x;
 	int		side;
+	int		txt_size;
 }	t_caster;
 
 

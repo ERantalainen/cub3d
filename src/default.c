@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/23 17:51:16 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:13:35 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_data	*load_default()
 			ft_memset(data->map[i], '1', 15);
 			data->map[i][15] = 0;
 		}
-		else if (i == 5)
+		else if (i == 5 || i == 2)
 		{
 			data->map[i] = arena_malloc(16);
 			ft_memset(data->map[i], '1', 15);
