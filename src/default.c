@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/27 16:13:35 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/28 14:52:59 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,20 @@ t_data	*load_default()
 			ft_memset(data->map[i], '1', 15);
 			data->map[i][15] = 0;
 		}
-		else if (i == 5 || i == 2)
+		else if (i == 5 || i == 3)
 		{
 			data->map[i] = arena_malloc(16);
 			ft_memset(data->map[i], '1', 15);
 			data->map[i][7] = '0';
+			data->map[i][15] = 0;
+		}
+		else if (i == 4)
+		{
+			data->map[i] = arena_malloc(16);
+			ft_memset(data->map[i], ' ', 15);
+			data->map[i][6] = '1';
+			data->map[i][7] = '0';
+			data->map[i][8] = '1';
 			data->map[i][15] = 0;
 		}
 		else
@@ -49,7 +58,7 @@ t_data	*load_default()
 			ft_memset(data->map[i], '1', 15);
 			ft_memset(data->map[i] + 1, '0', 13);
 			data->map[i][15] = 0;
-			if (i == 4)
+			if (i == 2)
 				data->map[i][6] = 'N';
 		}
 	}
