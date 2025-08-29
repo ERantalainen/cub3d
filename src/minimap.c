@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 21:24:24 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/28 14:52:20 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:38:23 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	render_minimap(t_data *data)
 		x = 0;
 		while (data->map[y][x])
 		{
-			if (data->map[y][x] == '1' || data->map[y][x] == ' ')
+			if (data->map[y][x] == '1')
 				mini_helper(data, make_color(0, 0, 0, 255), y * MM, x * MM);
-			else
+			else if (data->map[y][x] != ' ')
 				mini_helper(data, make_color(255, 255, 255, 255), y * MM, x * MM);
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/28 14:49:41 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/29 19:26:30 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	game_hook(void *param);
 
 void	start_game(t_data *data)
 {
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_close_hook(data->mlx, ft_close, NULL);
 	mlx_loop_hook(data->mlx, game_hook, data);
+	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	puts("here start");
-	RayCaster(data->player);
+	// RayCaster(data->player);
+	multi_caster(data);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	render_minimap(data);
 	mlx_image_to_window(data->mlx, data->player.mm, ceil(data->player.pos[1]), round((data->player.pos[0])));
@@ -38,7 +41,7 @@ static void	compass(t_data *data)
 		string = NULL;
 	}
 	dir = ft_itoa(data->player.dir[0] * (180 / PI));
-	string = mlx_put_string(data->mlx, dir, WIDTH / 2 - 20, 50);
+	string = mlx_put_string(data->mlx, dir, WIDTH / 2 - 10, 50);
 	free(dir);
 }
 
@@ -52,7 +55,8 @@ void	draw_game(t_data	*data)
 	if ((data->player.pos[0] != posY || data->player.pos[1] != posX)
 		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
 	{
-		RayCaster(data->player);
+		// RayCaster(data->player);
+		multi_caster(data);
 		compass(data);
 		data->player.mm->instances->x = floor(data->player.pos[1]) * 10;
 		data->player.mm->instances->y = floor(data->player.pos[0]) * 10;
@@ -80,9 +84,9 @@ void	game_hook(void *param)
 		ft_move_west(data);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		ft_move_east(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		ft_look_left(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		ft_look_left(data, ROT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		ft_look_right(data);
+		ft_look_right(data, ROT);
 	 draw_game(data);
 }

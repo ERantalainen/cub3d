@@ -15,14 +15,15 @@ SRC_DIR	= src/
 SRCF = main.c data.c camera.c default.c helpers.c memory_arena.c \
 	memory_arena_helpers.c movement.c \
 	game_load.c game.c rayCast.c textures.c image.c \
-	minimap.c
+	minimap.c floor.c \
+	ray_bonus.c
 SRCS = $(addprefix $(SRC_DIR), $(SRCF))
 OBJS = $(SRCS:.c=.o)
 HEADERS = ./inc/cube.h
 INC = ./inc
 NAME = cub3d
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -Iinc -Ilibft -I./MLX42/include/MLX42/ -g3 -fsanitize=address -fsanitize=undefined
+CFLAGS = -Wall -Wextra -pthread -Werror -O3 -Iinc -Ilibft -I./MLX42/include/MLX42/ -g3 -fsanitize=address -fsanitize=undefined
 # -g3 -fsanitize=address -fsanitize=undefined
 EFLAGS = -Llibft -lft -L./MLX42/build -ldl -lglfw -pthread -lm
 MAKE = @make -s

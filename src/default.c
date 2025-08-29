@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/28 14:52:59 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/29 19:03:24 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_data	*load_default()
 	load_walls(data);
 	data->map = arena_malloc(sizeof(char *) * 12);
 	ft_memset(&data->player, 0, sizeof(t_player));
-	ft_memset(&data->player.ray, 0, sizeof(t_caster));
+	ft_memset(&data->player.ray, 0, sizeof(t_ray));
 	for (int i = 0; i < 11; i++)
 	{
 		if (i == 0 || i == 10)
@@ -100,5 +100,11 @@ static void	load_walls(t_data	*data)
 		ft_exit("Error loading texture", 1);
 	data->wall_txt[EA] = mlx_load_png(DEA);
 	if (!data->wall_txt[EA])
+		ft_exit("Error loading texture", 1);
+	data->floor_txt = mlx_load_png(FLOOR);
+	if (!data->floor_txt)
+		ft_exit("Error loading texture", 1);
+	data->ceil_txt = mlx_load_png(CEIL);
+	if (!data->ceil_txt)
 		ft_exit("Error loading texture", 1);
 }

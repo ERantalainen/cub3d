@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube.h                                             :+:      :+:    :+:   */
+/*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/29 19:39:24 by erantala         ###   ########.fr       */
+/*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
+/*   Updated: 2025/08/29 19:23:03 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUBE_H
 # define CUBE_H
@@ -20,6 +21,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include "../libft/include/libft.h"
+# include <pthread.h>
 
 # define NO 0
 # define SO 1
@@ -106,8 +108,6 @@ typedef	struct s_player
 	mlx_image_t	*arrow;
 }	t_player;
 
-#include <pthread.h>>
-
 typedef struct s_data
 {
 	mlx_texture_t	*wall_txt[4];
@@ -125,7 +125,7 @@ typedef struct s_data
 	mlx_image_t		*minimap;
 	mlx_image_t		*roof;
 	mlx_image_t		*floor;
-	pthread_t		floor;
+	pthread_t		*flr;
 }	t_data;
 
 // Default
@@ -168,5 +168,5 @@ void	render_frame(t_data	*data, t_player player, int x, int tex_x);
 void	RayCaster(t_player player);
 void	floor_caster(t_data *data, t_ray ray, t_player player);
 unsigned int get_color(mlx_texture_t *txt, int index);
-void	multi_caster(t_data	*data);
+
 #endif

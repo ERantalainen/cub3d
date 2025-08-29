@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/27 16:12:49 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/29 19:39:32 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	RayCaster(t_player player)
 
 	data = get_data();
 	x = 0;
-	ft_memset(data->wall_full->pixels, 0, sizeof(data->wall_full->pixels));
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1;
@@ -36,7 +35,6 @@ void	RayCaster(t_player player)
 		calc_ray(&player, x);
 		x++;
 	}
-
 }
 
 static	void calc_ray(t_player *player, int x)
