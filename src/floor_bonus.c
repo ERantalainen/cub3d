@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floor.c                                            :+:      :+:    :+:   */
+/*   floor_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:48:48 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/29 23:03:50 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/29 23:04:03 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 static void	floor_calc(t_data *data, t_ray ray, int y);
-void	floor_caster(t_data *data, t_ray ray, t_player player)
+void	*floor_caster(t_data *data, t_ray ray, t_player player)
 {
 	int	pos;
 	float	z;
-	int		y;
+	int	y;
 
 	y = HEIGHT / 2 + 1;
 	ray.rayDirX[0] = player.pdx - player.planeX;
@@ -36,6 +36,7 @@ void	floor_caster(t_data *data, t_ray ray, t_player player)
 		floor_calc(data, ray, y);
 		y++;
 	}
+	return (NULL);
 }
 
 static	void	floor_calc(t_data *data, t_ray ray, int y)
@@ -58,11 +59,8 @@ static	void	floor_calc(t_data *data, t_ray ray, int y)
 		tex_pos = (data->floor_txt->width * ray.floorTY + ray.floorTX) * 4;
 		pixel[0] = get_color(data->floor_txt, tex_pos);
 		pixel[1] = get_color(data->ceil_txt, tex_pos);
-		if (data->wall_full->pixels[(x + y) * 4] == 0)
-		{
-			mlx_put_pixel(data->wall_full, x, y, pixel[0]);
-			mlx_put_pixel(data->wall_full, x, HEIGHT - y - 1, pixel[1]);
-		}
+		data->buffer[y][x] = pixel[0];
+		data->buffer[HEIGHT - y - 1][x] = pixel[1];
 		x++;
 	}
 }

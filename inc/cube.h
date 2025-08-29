@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/29 19:39:24 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/30 01:57:53 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef	struct s_player
 	mlx_image_t	*arrow;
 }	t_player;
 
-#include <pthread.h>>
+#include <pthread.h>
 
 typedef struct s_data
 {
@@ -123,9 +123,8 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
-	mlx_image_t		*roof;
-	mlx_image_t		*floor;
-	pthread_t		floor;
+	unsigned int	buffer[HEIGHT + 1][WIDTH + 1];
+	unsigned int	wabuffer[HEIGHT + 1][WIDTH + 1];
 }	t_data;
 
 // Default
@@ -141,6 +140,7 @@ t_data	*get_data();
 void	*arena_malloc(size_t n);
 void	ft_exit(char *s, int code);
 void	ft_close(void *s);
+char	*ft_stradd(char *s1, char *s2);
 unsigned int make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
 // Setting up game
@@ -169,4 +169,5 @@ void	RayCaster(t_player player);
 void	floor_caster(t_data *data, t_ray ray, t_player player);
 unsigned int get_color(mlx_texture_t *txt, int index);
 void	multi_caster(t_data	*data);
+void	*multi_floor(void	*param);
 #endif

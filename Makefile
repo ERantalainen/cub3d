@@ -15,15 +15,22 @@ SRC_DIR	= src/
 SRCF = main.c data.c camera.c default.c helpers.c memory_arena.c \
 	memory_arena_helpers.c movement.c \
 	game_load.c game.c rayCast.c textures.c image.c \
-	minimap.c floor.c \
-	ray_bonus.c
+	minimap.c floor.c 
+SRBF = main.c data_bonus.c camera.c default.c helpers.c memory_arena.c \
+	memory_arena_helpers.c movement.c \
+	load_bonus.c game_bonus.c cast_bonus.c textures.c image_bonus.c \
+	minimap.c \
+	ray_bonus.c floor_bonus.c 
+SRCB = $(addprefix $(SRC_DIR), $(SRBF))
+OBJB = $(SRCB:.c=.o)
 SRCS = $(addprefix $(SRC_DIR), $(SRCF))
 OBJS = $(SRCS:.c=.o)
 HEADERS = ./inc/cube.h
 INC = ./inc
 NAME = cub3d
+BNAME = cub3d_bonus
 CC = @cc
-CFLAGS = -Wall -Wextra -pthread -Werror -O3 -Iinc -Ilibft -I./MLX42/include/MLX42/ -g3 -fsanitize=address -fsanitize=undefined
+CFLAGS = -Wall -Wextra -pthread -O3 -Iinc -Ilibft -I./MLX42/include/MLX42/ -g3 -fsanitize=address -fsanitize=undefined
 # -g3 -fsanitize=address -fsanitize=undefined
 EFLAGS = -Llibft -lft -L./MLX42/build -ldl -lglfw -pthread -lm
 MAKE = @make -s
@@ -45,16 +52,24 @@ MLX42/build/libmlx42.a:
 
 clean:
 	@rm -f $(OBJS)
+	@rm -f $(OBJB)
 	$(MAKE) -C libft clean
 
 fclean:
 	@rm -f $(OBJS)
+	@rm -f $(OBJB)
 	@rm -f $(NAME)
 	$(MAKE) -C libft fclean
+
+.BONUS: $(OBJB) libft/libft.a MLX42/build/libmlx42.a
+		$(CC) $(CFLAGS) -I $(INC) $^ $(EFLAGS) -o $(NAME)
+		@echo -e $(GREEN)Compiled $(BNAME)$(OFF)
+
+bonus: .BONUS
 
 re: fclean all
 
 libft/libft.a:
 	$(MAKE) -C libft
 
-.PHONY: clean flcean re all debug
+.PHONY: clean flcean re all debug bonus

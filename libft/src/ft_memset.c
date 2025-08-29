@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpelline <jpelline@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/14 18:01:13 by jpelline          #+#    #+#             */
-/*   Updated: 2025/04/28 18:25:45 by jpelline         ###   ########.fr       */
+/*   Created: 2025/08/30 01:34:21 by erantala          #+#    #+#             */
+/*   Updated: 2025/08/30 01:34:21 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   data_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 15:36:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 01:57:20 by erantala         ###   ########.fr       */
+/*   Created: 2025/08/29 23:02:46 by erantala          #+#    #+#             */
+/*   Updated: 2025/08/29 23:02:59 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-int main (int argc, char **argv)
+t_data	*get_data()
 {
-	(void)argc;
-	(void)argv;
-	t_data	*data;
+	static t_data	data;
 
-	data = load_default();
-	load_game(data);
-	return (1);
+	return (&data);
 }

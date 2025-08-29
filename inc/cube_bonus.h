@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/29 19:23:03 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/30 01:38:13 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ typedef struct s_data
 	mlx_image_t		*roof;
 	mlx_image_t		*floor;
 	pthread_t		*flr;
+	int				multi_x;
+	unsigned int	buffer[HEIGHT + 1][WIDTH + 1];
+	unsigned int	wabuffer[HEIGHT + 1][WIDTH + 1];
 }	t_data;
 
 // Default
@@ -143,6 +146,7 @@ void	ft_exit(char *s, int code);
 void	ft_close(void *s);
 unsigned int make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
+char	*ft_stradd(char *s1, char *s2);
 // Setting up game
 
 void	load_game(t_data	*data);
@@ -165,8 +169,9 @@ void	render_minimap(t_data *data);
 // RayCasting
 
 void	render_frame(t_data	*data, t_player player, int x, int tex_x);
-void	RayCaster(t_player player);
-void	floor_caster(t_data *data, t_ray ray, t_player player);
+void	*RayCaster(t_player player, int width, int x);
+void	multi_caster(t_data	*data);
+void	*floor_caster(t_data *data, t_ray ray, t_player player);
 unsigned int get_color(mlx_texture_t *txt, int index);
 
 #endif

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_load.c                                        :+:      :+:    :+:   */
+/*   load_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 01:28:46 by erantala         ###   ########.fr       */
+/*   Created: 2025/08/29 22:29:58 by erantala          #+#    #+#             */
+/*   Updated: 2025/08/30 01:53:26 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 void	load_images(t_data	*data)
 {
@@ -29,6 +29,9 @@ void	load_images(t_data	*data)
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->wall_full)
 		ft_exit("ERROR", 1);
+	ft_memset(data->buffer, 0,  WIDTH * HEIGHT * sizeof(unsigned int));
+		printf("%p\n", data->wabuffer);
+	ft_memset(data->wabuffer, 0, 1);
 }
 
 char	find_start_pos(t_data	*data)

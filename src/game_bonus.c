@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
+/*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/29 23:22:26 by erantala         ###   ########.fr       */
+/*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
+/*   Updated: 2025/08/29 23:46:30 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 void	game_hook(void *param);
 
@@ -21,7 +21,7 @@ void	start_game(t_data *data)
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	puts("here start");
-	RayCaster(data->player);
+	RayCaster(data->player, WIDTH, 0);
 	floor_caster(data, data->player.ray, data->player);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	render_minimap(data);
@@ -65,9 +65,7 @@ void	draw_game(t_data	*data)
 	if ((data->player.pos[0] != posY || data->player.pos[1] != posX)
 		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
 	{
-		ft_memset(data->wall_full->pixels, 0, WIDTH * HEIGHT * 4);
-		floor_caster(data, data->player.ray, data->player);
-		RayCaster(data->player);
+		multi_caster(data);
 		compass(data);
 		data->player.mm->instances->x = floor(data->player.pos[1]) * 10;
 		data->player.mm->instances->y = floor(data->player.pos[0]) * 10;
