@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/29 19:39:32 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/30 04:27:02 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	RayCaster(t_player player)
 
 	data = get_data();
 	x = 0;
+	player.map_pos[0] = (int)player.pos[0];
+	player.map_pos[1] = (int)player.pos[1];
 	while (x < WIDTH)
 	{
 		cameraX = 2 * x / (double)WIDTH - 1;
 		player.ray.rayX = player.pdx + player.planeX * cameraX;
 		player.ray.rayY = player.pdy + player.planeY * cameraX;
-		player.map_pos[0] = (int)player.pos[0];
-		player.map_pos[1] = (int)player.pos[1];
 		calc_ray(&player, x);
 		x++;
 	}
