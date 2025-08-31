@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 00:09:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 01:58:48 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/31 05:01:00 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ unsigned int get_color(mlx_texture_t *txt, int index)
 	alpha = txt->pixels[index + 3];
 	return (red << 24 | green << 16 | blue << 8 | alpha);
 }
+
 void	render_frame(t_data	*data, t_player player, int x, int dir)
 {
 	int		y;
@@ -47,7 +48,7 @@ void	render_frame(t_data	*data, t_player player, int x, int dir)
 		tex_y = (int)pos & ( player.ray.txt_size - 1);
 		pos += step;
 		color = get_color(data->wall_txt[player.ray.side], (tex_y *  player.ray.txt_size + player.ray.tex_x) * 4);
-		data->wabuffer[0][0] = color;
+		mlx_put_pixel(data->wall_full, x, y, color);
 		y++;
 	}
 }

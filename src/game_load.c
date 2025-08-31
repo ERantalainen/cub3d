@@ -6,11 +6,11 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 01:28:46 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/31 01:54:04 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 void	load_images(t_data	*data)
 {

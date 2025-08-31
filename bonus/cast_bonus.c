@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 23:37:15 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 01:38:50 by erantala         ###   ########.fr       */
+/*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
+/*   Updated: 2025/08/31 05:01:04 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@ static void	calc_step(t_player *pr, int x);
 static void	dda(t_player *player, int x);
 static void	wall_dist(t_player *player, int dir, int x);
 
-void	*RayCaster(t_player player, int width, int x)
+void	RayCaster(t_player player)
 {
+	int		x;
 	double	cameraX;
 	t_data	*data;
 
 	data = get_data();
-	while (x < width)
+	x = 0;
+
+	while (x < WIDTH)
 	{
-		cameraX = 2 * x / (double)width - 1;
-		player.ray.rayX = player.pdx + player.planeX * cameraX;
-		player.ray.rayY = player.pdy + player.planeY * cameraX;
 		player.map_pos[0] = (int)player.pos[0];
 		player.map_pos[1] = (int)player.pos[1];
+		cameraX = 2 * x / (double)WIDTH - 1;
+		player.ray.rayX = player.pdx + player.planeX * cameraX;
+		player.ray.rayY = player.pdy + player.planeY * cameraX;
 		calc_ray(&player, x);
 		x++;
 	}
-	return (data->wabuffer);
 }
 
 static	void calc_ray(t_player *player, int x)

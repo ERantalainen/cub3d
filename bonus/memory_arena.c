@@ -1,0 +1,110 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory_arena.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 16:05:04 by erantala          #+#    #+#             */
+/*   Updated: 2025/08/31 03:31:58 by erantala         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cube.h"
+
+t_arena	**new_arena(t_arena **curr, int count, size_t n);
+t_arena	**get_arenas(t_arena **new)
+{
+	static t_arena	**arenas = NULL;
+
+	if (!arenas)
+	{
+		arenas = ft_calloc(sizeof(t_arena *), 2);
+		if (!arenas)
+			ft_exit("MALLOC FAILURE", 1);
+		arenas = new_arena(arenas, 0, ARENA_SIZE);
+		arenas = new_arena(arenas, 1, ARENA_SIZE);
+	}
+	if (new)
+		arenas = new;
+	return (arenas);
+}
+
+t_arena	*init_arena(size_t size)
+{
+	t_arena	*arena;
+
+	arena = ft_calloc(1, size + (sizeof(t_arena)));
+	if (!arena)
+		ft_exit("MALLOC FAILURE", 1);
+	arena->max = size;
+	arena->index = 0;
+	return (arena);
+}
+
+t_arena	**new_arena(t_arena **curr, int count, size_t n)
+{
+	t_arena	**arenas;
+	int		i;
+
+	i = 0;
+	arenas = ft_calloc(sizeof(t_arena *), count + 2);
+	if (!arenas)
+		ft_exit("MALLOC FAILURE", 1);
+	while (i < count)
+	{
+		arenas[i] = curr[i];
+		i++;
+	}
+	if (n > ARENA_SIZE)
+		arenas[i] = init_arena(n);
+	else
+		arenas[i] = init_arena(ARENA_SIZE);
+	arenas[i + 1] = NULL;
+	get_arenas(arenas);
+	free(curr);
+	return (arenas);
+}
+
+// Returns a free point in the arena, if arenas are full allocates more.
+t_arena	*find_arena(size_t n)
+{
+	static int	arena_count = 2;
+	int			i;
+	t_arena		**arenas;
+
+	i = 0;
+	arenas = get_arenas(NULL);
+	while (i < arena_count)
+	{
+		if (arenas[i] && arenas[i]->max - arenas[i]->index >= n)
+			return (arenas[i]);
+		i++;
+	}
+	if (i == arena_count)
+	{
+		arenas = new_arena(arenas, arena_count, n);
+		arena_count++;
+	}
+	return (arenas[i]);
+}
+
+void	*arena_malloc(size_t n)
+{
+	t_arena		*arena;
+	void		*ret;
+	size_t		alg_i;
+	uintptr_t	start;
+
+	arena = find_arena(n);
+	start = arena->data[0];
+	alg_i = (start + arena->index + (ALIGNMENT - 1)) & ~(ALIGNMENT - 1);
+	while (arena->max - alg_i < n)
+	{	
+		arena = find_arena(n + (alg_i - arena->index));
+		alg_i = (start + arena->index + (ALIGNMENT - 1)) & ~(ALIGNMENT - 1);
+	}
+	ret = &arena->data[alg_i];
+	arena->index = alg_i + n;
+	return (ret);
+}

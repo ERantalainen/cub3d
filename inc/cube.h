@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 01:57:53 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/31 01:54:45 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ typedef struct s_data
 	mlx_image_t		*minimap;
 	unsigned int	buffer[HEIGHT + 1][WIDTH + 1];
 	unsigned int	wabuffer[HEIGHT + 1][WIDTH + 1];
+	unsigned int	temps[WIDTH/400][WIDTH][HEIGHT];
+	pthread_t		cast[WIDTH/400];
+	volatile int	n;
 }	t_data;
 
 // Default

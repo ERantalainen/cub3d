@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/29 23:46:30 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/31 05:10:53 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	start_game(t_data *data)
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	puts("here start");
-	RayCaster(data->player, WIDTH, 0);
 	floor_caster(data, data->player.ray, data->player);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	render_minimap(data);
@@ -42,15 +41,11 @@ static void	compass(t_data *data)
 	if (string || fp_txt)
 	{
 		mlx_delete_image(data->mlx, string);
-		mlx_delete_image(data->mlx, fp_txt);
-		fp_txt = NULL;
 		string = NULL;
 	}
 	dir = ft_itoa(data->player.dir[0] * (180 / PI));
 	fp = ft_itoa(fps);
 	string = mlx_put_string(data->mlx, dir, WIDTH / 2 - 10, 50);
-	fp_txt = mlx_put_string(data->mlx, ft_stradd("FPS:", fp), WIDTH - 75, 15);
-	mlx_set_instance_depth(fp_txt->instances, 50);
 	free(dir);
 	free(fp);
 }

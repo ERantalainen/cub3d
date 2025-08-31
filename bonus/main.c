@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 15:36:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 02:01:56 by erantala         ###   ########.fr       */
+/*   Created: 2025/08/31 02:05:31 by erantala          #+#    #+#             */
+/*   Updated: 2025/08/31 02:05:36 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 int main (int argc, char **argv)
 {

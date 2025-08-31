@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/29 23:22:26 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/31 02:02:48 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	draw_game(t_data	*data)
 		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
 	{
 		ft_memset(data->wall_full->pixels, 0, WIDTH * HEIGHT * 4);
-		floor_caster(data, data->player.ray, data->player);
 		RayCaster(data->player);
 		compass(data);
 		data->player.mm->instances->x = floor(data->player.pos[1]) * 10;

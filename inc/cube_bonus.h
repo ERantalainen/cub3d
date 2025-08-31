@@ -6,13 +6,13 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 01:38:13 by erantala         ###   ########.fr       */
+/*   Updated: 2025/08/31 05:00:18 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef CUBE_H
-# define CUBE_H
+#ifndef CUBE_BONUS_H
+# define CUBE_BONUS_H
 
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
@@ -22,6 +22,7 @@
 # include <limits.h>
 # include "../libft/include/libft.h"
 # include <pthread.h>
+# include <stdatomic.h>
 
 # define NO 0
 # define SO 1
@@ -35,6 +36,8 @@
 # define MM 10
 # define SPEED 0.05
 # define ROT 0.05
+# define SLICE 400
+# define COUNT WIDTH / SLICE
 
 # define DEFMAP "1111111111111111 \
 				100111000011110111 \
@@ -53,7 +56,7 @@
 # define PI 3.14159
 
 # define ARENA_SIZE 32768
-# define ALIGNMENT 8
+# define ALIGNMENT 16
 
 typedef struct s_arena
 {
@@ -125,11 +128,19 @@ typedef struct s_data
 	mlx_image_t		*minimap;
 	mlx_image_t		*roof;
 	mlx_image_t		*floor;
-	pthread_t		*flr;
-	int				multi_x;
-	unsigned int	buffer[HEIGHT + 1][WIDTH + 1];
-	unsigned int	wabuffer[HEIGHT + 1][WIDTH + 1];
+	unsigned int	**wabuffer;
+	unsigned int	**buffer;
 }	t_data;
+
+typedef struct s_thread
+{
+	pthread_t		*flr;
+	unsigned int	**temps;
+	pthread_t		id;
+	atomic_int		n;
+	t_data			*data;
+}	t_thr;
+
 
 // Default
 
@@ -168,8 +179,9 @@ void	render_minimap(t_data *data);
 
 // RayCasting
 
-void	render_frame(t_data	*data, t_player player, int x, int tex_x);
-void	*RayCaster(t_player player, int width, int x);
+
+void	render_frame(t_data	*data, t_player player, int x, int dir);
+void	RayCaster(t_player player);
 void	multi_caster(t_data	*data);
 void	*floor_caster(t_data *data, t_ray ray, t_player player);
 unsigned int get_color(mlx_texture_t *txt, int index);
