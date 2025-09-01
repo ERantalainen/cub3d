@@ -1,42 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast_bonus.c                                       :+:      :+:    :+:   */
+/*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 14:55:48 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 15:23:55 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_bonus.h"
+#include "cube.h"
 
-static void calc_ray(t_player *player, int x, t_thr *thr);
-static void	calc_step(t_player *pr, int x, t_thr *thr);
-static void	dda(t_player *player, int x, t_thr *thr);
-static void	wall_dist(t_player *player, int dir, int x, t_thr *thr);
+static void calc_ray(t_player *player, int x);
+static void	calc_step(t_player *pr, int x);
+static void	dda(t_player *player, int x);
+static void	wall_dist(t_player *player, int dir, int x);
 
-void	RayCaster(t_player player, t_thr *thread, int x, int max)
+void	RayCaster(t_player player)
 {
+	int		x;
 	double	cameraX;
 	t_data	*data;
 
 	data = get_data();
+	x = 0;
 
-	while (x < max)
+	while (x < WIDTH)
 	{
 		player.map_pos[0] = (int)player.pos[0];
 		player.map_pos[1] = (int)player.pos[1];
 		cameraX = 2 * x / (double)WIDTH - 1;
 		player.ray.rayX = player.pdx + player.planeX * cameraX;
 		player.ray.rayY = player.pdy + player.planeY * cameraX;
-		calc_ray(&player, x, thread);
+		calc_ray(&player, x);
 		x++;
 	}
 }
 
-static	void calc_ray(t_player *player, int x, t_thr *thr)
+static	void calc_ray(t_player *player, int x)
 {
 	player->ray.deltaY = 0;
 	if (player->ray.rayX != 0)
@@ -47,10 +49,10 @@ static	void calc_ray(t_player *player, int x, t_thr *thr)
 		player->ray.deltaY = fabs(1 / player->ray.rayY);
 	else
 		player->ray.deltaY = 0;
-	calc_step(player, x, thr);
+	calc_step(player, x);
 }
 
-static	void	calc_step(t_player *pr, int x, t_thr *thr)
+static	void	calc_step(t_player *pr, int x)
 {
 	if (pr->ray.rayX < 0)
 	{
@@ -72,10 +74,10 @@ static	void	calc_step(t_player *pr, int x, t_thr *thr)
 		pr->ray.stepY = 1;
 		pr->ray.sideY = (pr->map_pos[0] + 1.0 - pr->pos[0]) * pr->ray.deltaY;
 	}
-	dda(pr, x, thr);
+	dda(pr, x);
 }
 
-static void	dda(t_player *player, int x, t_thr *thr)
+static void	dda(t_player *player, int x)
 {
 	t_data	*data;
 
@@ -100,10 +102,10 @@ static void	dda(t_player *player, int x, t_thr *thr)
 		if  (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
 			break ;
 	}
-	wall_dist(player, player->ray.side, x, thr);
+	wall_dist(player, player->ray.side, x);
 }
 
-static void	wall_dist(t_player *pr, int dir, int x, t_thr *thr)
+static void	wall_dist(t_player *pr, int dir, int x)
 {
 	if (dir == 0)
 		pr->ray.distance = (pr->ray.sideX - pr->ray.deltaX);
@@ -130,5 +132,5 @@ static void	wall_dist(t_player *pr, int dir, int x, t_thr *thr)
 		pr->ray.side = WE;
 	else if (pr->pos[0] < pr->map_pos[0])
 		pr->ray.side = NO;
-	render_frame(thr, *pr, x, dir);
+	render_frame(get_data(), *pr, x, dir);
 }

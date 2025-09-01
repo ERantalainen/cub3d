@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 05:03:37 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 15:27:30 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,13 @@ t_data	*load_default()
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		data->buffer[i] = arena_malloc(WIDTH * sizeof(unsigned int));
+		ft_memset(data->buffer[i], 0, WIDTH * sizeof(unsigned int ));
+	}
+	data->wabuffer = arena_malloc(HEIGHT * sizeof(unsigned int *));
+	for (int i = 0; i < HEIGHT; i++)
+	{
+		data->wabuffer[i] = arena_malloc(WIDTH * sizeof(unsigned int));
+		ft_memset(data->buffer[i], 0, WIDTH * sizeof(unsigned int));
 	}
 	data->player.pdy = 0.0;
 	make_player(data);

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 02:02:48 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 15:24:17 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	start_game(t_data *data)
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	puts("here start");
 	RayCaster(data->player);
-	floor_caster(data, data->player.ray, data->player);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	render_minimap(data);
 	mlx_image_to_window(data->mlx, data->player.mm, ceil(data->player.pos[1]), round((data->player.pos[0])));

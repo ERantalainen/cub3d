@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 05:00:18 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 18:39:43 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 # define TXT	128
 # define TILE 256
 # define MM 10
-# define SPEED 0.05
+# define SPEED 0.08
 # define ROT 0.05
-# define SLICE 400
+# define SLICE 200
 # define COUNT WIDTH / SLICE
 
 # define DEFMAP "1111111111111111 \
@@ -139,6 +139,7 @@ typedef struct s_thread
 	pthread_t		id;
 	atomic_int		n;
 	t_data			*data;
+	int				max;
 }	t_thr;
 
 
@@ -180,10 +181,12 @@ void	render_minimap(t_data *data);
 // RayCasting
 
 
-void	render_frame(t_data	*data, t_player player, int x, int dir);
-void	RayCaster(t_player player);
-void	multi_caster(t_data	*data);
-void	*floor_caster(t_data *data, t_ray ray, t_player player);
-unsigned int get_color(mlx_texture_t *txt, int index);
-
+void			render_frame(t_thr *thread, t_player pr, int x, int dir);
+void			RayCaster(t_player player, t_thr *thread, int x, int max);
+void			multi_caster(t_data	*data);
+void			*floor_caster(t_data *data, t_ray ray, int x, t_thr *thr);
+void			*flr_mlt(void	*param);
+unsigned int	get_color(mlx_texture_t *txt, int index);
+void			combine(t_data	*data);
+void			*ray_call(void *param);
 #endif

@@ -21,7 +21,7 @@ SRBF = main.c data_bonus.c camera.c default.c helpers_bonus.c memory_arena.c \
 	memory_arena_helpers.c movement_bonus.c \
 	load_bonus.c game_bonus.c cast_bonus.c textures.c image_bonus.c \
 	minimap_bonus.c \
-	ray_bonus.c floor_bonus.c 
+	ray_bonus.c floor_bonus.c
 SRCB = $(addprefix $(BN_DIR), $(SRBF))
 OBJB = $(SRCB:.c=.o)
 SRCS = $(addprefix $(SRC_DIR), $(SRCF))
@@ -55,12 +55,15 @@ clean:
 	@rm -f $(OBJS)
 	@rm -f $(OBJB)
 	$(MAKE) -C libft clean
+	@echo -e $(RED)Cleaned OBJ files $(OFF)
 
 fclean:
 	@rm -f $(OBJS)
 	@rm -f $(OBJB)
 	@rm -f $(NAME)
+	@rm -f $(BNAME)
 	$(MAKE) -C libft fclean
+	@echo -e $(RED)Cleaned everything $(OFF)
 
 .BONUS: $(OBJB) libft/libft.a MLX42/build/libmlx42.a
 		$(CC) $(CFLAGS) -I $(INC) $^ $(EFLAGS) -o $(BNAME)
@@ -73,4 +76,4 @@ re: fclean all
 libft/libft.a:
 	$(MAKE) -C libft
 
-.PHONY: clean flcean re all debug bonus
+.PHONY: clean fclean re all debug bonus

@@ -6,55 +6,124 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 05:01:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 05:17:38 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 18:39:24 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-static void	combine(t_data	*data)
+static void	combine_wall(t_data *data, t_thr *thr)
 {
-	int	x;
+	int	i;
 	int	y;
+	int	x;
 
-	y = 0;
-	while (y < HEIGHT)
+	i = 0;
+	while (i < COUNT)
 	{
-		x = 0;
-		while (x < WIDTH)
+		y = 0;
+		while (y < HEIGHT)
 		{
-			if (data->wall_full->pixels[(y * WIDTH + x) * 4] == 0)
-				mlx_put_pixel(data->wall_full, x, y, data->buffer[y][x]);
-			x++;
+			x = 0;
+			while (x < SLICE)
+			{
+				data->wabuffer[y][x + (thr[i].n * SLICE)] = thr[i].temps[y][x];
+				x++;
+			}
+			y++;
 		}
-		y++;
+		i++;
 	}
 }
 
-static void	*floor_call(void	*param)
+static void	combine_floor(t_data	*data, t_thr *thr)
 {
-	t_data	*data;
-	int		y;
+	int	i;
+	int	y;
+	int	x;
 
-	y = 0;
-	data = (t_data *)param;
-	while (y < HEIGHT)
+	i = COUNT;
+	while (i < COUNT * 2)
 	{
-		ft_memset(data->buffer[y], 0, WIDTH * sizeof(unsigned int));
-		y++;
+		y = 0;
+		while (y < HEIGHT)
+		{
+			x = 0;
+			while (x < SLICE)
+			{
+				data->buffer[y][x + (thr[i].n * SLICE)] = thr[i].temps[y][x];
+				x++;
+			}
+			y++;
+		}
+		i++;
 	}
-	floor_caster(data, data->player.ray, data->player);
-	return (NULL);
+}
+
+static t_thr	*alloc_threads(t_thr *thr)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	thr = arena_malloc(sizeof(t_thr) * (COUNT * 2));
+	while (i < COUNT * 2)
+	{
+		y = 0;
+		thr[i].temps = arena_malloc(sizeof(unsigned int *) * HEIGHT);
+		while (y < HEIGHT)
+		{
+			thr[i].temps[y] = arena_malloc(sizeof(unsigned int) * SLICE);
+			y++;
+		}
+		i++;
+	}
+	return (thr);
+}
+
+static void	clear_threads(t_thr *thr)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	while (i < COUNT * 2)
+	{
+		y = 0;
+		while (y < HEIGHT)
+		{
+			thr[i].temps[y] = ft_memset(thr[i].temps[y], 0, SLICE * sizeof(unsigned int));
+			y++;
+		}
+		i++;
+	}
 }
 
 void	multi_caster(t_data	*data)
 {
-	pthread_t	floor;
+	static t_thr *thr = NULL;
+	int			i;
 
-	ft_memset(data->wall_full->pixels, 0, (WIDTH * HEIGHT) * 4);
-	if (pthread_create(&floor, NULL, floor_call, (void *)data) != 0)
-		ft_exit("Error creating thread\n", 1);
-	RayCaster(data->player);
-	pthread_join(floor, NULL);
+	i = 0;
+	if (!thr)
+		thr = alloc_threads(thr);
+	else
+		clear_threads(thr);
+	while (i < COUNT)
+	{
+		thr[i].n = i;
+		thr[i + COUNT].n = i;
+		thr[i].data = get_data();
+		if (pthread_create(&thr[i].id, NULL, ray_call, &thr[i]) != 0)
+			ft_exit("Error creating thread\n", 1);
+		if (pthread_create(&thr[i + COUNT].id, NULL, flr_mlt, &thr[i + COUNT]))
+			ft_exit("Error creating threads\n", 1);
+		i++;
+	}
+	i = 0;
+	while (i < COUNT * 2)
+		pthread_join(thr[i++].id, NULL);
+	combine_wall(data, thr);
+	combine_floor(data, thr);
 	combine(data);
 }

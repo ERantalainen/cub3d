@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 05:10:53 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 18:44:12 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	start_game(t_data *data)
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	puts("here start");
-	floor_caster(data, data->player.ray, data->player);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	render_minimap(data);
 	mlx_image_to_window(data->mlx, data->player.mm, ceil(data->player.pos[1]), round((data->player.pos[0])));
@@ -41,13 +40,30 @@ static void	compass(t_data *data)
 	if (string || fp_txt)
 	{
 		mlx_delete_image(data->mlx, string);
+		mlx_delete_image(data->mlx, fp_txt);
+		fp_txt = NULL;
 		string = NULL;
 	}
 	dir = ft_itoa(data->player.dir[0] * (180 / PI));
 	fp = ft_itoa(fps);
 	string = mlx_put_string(data->mlx, dir, WIDTH / 2 - 10, 50);
+	fp_txt = mlx_put_string(data->mlx, fp, WIDTH - 30, 10);
 	free(dir);
 	free(fp);
+}
+
+static void clear(t_data	*data)
+{
+	int	y;
+
+	ft_memset(data->wall_full->pixels, 0, (WIDTH * HEIGHT) * 4);
+	y = 0;
+	while (y < HEIGHT)
+	{
+		ft_memset(data->buffer[y], 0, WIDTH * sizeof(unsigned int));
+		ft_memset(data->wabuffer[y], 0, WIDTH * sizeof(unsigned int));
+		y++;
+	}
 }
 
 void	draw_game(t_data	*data)
@@ -60,6 +76,7 @@ void	draw_game(t_data	*data)
 	if ((data->player.pos[0] != posY || data->player.pos[1] != posX)
 		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
 	{
+		clear(data);
 		multi_caster(data);
 		compass(data);
 		data->player.mm->instances->x = floor(data->player.pos[1]) * 10;
