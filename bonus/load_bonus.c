@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 22:29:58 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 02:43:34 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 20:02:40 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	load_images(t_data	*data)
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->wall_full)
 		ft_exit("ERROR", 1);
+	data->floor = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->floor)
+		ft_exit("Error", 1);
 }
 
 char	find_start_pos(t_data	*data)

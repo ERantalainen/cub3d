@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 18:44:12 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 22:13:29 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ void	start_game(t_data *data)
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	puts("here start");
+	ft_memset(data->floor->pixels, 0, sizeof(data->floor->pixels));
+	mlx_image_to_window(data->mlx, data->floor, 0, 0);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
+	mlx_set_instance_depth(data->wall_full->instances, 1);
 	render_minimap(data);
 	mlx_image_to_window(data->mlx, data->player.mm, ceil(data->player.pos[1]), round((data->player.pos[0])));
-	mlx_set_instance_depth(data->player.mm->instances, 2);
+	mlx_set_instance_depth(data->player.mm->instances, 3);
 	mlx_loop(data->mlx);
 }
 
@@ -48,22 +51,16 @@ static void	compass(t_data *data)
 	fp = ft_itoa(fps);
 	string = mlx_put_string(data->mlx, dir, WIDTH / 2 - 10, 50);
 	fp_txt = mlx_put_string(data->mlx, fp, WIDTH - 30, 10);
+	mlx_set_instance_depth(string->instances, 5);
+	mlx_set_instance_depth(fp_txt->instances, 5);
 	free(dir);
 	free(fp);
 }
 
 static void clear(t_data	*data)
 {
-	int	y;
-
+	ft_memset(data->floor->pixels, 0, sizeof(data->floor->pixels));
 	ft_memset(data->wall_full->pixels, 0, (WIDTH * HEIGHT) * 4);
-	y = 0;
-	while (y < HEIGHT)
-	{
-		ft_memset(data->buffer[y], 0, WIDTH * sizeof(unsigned int));
-		ft_memset(data->wabuffer[y], 0, WIDTH * sizeof(unsigned int));
-		y++;
-	}
 }
 
 void	draw_game(t_data	*data)

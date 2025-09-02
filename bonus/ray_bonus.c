@@ -6,109 +6,29 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 05:01:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 18:39:24 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 23:29:37 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-static void	combine_wall(t_data *data, t_thr *thr)
-{
-	int	i;
-	int	y;
-	int	x;
-
-	i = 0;
-	while (i < COUNT)
-	{
-		y = 0;
-		while (y < HEIGHT)
-		{
-			x = 0;
-			while (x < SLICE)
-			{
-				data->wabuffer[y][x + (thr[i].n * SLICE)] = thr[i].temps[y][x];
-				x++;
-			}
-			y++;
-		}
-		i++;
-	}
-}
-
-static void	combine_floor(t_data	*data, t_thr *thr)
-{
-	int	i;
-	int	y;
-	int	x;
-
-	i = COUNT;
-	while (i < COUNT * 2)
-	{
-		y = 0;
-		while (y < HEIGHT)
-		{
-			x = 0;
-			while (x < SLICE)
-			{
-				data->buffer[y][x + (thr[i].n * SLICE)] = thr[i].temps[y][x];
-				x++;
-			}
-			y++;
-		}
-		i++;
-	}
-}
-
 static t_thr	*alloc_threads(t_thr *thr)
 {
-	int	i;
-	int	y;
-
-	i = 0;
 	thr = arena_malloc(sizeof(t_thr) * (COUNT * 2));
-	while (i < COUNT * 2)
-	{
-		y = 0;
-		thr[i].temps = arena_malloc(sizeof(unsigned int *) * HEIGHT);
-		while (y < HEIGHT)
-		{
-			thr[i].temps[y] = arena_malloc(sizeof(unsigned int) * SLICE);
-			y++;
-		}
-		i++;
-	}
 	return (thr);
 }
-
-static void	clear_threads(t_thr *thr)
-{
-	int	i;
-	int	y;
-
-	i = 0;
-	while (i < COUNT * 2)
-	{
-		y = 0;
-		while (y < HEIGHT)
-		{
-			thr[i].temps[y] = ft_memset(thr[i].temps[y], 0, SLICE * sizeof(unsigned int));
-			y++;
-		}
-		i++;
-	}
-}
+time_t	get_time(void);
 
 void	multi_caster(t_data	*data)
 {
 	static t_thr *thr = NULL;
+	time_t				start;
 	int			i;
 
 	i = 0;
 	if (!thr)
 		thr = alloc_threads(thr);
-	else
-		clear_threads(thr);
+	start = get_time();
 	while (i < COUNT)
 	{
 		thr[i].n = i;
@@ -123,7 +43,6 @@ void	multi_caster(t_data	*data)
 	i = 0;
 	while (i < COUNT * 2)
 		pthread_join(thr[i++].id, NULL);
-	combine_wall(data, thr);
-	combine_floor(data, thr);
-	combine(data);
+	time_t end = get_time();
+	printf("Start: %li End: %li Total: %li\n", start, end, end- start);
 }

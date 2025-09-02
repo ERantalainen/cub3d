@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:04:28 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 02:09:34 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 23:37:19 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,20 @@ char	*ft_stradd(char *s1, char *s2)
 	}
 	res[pos] = 0;
 	return (res);
+}
+
+void	place_pixel(mlx_image_t *img, unsigned int pixel, int x, int y)
+{
+	mlx_put_pixel(img, x, y, pixel);
+}
+
+#include <time.h>
+#include <sys/time.h>
+
+time_t	get_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_usec / 1000) + (tv.tv_sec * 1000));
 }

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 18:39:43 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/02 05:17:17 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@
 # define WE 2
 # define EA 3
 
-# define WIDTH	800
-# define HEIGHT	600
+# define WIDTH	1600
+# define HEIGHT	1200
 # define TXT	128
 # define TILE 256
 # define MM 10
 # define SPEED 0.08
 # define ROT 0.05
 # define SLICE 200
-# define COUNT WIDTH / SLICE
+# define COUNT (WIDTH / SLICE)
+# define VSLICE (HEIGHT / COUNT) / 2
 
 # define DEFMAP "1111111111111111 \
 				100111000011110111 \
@@ -126,7 +127,6 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
-	mlx_image_t		*roof;
 	mlx_image_t		*floor;
 	unsigned int	**wabuffer;
 	unsigned int	**buffer;
@@ -158,7 +158,9 @@ void	ft_exit(char *s, int code);
 void	ft_close(void *s);
 unsigned int make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
+void	place_pixel(mlx_image_t *img, unsigned int pixel, int x, int y);
 char	*ft_stradd(char *s1, char *s2);
+
 // Setting up game
 
 void	load_game(t_data	*data);
@@ -189,4 +191,5 @@ void			*flr_mlt(void	*param);
 unsigned int	get_color(mlx_texture_t *txt, int index);
 void			combine(t_data	*data);
 void			*ray_call(void *param);
+
 #endif

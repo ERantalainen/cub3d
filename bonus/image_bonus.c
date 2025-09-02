@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 00:09:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 17:29:44 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/01 21:09:21 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,12 @@ void	render_frame(t_thr *thread, t_player pr, int x, int dir)
 	{
 		tex_y = (int)pos & ( pr.ray.txt_size - 1);
 		pos += step;
-		thread->temps[y][x - (SLICE * thread->n)] = get_color(data->wall_txt[pr.ray.side], (tex_y *  pr.ray.txt_size + pr.ray.tex_x) * 4);
+		place_pixel(data->wall_full, get_color(data->wall_txt[pr.ray.side], (tex_y *  pr.ray.txt_size + pr.ray.tex_x) * 4), x, y);
 		y++;
 	}
 }
 
-void	combine(t_data	*data)
-{
-	int	x;
-	int	y;
 
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			if (data->wabuffer[y][x] != 0)
-				mlx_put_pixel(data->wall_full, x, y, data->wabuffer[y][x]);
-			if (data->wall_full->pixels[(y * WIDTH + x) * 4] == 0)
-				mlx_put_pixel(data->wall_full, x, y, data->buffer[y][x]);
-			x++;
-		}
-		y++;
-	}
-}
 
 void	*ray_call(void *param)
 {
