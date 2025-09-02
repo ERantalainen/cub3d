@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 22:13:29 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/02 15:35:15 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	start_game(t_data *data)
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_close_hook(data->mlx, ft_close, NULL);
 	mlx_loop_hook(data->mlx, game_hook, data);
+	mlx_key_hook(data->mlx, key_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	puts("here start");
 	ft_memset(data->floor->pixels, 0, sizeof(data->floor->pixels));
@@ -94,14 +95,6 @@ void	game_hook(void *param)
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		ft_exit("", 1);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		ft_move_north(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		ft_move_south(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		ft_move_west(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		ft_move_east(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		ft_look_left(data, ROT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))

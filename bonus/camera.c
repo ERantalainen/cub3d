@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:59:56 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 02:07:11 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/02 17:53:21 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,26 @@ void	ft_look_left(t_data *data, double rot)
 		data->player.dir[0] -= 2 * PI;
 }
 
+static int	updown(double ypos, double xpos, t_data *data)
+{
+	if (ypos < HEIGHT / 2)
+	{
+		data->player.pitch += 30 * SPEED;
+		if (data->player.pitch > 300)
+			data->player.pitch = 300;
+		mlx_set_mouse_pos(data->mlx, xpos, HEIGHT / 2);
+		return (1);
+	}
+	else if (ypos > HEIGHT / 2)
+	{
+		data->player.pitch -= 30 * SPEED;
+		if (data->player.pitch < -300)
+			data->player.pitch = -300;
+		mlx_set_mouse_pos(data->mlx, xpos, HEIGHT / 2);
+		return (1);
+	}
+	return (0);
+}
 
 void	cursor_pos(double xpos, double ypos, void *param)
 {
@@ -49,6 +69,8 @@ void	cursor_pos(double xpos, double ypos, void *param)
 	double	new_pos;
 
 	data = (t_data *)param;
+	if (updown(ypos, xpos, data))
+		return ;
 	if (xpos < WIDTH / 2)
 	{
 		ft_look_left(data, ROT / 2);

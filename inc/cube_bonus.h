@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 05:17:17 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/02 16:55:57 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define WE 2
 # define EA 3
 
-# define WIDTH	1600
-# define HEIGHT	1200
+# define WIDTH	800
+# define HEIGHT	600
 # define TXT	128
 # define TILE 256
 # define MM 10
@@ -38,7 +38,7 @@
 # define ROT 0.05
 # define SLICE 200
 # define COUNT (WIDTH / SLICE)
-# define VSLICE (HEIGHT / COUNT) / 2
+# define VSLICE (HEIGHT / COUNT)
 
 # define DEFMAP "1111111111111111 \
 				100111000011110111 \
@@ -54,6 +54,8 @@
 # define FLOOR "./textures/dlv_ground1d.png"
 # define CEIL "./textures/dlv_wood2c.png"
 
+# define SPCOUNT 20
+
 # define PI 3.14159
 
 # define ARENA_SIZE 32768
@@ -65,6 +67,29 @@ typedef struct s_arena
 	size_t		index;
 	char		data[];
 }				t_arena;
+
+typedef	struct s_sprite
+{
+	double			x;
+	double			y;
+	mlx_texture_t	*txt;
+}	t_sprite;
+
+typedef	struct s_sprite_data
+{
+	int				order[20];
+	double			sp_dist[20];
+	t_sprite		sp[20];
+	double			inv;
+	double			z_dist[WIDTH];
+	int				startY;
+	int				endY;
+	int				startX;
+	int				endX;
+	double			trX;
+	double			trY;
+}	t_sp_data;
+
 
 typedef	struct s_ray
 {
@@ -79,7 +104,7 @@ typedef	struct s_ray
 	double	distance;
 	long	height;
 	int		bottom;
-	long		top;
+	long	top;
 	double	point;
 	int		tex_x;
 	int		side;
@@ -101,6 +126,7 @@ typedef	struct s_player
 	double		pos[2];
 	int			map_pos[2];
 	double		dir[2];
+	double	pitch;
 	double		angleX;
 	double		angleY;
 	double		planeX;
@@ -127,6 +153,7 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
+	t_sp_data		*sps;
 	mlx_image_t		*floor;
 	unsigned int	**wabuffer;
 	unsigned int	**buffer;
@@ -173,18 +200,19 @@ void	ft_look_right(t_data *data, double rot);
 void	ft_look_left(t_data *data, double rot);
 void	cursor_pos(double xpos, double ypos, void *param);
 
-void	ft_move_north(t_data *data);
-void	ft_move_south(t_data *data);
-void	ft_move_west(t_data *data);
-void	ft_move_east(t_data *data);
+void	ft_move_north(t_data *data, float speed);
+void	ft_move_south(t_data *data, float speed);
+void	ft_move_west(t_data *data, float speed);
+void	ft_move_east(t_data *data, float speed);
+void	key_hook(mlx_key_data_t keydata, void *param);
 
 void	render_minimap(t_data *data);
 
 // RayCasting
 
 
-void			render_frame(t_thr *thread, t_player pr, int x, int dir);
-void			RayCaster(t_player player, t_thr *thread, int x, int max);
+void			render_frame(t_player pr, int x, int dir);
+void			RayCaster(t_player player, int x, int max);
 void			multi_caster(t_data	*data);
 void			*floor_caster(t_data *data, t_ray ray, int x, t_thr *thr);
 void			*flr_mlt(void	*param);

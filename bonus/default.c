@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 22:11:02 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/02 17:05:55 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_data	*load_default()
 	data->map = arena_malloc(sizeof(char *) * 12);
 	ft_memset(&data->player, 0, sizeof(t_player));
 	ft_memset(&data->player.ray, 0, sizeof(t_ray));
-
 	for (int i = 0; i < 11; i++)
 	{
 		if (i == 0 || i == 10)
@@ -71,6 +70,7 @@ t_data	*load_default()
 	data->player.planeX = 0.0;
 	data->player.pdx = -1.0;
 	data->player.pdy = 0.0;
+	data->player.pitch = 0;
 	make_player(data);
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->wall_full)

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 00:09:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 21:09:21 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/02 16:59:33 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ unsigned int get_color(mlx_texture_t *txt, int index)
 	return (red << 24 | green << 16 | blue << 8 | alpha);
 }
 
-void	render_frame(t_thr *thread, t_player pr, int x, int dir)
+void	render_frame(t_player pr, int x, int dir)
 {
 	int		y;
 	double	step;
@@ -42,7 +42,7 @@ void	render_frame(t_thr *thread, t_player pr, int x, int dir)
 	if (dir == 1 && pr.ray.rayY > 0)
 		pr.ray.tex_x =  pr.ray.txt_size - pr.ray.tex_x - 1;
 	step = 1.0 * pr.ray.txt_size / pr.ray.height;
-	pos = (pr.ray.top - HEIGHT / 2 + pr.ray.height / 2) * step;
+	pos = (pr.ray.top - pr.pitch - HEIGHT / 2 + pr.ray.height / 2) * step;
 	y = pr.ray.top;
 	while (y < pr.ray.bottom)
 	{
@@ -64,6 +64,6 @@ void	*ray_call(void *param)
 	thread = (t_thr *)param;
 	max = (thread->n + 1) * SLICE;
 	start = thread->n * SLICE;
-	RayCaster(thread->data->player, thread, start, max);
+	RayCaster(thread->data->player, start, max);
 	return (NULL);
 }
