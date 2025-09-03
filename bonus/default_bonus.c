@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 01:59:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 17:05:19 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:33:26 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_data	*load_default()
 {
 	t_data			*data;
 	mlx_t			*mlx;
+
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	mlx = mlx_init(WIDTH, HEIGHT, "pup3d", true);
 	if (!mlx)

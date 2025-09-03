@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:59:56 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 17:53:21 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:22:49 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,24 @@ void	ft_look_left(t_data *data, double rot)
 		data->player.dir[0] -= 2 * PI;
 }
 
-static int	updown(double ypos, double xpos, t_data *data)
+static int	updown(double ypos, t_data *data)
 {
-	if (ypos < HEIGHT / 2)
+	static int	lastY = 0;
+
+	if (ypos < lastY - 5)
 	{
-		data->player.pitch += 30 * SPEED;
-		if (data->player.pitch > 300)
-			data->player.pitch = 300;
-		mlx_set_mouse_pos(data->mlx, xpos, HEIGHT / 2);
+		lastY = ypos;
+		data->player.pitch += 25;
+		if (data->player.pitch > 1000)
+			data->player.pitch = 1000;
 		return (1);
 	}
-	else if (ypos > HEIGHT / 2)
+	else if (ypos > lastY + 5)
 	{
-		data->player.pitch -= 30 * SPEED;
-		if (data->player.pitch < -300)
-			data->player.pitch = -300;
-		mlx_set_mouse_pos(data->mlx, xpos, HEIGHT / 2);
+		lastY = ypos;
+		data->player.pitch -= 25;
+		if (data->player.pitch < -1000)
+			data->player.pitch = -1000;
 		return (1);
 	}
 	return (0);
@@ -65,26 +67,27 @@ static int	updown(double ypos, double xpos, t_data *data)
 
 void	cursor_pos(double xpos, double ypos, void *param)
 {
+	static	int	lastX = WIDTH /2;
 	t_data	*data;
-	double	new_pos;
 
 	data = (t_data *)param;
-	if (updown(ypos, xpos, data))
-		return ;
-	if (xpos < WIDTH / 2)
+	if (updown(ypos, data))
 	{
-		ft_look_left(data, ROT / 2);
-		new_pos = (xpos += xpos / 4);
-		if (new_pos > WIDTH / 2)
-			new_pos = WIDTH / 2;
-		mlx_set_mouse_pos(data->mlx, new_pos, ypos);
+		if (xpos > lastX)
+			xpos -= 50;
+		else if (xpos != lastX)
+			xpos += 50;
 	}
-	else if (xpos > WIDTH / 2)
+	if (xpos < lastX)
 	{
-		ft_look_right(data, ROT / 2);
-		new_pos = (xpos -= xpos / 4);
-		if (new_pos < WIDTH / 2)
-			new_pos = WIDTH / 2;
-		mlx_set_mouse_pos(data->mlx, new_pos, ypos);
+		ft_look_left(data, ROT / 3);
+		ft_look_left(data, ROT / 3);
+		lastX = xpos;
+	}
+	else if (xpos > lastX)
+	{
+		ft_look_right(data, ROT / 3);
+		ft_look_right(data, ROT / 3);
+		lastX = xpos;
 	}
 }

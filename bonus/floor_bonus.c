@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:48:48 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 17:47:11 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:04:18 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,14 @@ void	*floor_caster(t_data *data, t_ray ray, int y, t_thr *thr)
 	float	z;
 	bool	floor;
 
-	floor = y > HEIGHT / 2;
+	z = (0.5 * HEIGHT);
 	while (y < thr->max)
 	{
-		if (!floor)
-		{
-			z = (0.5 * HEIGHT);
+		floor = y > HEIGHT / 2 + data->player.pitch;
+		if (floor)
 			pos = (y - (HEIGHT / 2) - data->player.pitch);
-		}
 		else
-		{
 			pos = (HEIGHT / 2) - y + data->player.pitch;
-			z = (0.5 * HEIGHT);
-		}
 		ray.f_dist = z / pos;
 		ray.F_StepX = ray.f_dist * (ray.rayDirX[1] - ray.rayDirX[0]) / WIDTH;
 		ray.F_StepY = ray.f_dist * (ray.rayDirY[1] - ray.rayDirY[0]) / WIDTH;
@@ -65,7 +60,7 @@ void	*floor_caster(t_data *data, t_ray ray, int y, t_thr *thr)
 	return (NULL);
 }
 
-static	void	floor_calc(t_data *data, t_ray ray, int y, bool floor)
+static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 {
 	int				posX;
 	int				posY;
@@ -78,17 +73,17 @@ static	void	floor_calc(t_data *data, t_ray ray, int y, bool floor)
 	{
 		posX = (int)(ray.floorX);
 		posY = (int)(ray.floorY);
-		ray.floorTX = (int)(data->floor_txt->width * (ray.floorX - posX)) & (data->floor_txt->width - 1) ;
-		ray.floorTY = (int)(data->floor_txt->height * (ray.floorY - posY)) & (data->floor_txt->height - 1) ;
+		ray.floorTX = (int)(data->floor_txt->width * (ray.floorX - posX)) & (data->floor_txt->width - 1);
+		ray.floorTY = (int)(data->floor_txt->height * (ray.floorY - posY)) & (data->floor_txt->height - 1);
 		ray.floorX += ray.F_StepX;
 		ray.floorY += ray.F_StepY;
 		tex_pos = (data->floor_txt->width * ray.floorTY + ray.floorTX) * 4;
 		pixel[0] = get_color(data->floor_txt, tex_pos);
 		pixel[1] = get_color(data->ceil_txt, tex_pos);
-		if (!floor)
+		if (!flr)
 			place_pixel(data->floor, pixel[1], x, y);
 		else
-			place_pixel(data->floor, pixel[1], x, y);
+			place_pixel(data->floor, pixel[0], x, y);
 		x++;
 	}
 }

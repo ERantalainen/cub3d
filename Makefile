@@ -35,10 +35,11 @@ CFLAGS = -Wall -Wextra -Werror -pthread -Iinc -Ilibft -I./MLX42/include/MLX42/ -
 # -g3 -fsanitize=address -fsanitize=undefined
 EFLAGS = -Llibft -lft -L./MLX42/build -ldl -lglfw -pthread -lm
 MAKE = @make -s
+MLX42 = MLX42/build/libmlx42.a
 
 all: $(NAME)
 
-%.o: %.c $(HEADERS)
+%.o: %.c $(HEADERS) $(MLX42)
 	$(CC) $(CFLAGS) -I $(INC) -c $< -o $@
 	@echo -e $(LGREEN)Compiling OBJ files$(OFF)
 
@@ -46,7 +47,7 @@ $(NAME): $(OBJS) libft/libft.a MLX42/build/libmlx42.a
 		$(CC) $(CFLAGS) -I $(INC) $^ $(EFLAGS) -o $(NAME)
 		@echo -e $(GREEN)Compiled $(NAME)$(OFF)
 
-MLX42:
+$(MLX42):
 	@git clone https://github.com/codam-coding-college/MLX42.git
 	@cmake -B MLX42/build -S MLX42
 	$(MAKE) -C MLX42/build
@@ -69,12 +70,11 @@ fclean:
 	$(MAKE) -C libft fclean
 	@echo -e $(RED)Cleaned everything $(OFF)
 
-$(BNAME): $(OBJB) libft/libft.a MLX42/build/libmlx42.a
+$(BNAME): $(OBJB) libft/libft.a $(MLX42)
 		$(CC) $(CFLAGS) -I $(INC) $^ $(EFLAGS) -o $(BNAME)
 		@echo -e $(GREEN)Compiled $(BNAME)$(OFF)
 
 bonus: $(OBJB) $(BNAME) libft/libft.a MLX42/build/libmlx42.a $(INC)
-
 
 re: fclean all
 

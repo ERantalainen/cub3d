@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 16:55:57 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/03 17:53:08 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define WE 2
 # define EA 3
 
-# define WIDTH	800
-# define HEIGHT	600
+# define WIDTH	1600
+# define HEIGHT	800
 # define TXT	128
 # define TILE 256
 # define MM 10
@@ -51,7 +51,7 @@
 # define DSO "./textures/dlv_metaltrm1b.png"
 # define DWE "./textures/dlv_metalpan4a.png"
 # define DEA "./textures/dlv_metaltrm4c.png"
-# define FLOOR "./textures/dlv_ground1d.png"
+# define FLOOR "./textures/dlv_metalstr1b.png"
 # define CEIL "./textures/dlv_wood2c.png"
 
 # define SPCOUNT 20

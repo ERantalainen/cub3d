@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 16:57:31 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:16:25 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ static void	wall_dist(t_player *pr, int dir, int x)
 	if (pr->ray.distance == 0)
 		pr->ray.distance = 1;
 	pr->ray.height = (int)(HEIGHT / pr->ray.distance);
-	pr->ray.top = -pr->ray.height / 2 + HEIGHT / 2 + pr->pitch;
+	pr->ray.top = (-pr->ray.height / 2 + HEIGHT / 2) + pr->pitch;
 	if (pr->ray.top < 0)
 		pr->ray.top = 0;
-	pr->ray.bottom = pr->ray.height / 2 + HEIGHT / 2 + pr->pitch;
+	pr->ray.bottom = (pr->ray.height / 2 + HEIGHT / 2) + pr->pitch;
 	if (pr->ray.bottom > HEIGHT)
 		pr->ray.bottom = HEIGHT;
 	if (dir == 0)

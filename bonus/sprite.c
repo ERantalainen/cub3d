@@ -6,11 +6,54 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 15:44:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 16:15:03 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:47:31 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
+
+static void swap(double *a, double *b)
+{
+	double	*temp;
+
+	temp = a;
+	a = b;
+	b = temp;
+}
+
+static void	quicksort(double *array, int low, int high)
+{
+	int	partion_index;
+
+	if (low < high)
+	{
+		partion_index = partion(array, low, high);
+		quicksort(array, low, partion_index - 1);
+		quicksort(array, partion_index + 1, high);
+	}
+}
+
+static int	partion(double *dist, int low, int high)
+{
+	int	i;
+	int	j;
+	double	pivot;
+
+	pivot = dist[low];
+	i = low;
+	j = high;
+	while (i < j)
+	{
+		while(dist[i] <= pivot && i < high)
+			i++;
+		while (dist[j] > pivot && j > low);
+			j--;
+		if (i < j)
+			swap(&dist[i], &dist[j]);
+	}
+	swap (&dist[low], &dist[j]);
+	return j;
+}
 
 void	sort_sprite(t_data *data, t_player pr)
 {
@@ -27,12 +70,6 @@ void	sort_sprite(t_data *data, t_player pr)
 		data->sps->sp_dist[i] = x_pos + y_pos;
 		i++;
 	}
-	i = 0;
-	while (i < SPCOUNT - 1)
-	{
-		if (data->sps->sp_dist[i] > data->sps->sp_dist[i + 1])
-		{
-			data->sps->sp_dist[i];
-		}
-	}
+	quicksort(data->sps->sp_dist, 0, SPCOUNT - 1);
+
 }

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 15:35:15 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:12:35 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	game_hook(void *param);
 
 void	start_game(t_data *data)
 {
-	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_DISABLED);
 	mlx_close_hook(data->mlx, ft_close, NULL);
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_key_hook(data->mlx, key_hook, data);
@@ -70,9 +70,10 @@ void	draw_game(t_data	*data)
 	static double	posX = 0.0;
 	static double	dirX = 0.0;
 	static double	dirY = 0.0;
-
+	static double	pitch = 0;
 	if ((data->player.pos[0] != posY || data->player.pos[1] != posX)
-		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
+		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX
+		|| data->player.pitch != pitch)
 	{
 		clear(data);
 		multi_caster(data);
@@ -93,11 +94,21 @@ void	game_hook(void *param)
 	t_data	*data;
 
 	data = param;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT_CONTROL))
+		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_NORMAL);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		ft_exit("", 1);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		ft_look_left(data, ROT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		ft_look_right(data, ROT);
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		ft_move_north(data, SPEED);
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		ft_move_south(data, SPEED);
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		ft_move_west(data, SPEED);
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		ft_move_east(data, SPEED);
 	 draw_game(data);
 }
