@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:54:54 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 00:07:07 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:59:58 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,27 @@ t_data	*load_default()
 	data = get_data();
 	data->mlx = mlx;
 	load_walls(data);
-	data->map = arena_malloc(sizeof(char *) * 12);
+	data->map = malloc(sizeof(char *) * 12);
 	ft_memset(&data->player, 0, sizeof(t_player));
 	ft_memset(&data->player.ray, 0, sizeof(t_ray));
 	for (int i = 0; i < 11; i++)
 	{
 		if (i == 0 || i == 10)
 		{
-			data->map[i] = arena_malloc(16);
+			data->map[i] = malloc(16);
 			ft_memset(data->map[i], '1', 15);
 			data->map[i][15] = 0;
 		}
 		else if (i == 5 || i == 3)
 		{
-			data->map[i] = arena_malloc(16);
+			data->map[i] = malloc(16);
 			ft_memset(data->map[i], '1', 15);
 			data->map[i][7] = '0';
 			data->map[i][15] = 0;
 		}
 		else if (i == 4)
 		{
-			data->map[i] = arena_malloc(16);
+			data->map[i] = malloc(16);
 			ft_memset(data->map[i], ' ', 15);
 			data->map[i][6] = '1';
 			data->map[i][7] = '0';
@@ -54,7 +54,7 @@ t_data	*load_default()
 		}
 		else
 		{
-			data->map[i] = arena_malloc(16);
+			data->map[i] = malloc(16);
 			ft_memset(data->map[i], '1', 15);
 			ft_memset(data->map[i] + 1, '0', 13);
 			data->map[i][15] = 0;
@@ -62,19 +62,18 @@ t_data	*load_default()
 				data->map[i][6] = 'N';
 		}
 	}
+	if(!data->map[0])
+		ft_exit("Error allocating map", 1);
 	data->map_h = 11;
 	data->map_w = 15;
+	data->map[11] = NULL;
 	data->player.pos[0] = 1.0;
 	data->player.pos[1] = 1.0;
 	data->player.planeY = 0.66;
 	data->player.planeX = 0.0;
 	data->player.pdx = -1.0;
-
 	data->player.pdy = 0.0;
 	make_player(data);
-	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	if (!data->wall_full)
-		ft_exit("WALL ERROR", 1);
 	data->minimap = mlx_new_image(data->mlx, data->map_w * MM, data->map_h * MM);
 	if (!data->minimap)
 		ft_exit("error", 1);
@@ -84,6 +83,7 @@ t_data	*load_default()
 	{
 		printf("%d: %s\n", i, data->map[i]);
 	}
+	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	return (data);
 }
 
@@ -100,11 +100,5 @@ static void	load_walls(t_data	*data)
 		ft_exit("Error loading texture", 1);
 	data->wall_txt[EA] = mlx_load_png(DEA);
 	if (!data->wall_txt[EA])
-		ft_exit("Error loading texture", 1);
-	data->floor_txt = mlx_load_png(FLOOR);
-	if (!data->floor_txt)
-		ft_exit("Error loading texture", 1);
-	data->ceil_txt = mlx_load_png(CEIL);
-	if (!data->ceil_txt)
 		ft_exit("Error loading texture", 1);
 }

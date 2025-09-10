@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 01:54:45 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:34:52 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@
 				11100101 100000101 \
 				1110000111000000N1 \
 				111111111111111111"
+
 # define DNO "./textures/dlv_metaltrm4a.png"
 # define DSO "./textures/dlv_metaltrm1b.png"
 # define DWE "./textures/dlv_metalpan4a.png"
 # define DEA "./textures/dlv_metaltrm4c.png"
-# define FLOOR "./textures/dlv_ground1d.png"
-# define CEIL "./textures/dlv_wood2c.png"
 
 # define PI 3.14159
 
@@ -111,8 +110,6 @@ typedef	struct s_player
 typedef struct s_data
 {
 	mlx_texture_t	*wall_txt[4];
-	mlx_texture_t	*floor_txt;
-	mlx_texture_t	*ceil_txt;
 	mlx_image_t		*wall_img[4];
 	unsigned int	f_c;
 	unsigned int	r_c;

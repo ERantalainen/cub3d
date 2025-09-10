@@ -6,30 +6,11 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 01:54:04 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:58:20 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_bonus.h"
-
-void	load_images(t_data	*data)
-{
-	data->wall_img[NO] = mlx_texture_to_image(data->mlx, data->wall_txt[NO]);
-	if (!data->wall_img[NO])
-		ft_exit("Error initializing images", 1);
-	data->wall_img[SO] = mlx_texture_to_image(data->mlx, data->wall_txt[SO]);
-	if (!data->wall_img[SO])
-		ft_exit("Error initializing images", 1);
-	data->wall_img[WE] = mlx_texture_to_image(data->mlx, data->wall_txt[WE]);
-	if (!data->wall_img[WE])
-		ft_exit("Error initializing images", 1);
-	data->wall_img[EA] = mlx_texture_to_image(data->mlx, data->wall_txt[EA]);
-	if (!data->wall_img[EA])
-		ft_exit("Error initializing images", 1);
-	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	if (!data->wall_full)
-		ft_exit("ERROR", 1);
-}
+#include "cube.h"
 
 char	find_start_pos(t_data	*data)
 {
@@ -37,6 +18,8 @@ char	find_start_pos(t_data	*data)
 	int	col;
 
 	row = 0;
+	for (int i = 0; data->map[i]; i++)
+		puts(data->map[i]);
 	while (data->map[row])
 	{
 		col = 0;
@@ -61,7 +44,6 @@ void	load_game(t_data	*data)
 {
 	char	dir;
 
-	load_images(data);
 	dir = find_start_pos(data);
 	if (dir == 'S')
 	{
@@ -83,5 +65,6 @@ void	load_game(t_data	*data)
 		data->player.dir[0] = 0.0;
 		data->player.dir[1] = 0.0;
 	}
+	
 	start_game(data);
 }

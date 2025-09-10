@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:36:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/31 02:01:56 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:48:47 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int main (int argc, char **argv)
 	t_data	*data;
 
 	data = load_default();
+	for (int i = 0; data->map[i]; i++)
+		puts(data->map[i]);
 	load_game(data);
 	return (1);
 }
