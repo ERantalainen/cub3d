@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/10 14:34:52 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:29:02 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,42 +132,70 @@ typedef struct s_data
 t_data	*load_default();
 
 // Data
-
+/*Returns a pointer to the data struct*/
 t_data	*get_data();
 
 // Utility
 
+/* Allocates N bytes from the memory arena*/
 void	*arena_malloc(size_t n);
+/* Exits the program.
+	int code - exit code to exit with
+	char *s - string to print to stderr, if NULL won't print anything*/
 void	ft_exit(char *s, int code);
+/* Function hook for MLX close*/
 void	ft_close(void *s);
+/*Adds string s1 to string s2, using the memory arena */
 char	*ft_stradd(char *s1, char *s2);
-unsigned int make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+/* Creates an unsigned int color value that  can be used with mlx
+	unsigned char r - red channel
+	unsigned char g - green channel
+	unsigned char b - blue channel
+	unsigned char a - alpha channel */
+unsigned int make_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
 // Setting up game
 
+/* Loads initial game  data from data struct*/
 void	load_game(t_data	*data);
+/* Creates the player icon for the minimap*/
 void	make_player(t_data *data);
 
 // Main game functionality
 
+
+/* Starts the core game functionality*/
 void	start_game(t_data *data);
+/* Function for handling the player looking right
+	rot - speed of turn*/
 void	ft_look_right(t_data *data, double rot);
+/* Function for handling the player looking left
+	rot - speed of turn*/
 void	ft_look_left(t_data *data, double rot);
+/* MLX mousehook to track the mouse movement*/
 void	cursor_pos(double xpos, double ypos, void *param);
 
+/* Movement function for moving forward*/
 void	ft_move_north(t_data *data);
+/* Movement function for moving backwards*/
 void	ft_move_south(t_data *data);
+/* Movement function for moving left*/
 void	ft_move_west(t_data *data);
+/* Movement function for moving right*/
 void	ft_move_east(t_data *data);
-
+/* Minimap function to create the minimap*/
 void	render_minimap(t_data *data);
 
 // RayCasting
 
+/* Render the frame after raycasting math is done
+	int x - the x cordinate of the slice being rendered
+	tex_x - the x position on the texture being cassted*/
 void	render_frame(t_data	*data, t_player player, int x, int tex_x);
+/* Core raycasting loop, calculates the height of the walls*/
 void	RayCaster(t_player player);
-void	floor_caster(t_data *data, t_ray ray, t_player player);
+/* Gets the color of a pixel
+	int index - the index in texture->pixels array
+	mlx_texture_t *txt - the texture to find pixel from*/
 unsigned int get_color(mlx_texture_t *txt, int index);
-void	multi_caster(t_data	*data);
-void	*multi_floor(void	*param);
 #endif
