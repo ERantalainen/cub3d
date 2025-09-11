@@ -21,9 +21,7 @@ void	RayCaster(t_player player)
 {
 	int		x;
 	double	cameraX;
-	t_data	*data;
 
-	data = get_data();
 	x = 0;
 
 	while (x < WIDTH)
@@ -96,12 +94,14 @@ static void	dda(t_player *player, int x)
 			player->map_pos[0] += player->ray.stepY;
 			player->ray.side = 1;
 		}
-		if ((player->map_pos[0] < 0 || player->map_pos[0] >= data->map_h)
-		||	player->map_pos[1] < 0 || player->map_pos[1] >= data->map_w)
-			break ;
-		if  (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
-			break ;
-	}
+                if (player->map_pos[0] < 0 || player->map_pos[0] >= data->map_h)
+                        break ;
+                if (player->map_pos[1] < 0
+                        || player->map_pos[1] >= (int)ft_strlen(data->map[player->map_pos[0]]))
+                        break ;
+                if (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
+                        break ;
+        }
 	wall_dist(player, player->ray.side, x);
 }
 

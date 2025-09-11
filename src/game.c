@@ -21,12 +21,10 @@ void	start_game(t_data *data)
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	puts("here start");
-	RayCaster(data->player);
-	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
-	render_minimap(data);
-	mlx_image_to_window(data->mlx, data->player.mm, ceil(data->player.pos[1]), round((data->player.pos[0])));
-	mlx_set_instance_depth(data->player.mm->instances, 2);
-	mlx_loop(data->mlx);
+        RayCaster(data->player);
+        mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
+        render_minimap(data);
+        mlx_loop(data->mlx);
 }
 
 static void	compass(t_data *data)
@@ -67,8 +65,8 @@ void	draw_game(t_data	*data)
 		ft_memset(data->wall_full->pixels, 0, WIDTH * HEIGHT * 4);
 		RayCaster(data->player);
 		compass(data);
-		data->player.mm->instances->x = floor(data->player.pos[1]) * 10;
-		data->player.mm->instances->y = floor(data->player.pos[0]) * 10;
+                data->player.mm->instances->x = floor(data->player.pos[1] * MM) - MM / 2;
+                data->player.mm->instances->y = floor(data->player.pos[0] * MM) - MM / 2;
 		posY = data->player.pos[0];
 		posX = data->player.pos[1];
 		dirX = data->player.dir[0];

@@ -12,7 +12,7 @@
 
 #include "cube.h"
 
-void	ft_look_right(t_data *data, double rot)
+void	ft_look_left(t_data *data, double rot)
 {
 	double	temp_x;
 
@@ -27,7 +27,7 @@ void	ft_look_right(t_data *data, double rot)
 		data->player.dir[0] += 2 * PI;
 }
 
-void	ft_look_left(t_data *data, double rot)
+void	ft_look_right(t_data *data, double rot)
 {
 	double	temp_x;
 
