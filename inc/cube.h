@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/10 16:08:34 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/09/12 14:11:45 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ typedef	struct s_player
 	mlx_image_t	*arrow;
 }	t_player;
 
-#include <pthread.h>
-
 typedef struct s_data
 {
 	mlx_texture_t	*wall_txt[4];
@@ -107,11 +105,6 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
-	unsigned int	buffer[HEIGHT + 1][WIDTH + 1];
-	unsigned int	wabuffer[HEIGHT + 1][WIDTH + 1];
-	unsigned int	temps[WIDTH/400][WIDTH][HEIGHT];
-	pthread_t		cast[WIDTH/400];
-	volatile int	n;
 }	t_data;
 
 typedef struct s_spawn
@@ -122,17 +115,26 @@ typedef struct s_spawn
 }	t_spawn;
 
 // Data
-
+/*Returns a pointer to the data struct*/
 t_data			*get_data();
 void			init_mlx_and_data(t_data *data);
 
 // Utility
-
+/* Allocates N bytes from the memory arena*/
 void			*arena_malloc(size_t n);
+/* Exits the program.
+	int code - exit code to exit with
+	char *s - string to print to stderr, if NULL won't print anything*/
 void			ft_exit(char *s, int code);
 void			ft_close(void *s);
 char			*ft_stradd(char *s1, char *s2);
-unsigned int 	make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+
+/* Creates an unsigned int color value that  can be used with mlx
+	unsigned char r - red channel
+	unsigned char g - green channel
+	unsigned char b - blue channel
+	unsigned char a - alpha channel */
+	unsigned int make_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
 // Setting up game
 
@@ -158,8 +160,13 @@ void			render_minimap(t_data *data);
 // RayCasting
 
 void			render_frame(t_data	*data, t_player player, int x, int tex_x);
-void			RayCaster(t_player player);
+/* Render the frame after raycasting math is done
+	int x - the x cordinate of the slice being rendered
+	tex_x - the x position on the texture being cassted*/void			RayCaster(t_player player);
 void			floor_caster(t_data *data, t_ray ray, t_player player);
+/* Gets the color of a pixel
+	int index - the index in texture->pixels array
+	mlx_texture_t *txt - the texture to find pixel from*/
 unsigned int	get_color(mlx_texture_t *txt, int index);
 void			multi_caster(t_data	*data);
 void			*multi_floor(void	*param);
