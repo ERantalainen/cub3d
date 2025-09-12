@@ -75,7 +75,8 @@ STR_SRCS := \
 	ft_striteri.c \
 	ft_reverse_string.c \
 	ft_strndup.c \
-	ft_strcmp.c
+	ft_strcmp.c \
+	ft_stradup.c
 
 # Memory management functions
 MEM_SRCS := \
@@ -85,7 +86,8 @@ MEM_SRCS := \
 	ft_memmove.c \
 	ft_memchr.c \
 	ft_memcmp.c \
-	ft_calloc.c
+	ft_calloc.c \
+	ft_frearr.c
 
 # File descriptor operations
 FD_SRCS := \

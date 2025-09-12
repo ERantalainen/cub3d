@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:04:28 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 14:12:22 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 16:12:37 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_exit(char *s, int code)
 	exit (code);
 }
 
-unsigned int make_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+unsigned int make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }

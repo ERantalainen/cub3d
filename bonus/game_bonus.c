@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/03 18:12:35 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 17:40:51 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	start_game(t_data *data)
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	mlx_set_instance_depth(data->wall_full->instances, 1);
 	render_minimap(data);
-	mlx_image_to_window(data->mlx, data->player.mm, ceil(data->player.pos[1]), round((data->player.pos[0])));
+	mlx_image_to_window(data->mlx, data->player.mm, 1, 1);
 	mlx_set_instance_depth(data->player.mm->instances, 3);
 	mlx_loop(data->mlx);
 }
@@ -78,8 +78,8 @@ void	draw_game(t_data	*data)
 		clear(data);
 		multi_caster(data);
 		compass(data);
-		data->player.mm->instances->x = floor(data->player.pos[1]) * 10;
-		data->player.mm->instances->y = floor(data->player.pos[0]) * 10;
+		data->player.mm->instances->x = floor(data->player.pos[1]) * MM;
+		data->player.mm->instances->y = floor(data->player.pos[0]) * MM;
 		posY = data->player.pos[0];
 		posX = data->player.pos[1];
 		dirX = data->player.dir[0];

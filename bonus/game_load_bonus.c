@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_load.c                                        :+:      :+:    :+:   */
+/*   game_load_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 15:59:57 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 17:34:46 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 static void	set_player_spawn(t_data *data)
 {
@@ -34,7 +34,10 @@ static void	init_player_and_images(t_data *data)
 		ft_exit("Error creating minimap image", 1);
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->wall_full)
-		ft_exit("Error creating main image", 1);
+		ft_exit("Error creating wall texture", 1);
+	data->floor = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->floor)
+		ft_exit("Error creating floor image", 1);
 }
 
 static void	set_map_dimensions(t_data *data)

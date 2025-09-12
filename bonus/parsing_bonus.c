@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 15:58:07 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 17:29:07 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 static void	require_assets_present(t_data *data, int have_f, int have_c)
 {
-	if (!data->wall_txt[NO] || !data->wall_txt[SO]
-		|| !data->wall_txt[WE] || !data->wall_txt[EA])
+	if (!data->wall_txt[NO] || !data->wall_txt[SO] || !data->ceil_txt
+		|| !data->wall_txt[WE] || !data->wall_txt[EA] || !data->floor_txt)
 		ft_exit("Error: missing one or more wall textures (NO/SO/WE/EA)", 1);
 	if (have_f == 0 || have_c == 0)
 		ft_exit("Error: missing floor or ceiling color (F/C)", 1);
@@ -31,11 +31,16 @@ static void	parse_texture_line(t_data *data, char *line)
 		data->wall_txt[WE] = mlx_load_png(line + 3);
 	else if (!ft_strncmp(line, "EA ", 3))
 		data->wall_txt[EA] = mlx_load_png(line + 3);
-
+	else if (!ft_strncmp(line, "FT ", 3))
+		data->floor_txt = mlx_load_png(line + 3);
+	else if (!ft_strncmp(line, "CT ", 3))
+		data->ceil_txt = mlx_load_png(line + 3);
 	if ((!ft_strncmp(line, "NO ", 3) && !data->wall_txt[NO])
 		|| (!ft_strncmp(line, "SO ", 3) && !data->wall_txt[SO])
 		|| (!ft_strncmp(line, "WE ", 3) && !data->wall_txt[WE])
-		|| (!ft_strncmp(line, "EA ", 3) && !data->wall_txt[EA]))
+		|| (!ft_strncmp(line, "EA ", 3) && !data->wall_txt[EA])
+		|| (!ft_strncmp(line, "FT ", 3) && !data->floor_txt)
+		|| (!ft_strncmp(line, "CT ", 3) && !data->ceil_txt))
 		ft_exit("Error loading wall texture", 1);
 }
 
@@ -122,7 +127,7 @@ void	parse_cub_file(t_data *data, const char *filename)
 			parse_color_line(data, line, &have_f, &have_c);
 		else if (!ft_strncmp(line, "FT ", 3) || !ft_strncmp(line, "CT ", 3))
 		{
-			/* TODO: optional bonus */
+			parse_texture_line(data, line);
 		}
 		else
 			parse_map_line(data, line, &i);

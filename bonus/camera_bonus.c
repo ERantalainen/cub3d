@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   camera_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:59:56 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/03 18:22:49 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 17:32:56 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-void	ft_look_right(t_data *data, double rot)
+void	ft_look_left(t_data *data, double rot)
 {
 	double	temp_x;
 
@@ -27,7 +27,7 @@ void	ft_look_right(t_data *data, double rot)
 		data->player.dir[0] += 2 * PI;
 }
 
-void	ft_look_left(t_data *data, double rot)
+void	ft_look_right(t_data *data, double rot)
 {
 	double	temp_x;
 

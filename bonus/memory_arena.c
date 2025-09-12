@@ -6,11 +6,11 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:05:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 18:50:14 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 16:42:04 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 t_arena	**new_arena(t_arena **curr, int count, size_t n);
 t_arena	**get_arenas(t_arena **new)

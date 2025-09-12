@@ -6,11 +6,11 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:38:57 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 15:30:43 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 16:30:17 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 static int count_lines(const char *filename)
 {
@@ -65,7 +65,6 @@ char **read_lines(const char *filename, int *count)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		ft_exit("Error opening file", 1);
-
 	i = 0;
 	while ((line = get_next_line(fd)))
 	{

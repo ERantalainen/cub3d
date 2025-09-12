@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_countchar.c                                     :+:      :+:    :+:   */
+/*   ft_stradup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/20 02:24:17 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 15:39:31 by erantala         ###   ########.fr       */
+/*   Created: 2025/09/12 15:39:02 by erantala          #+#    #+#             */
+/*   Updated: 2025/09/12 15:39:09 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_countchar(char *s, int c)
+char	**ft_stradup(char **src)
 {
-	int		count;
-	size_t	i;
+	int		line;
+	char	**dup;
 
-	count = 0;
-	i = 0;
-	while (s[i])
+	line = 0;
+	if (src == NULL)
+		return (NULL);
+	while (src[line])
+		line++;
+	dup = (char **)malloc(sizeof(char *) * (line + 1));
+	if (!dup)
+		return (NULL);
+	line = 0;
+	while (src[line])
 	{
-		if (s[i] == (char)c)
-			count++;
-		i++;
+		dup[line] = ft_strdup(src[line]);
+		if (dup[line] == NULL)
+		{
+			ft_frearr((void **)dup, line);
+			return (NULL);
+		}
+		line++;
 	}
-	return (count);
+	dup[line] = NULL;
+	return (dup);
 }

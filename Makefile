@@ -17,14 +17,15 @@ OBJ_DIR = obj/
 
 SRCF = main.c data.c camera.c helpers.c memory_arena.c \
 	memory_arena_helpers.c movement.c \
-	game_load.c game_load_helpers.c game.c rayCast.c textures.c image.c \
-	parsing.c parsing_helpers.c minimap.c
+	game_load.c game_load_helpers.c game.c rayCast.c image.c \
+	parsing.c parsing_helpers.c minimap.c parsing_utility.c
 
-SRBF = main.c data_bonus.c camera.c default_bonus.c helpers_bonus.c memory_arena.c \
+SRBF = main_bonus.c data_bonus.c camera_bonus.c default_bonus.c helpers_bonus.c memory_arena.c \
 	memory_arena_helpers.c movement_bonus.c \
 	load_bonus.c game_bonus.c cast_bonus.c image_bonus.c \
 	minimap_bonus.c \
-	ray_bonus.c floor_bonus.c key_hook.c
+	ray_bonus.c floor_bonus.c key_hook.c parsing_helpers.c \
+	parsing_bonus.c parsing_utility_bonus.c game_load_bonus.c game_load_helpers_bonus.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCF))
 SRCB = $(addprefix $(BN_DIR), $(SRBF))

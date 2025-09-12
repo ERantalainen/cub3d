@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 21:24:24 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 22:12:58 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 17:34:46 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,30 @@ static void	mini_helper(t_data *data, unsigned int color, int x, int y)
 		row++;
 	}
 }
+extern mlx_errno_t mlx_errno;
 
 void	make_player(t_data *data)
 {
 	int	row;
 	int	col;
 
-	row = 0;
-	data->player.mm = mlx_new_image(data->mlx, MM - 1, MM - 1);
-	while (row < MM - 1)
+	if (data->player.mm == NULL)
 	{
-		col = 0;
-		while (col < MM - 1)
+		data->player.mm = mlx_new_image(data->mlx, MM -1, MM -1);
+		if (!data->player.mm)
+			ft_exit("Error creating player minimap image", 1);
+		row = 0;
+		while (row < MM - 1)
 		{
-			mlx_put_pixel(data->player.mm, col, row, make_color(0, 255, 0, 255));
-			col++;
+			col = 0;
+			while (col < MM - 1)
+			{
+				mlx_put_pixel(data->player.mm, col, row,
+					make_color(0, 255, 0, 255));
+				col++;
+			}
+			row++;
 		}
-		row++;
 	}
 }
 

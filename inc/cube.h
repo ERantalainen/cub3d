@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 14:11:45 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 16:46:52 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char			*ft_stradd(char *s1, char *s2);
 	unsigned char g - green channel
 	unsigned char b - blue channel
 	unsigned char a - alpha channel */
-	unsigned int make_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+unsigned int	make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
 // Setting up game
 
@@ -149,12 +149,10 @@ void			start_game(t_data *data);
 void			ft_look_right(t_data *data, double rot);
 void			ft_look_left(t_data *data, double rot);
 void			cursor_pos(double xpos, double ypos, void *param);
-
 void			ft_move_north(t_data *data);
 void			ft_move_south(t_data *data);
 void			ft_move_west(t_data *data);
 void			ft_move_east(t_data *data);
-
 void			render_minimap(t_data *data);
 
 // RayCasting
@@ -169,12 +167,12 @@ void			floor_caster(t_data *data, t_ray ray, t_player player);
 	mlx_texture_t *txt - the texture to find pixel from*/
 unsigned int	get_color(mlx_texture_t *txt, int index);
 void			multi_caster(t_data	*data);
-void			*multi_floor(void	*param);
 
 // Parsing
 void			parse_cub_file(t_data *data, const char *filename);
 
 // Parsing Helpers
 char 			**read_lines(const char *filename, int *count);
+int		flood_fill(char **map, int row, int col);
 
 #endif

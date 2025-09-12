@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:02:54 by jpelline          #+#    #+#             */
-/*   Updated: 2025/07/09 20:29:21 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 15:51:38 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int					ft_countchar(char *s, int c);
 
 // PART 2
 char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				**ft_stradup(char **src);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(const char *s, char c);
@@ -75,6 +76,7 @@ void				ft_putendl_fd(char *s, int fd);
 size_t				ft_putnbr_fd(int n, int fd);
 size_t				ft_uputnbr_fd(unsigned int n, int fd);
 void				ft_reverse_string(char *str);
+void				ft_frearr(void **s, int lines);
 
 // BONUS
 t_list				*ft_lstnew(void *content);
