@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 15:59:57 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/15 15:10:15 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ t_data	*load_data(const char *filename)
 	parse_cub_file(data, filename);
 	set_map_dimensions(data);
 	init_player_and_images(data);
-	flood_fill(data->map, round(data->player.pos[0]), round(data->player.pos[1]));
+	flood_fill(data->map, floor(data->player.pos[0]), floor(data->player.pos[1]));
 	return data;
 }

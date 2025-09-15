@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:34:53 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 15:54:40 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/15 15:10:38 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 int	flood_fill(char **map, int row, int col)
 {
+
 	if (!map[row])
-	{
 		ft_exit("Invalid Map", 1);
-	}
-	if (!map[row][col])
-	{
+	if (!map[row][col] || map[row][col] == ' ')
 		ft_exit("Invalid Map", 1);
-	}
 	if (map[row][col] == '1' || map[row][col] == 'V')
 		return (0);
 	map[row][col] = 'V';

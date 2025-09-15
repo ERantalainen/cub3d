@@ -24,7 +24,7 @@ SRBF = main_bonus.c data_bonus.c camera_bonus.c default_bonus.c helpers_bonus.c 
 	memory_arena_helpers.c movement_bonus.c \
 	load_bonus.c game_bonus.c cast_bonus.c image_bonus.c \
 	minimap_bonus.c \
-	ray_bonus.c floor_bonus.c key_hook.c parsing_helpers.c \
+	ray_bonus.c floor_bonus.c key_hook.c parsing_helpers_bonus.c \
 	parsing_bonus.c parsing_utility_bonus.c game_load_bonus.c game_load_helpers_bonus.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCF))
