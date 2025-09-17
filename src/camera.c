@@ -17,10 +17,12 @@ void	ft_look_left(t_data *data, double rot)
 	double	temp_x;
 
 	temp_x = data->player.pdx;
-	data->player.pdx = data->player.pdx * cos(-rot) - data->player.pdy * sin(-rot);
+	data->player.pdx = data->player.pdx * cos(-rot) - data->player.pdy
+		* sin(-rot);
 	data->player.pdy = temp_x * sin(-rot) + data->player.pdy * cos(-rot);
 	temp_x = data->player.planeX;
-	data->player.planeX = data->player.planeX * cos(-rot) - data->player.planeY * sin(-rot);
+	data->player.planeX = data->player.planeX * cos(-rot) - data->player.planeY
+		* sin(-rot);
 	data->player.planeY = temp_x * sin(-rot) + data->player.planeY * cos(-rot);
 	data->player.dir[0] -= rot;
 	if (data->player.dir[0] < 0)
@@ -32,16 +34,17 @@ void	ft_look_right(t_data *data, double rot)
 	double	temp_x;
 
 	temp_x = data->player.pdx;
-	data->player.pdx = data->player.pdx * cos(rot) - data->player.pdy * sin(rot);
+	data->player.pdx = data->player.pdx * cos(rot) - data->player.pdy
+		* sin(rot);
 	data->player.pdy = temp_x * sin(rot) + data->player.pdy * cos(rot);
 	temp_x = data->player.planeX;
-	data->player.planeX = data->player.planeX * cos(rot) - data->player.planeY * sin(rot);
+	data->player.planeX = data->player.planeX * cos(rot) - data->player.planeY
+		* sin(rot);
 	data->player.planeY = temp_x * sin(rot) + data->player.planeY * cos(rot);
 	data->player.dir[0] += rot;
 	if (data->player.dir[0] > 2 * PI)
 		data->player.dir[0] -= 2 * PI;
 }
-
 
 void	cursor_pos(double xpos, double ypos, void *param)
 {

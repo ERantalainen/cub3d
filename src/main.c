@@ -6,13 +6,13 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:36:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:35:47 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:04:17 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 	int		i;

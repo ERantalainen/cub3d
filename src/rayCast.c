@@ -12,7 +12,7 @@
 
 #include "cube.h"
 
-static void calc_ray(t_player *player, int x);
+static void	calc_ray(t_player *player, int x);
 static void	calc_step(t_player *pr, int x);
 static void	dda(t_player *player, int x);
 static void	wall_dist(t_player *player, int dir, int x);
@@ -23,7 +23,6 @@ void	RayCaster(t_player player)
 	double	cameraX;
 
 	x = 0;
-
 	while (x < WIDTH)
 	{
 		player.map_pos[0] = (int)player.pos[0];
@@ -36,7 +35,7 @@ void	RayCaster(t_player player)
 	}
 }
 
-static	void calc_ray(t_player *player, int x)
+static void	calc_ray(t_player *player, int x)
 {
 	player->ray.deltaY = 0;
 	if (player->ray.rayX != 0)
@@ -50,7 +49,7 @@ static	void calc_ray(t_player *player, int x)
 	calc_step(player, x);
 }
 
-static	void	calc_step(t_player *pr, int x)
+static void	calc_step(t_player *pr, int x)
 {
 	if (pr->ray.rayX < 0)
 	{

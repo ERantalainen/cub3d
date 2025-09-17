@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/15 15:10:15 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:03:52 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static void	set_player_spawn(t_data *data)
 {
-	t_spawn spawn = find_spawn(data->map, data->map_h);
+	t_spawn	spawn;
 
+	spawn = find_spawn(data->map, data->map_h);
 	// Centering
-        data->player.pos[0] = spawn.row + 0.5;
-        data->player.pos[1] = spawn.col + 0.5;
+	data->player.pos[0] = spawn.row + 0.5;
+	data->player.pos[1] = spawn.col + 0.5;
 	set_player_direction(data, spawn.c);
 	data->map[spawn.row][spawn.col] = '0';
 }
@@ -29,7 +30,8 @@ static void	init_player_and_images(t_data *data)
 	ft_memset(&data->player.ray, 0, sizeof(t_ray));
 	set_player_spawn(data);
 	make_player(data);
-	data->minimap = mlx_new_image(data->mlx, data->map_w * MM, data->map_h * MM);
+	data->minimap = mlx_new_image(data->mlx, data->map_w * MM, data->map_h
+			* MM);
 	if (!data->minimap)
 		ft_exit("Error creating minimap image", 1);
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);
@@ -39,8 +41,8 @@ static void	init_player_and_images(t_data *data)
 
 static void	set_map_dimensions(t_data *data)
 {
-	int j;
-	int len;
+	int	j;
+	int	len;
 
 	data->map_w = 0;
 	j = 0;
@@ -55,13 +57,14 @@ static void	set_map_dimensions(t_data *data)
 
 t_data	*load_data(const char *filename)
 {
-	t_data	*data;
+	t_data *data;
 
 	data = get_data();
 	init_mlx_and_data(data);
 	parse_cub_file(data, filename);
 	set_map_dimensions(data);
 	init_player_and_images(data);
-	flood_fill(data->map, floor(data->player.pos[0]), floor(data->player.pos[1]));
-	return data;
+	flood_fill(data->map, floor(data->player.pos[0]),
+		floor(data->player.pos[1]));
+	return (data);
 }

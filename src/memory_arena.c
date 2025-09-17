@@ -91,9 +91,9 @@ t_arena	*find_arena(size_t n)
 
 void	*arena_malloc(size_t n)
 {
-	t_arena	*arena;
-	void	*ret;
-	size_t	alg_i;
+	t_arena *arena;
+	void *ret;
+	size_t alg_i;
 
 	arena = find_arena(n);
 	alg_i = (arena->index + (ALIGNMENT - 1)) & ~(ALIGNMENT - 1);

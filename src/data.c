@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:43:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:23:54 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:03:30 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ void	free_data(t_data *data)
 	if (data->mlx)
 		mlx_terminate(data->mlx);
 }
-

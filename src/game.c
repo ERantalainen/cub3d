@@ -6,13 +6,13 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 14:13:31 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:04:02 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	game_hook(void *param);
+void		game_hook(void *param);
 
 void	start_game(t_data *data)
 {
@@ -51,7 +51,7 @@ static void	compass(t_data *data)
 	free(fp);
 }
 
-void	draw_game(t_data	*data)
+void	draw_game(t_data *data)
 {
 	static double	posY = 0.0;
 	static double	posX = 0.0;
@@ -94,5 +94,5 @@ void	game_hook(void *param)
 		ft_look_left(data, ROT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		ft_look_right(data, ROT);
-	 draw_game(data);
+	draw_game(data);
 }

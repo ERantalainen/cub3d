@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:36:25 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:03:15 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,9 +177,17 @@ void			multi_caster(t_data	*data);
 
 // Parsing
 void			parse_cub_file(t_data *data, const char *filename);
+unsigned int 	parse_color(char *s);
 
 // Parsing Helpers
-char 			**read_lines(const char *filename, int *count);
-int		flood_fill(char **map, int row, int col);
+char 			**read_lines(const char *filename);
+int				count_map_lines(char **lines, int start);
+
+// Parsing Utility
+int				flood_fill(char **map, int row, int col);
+void 			require_assets_present(t_data *data, int have_f, int have_c);
+int				parse_asset_line(t_data *data, char *line, int *have_f, int *have_c);
+void			parse_color_line(t_data *data, char *line, int *have_f, int *have_c);
+void			parse_texture_line(t_data *data, char *line);
 
 #endif
