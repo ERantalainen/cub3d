@@ -6,11 +6,23 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:05:25 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:10:01 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+static void	validate_map_line(const char *line)
+{
+	int i = 0;
+
+	while (line && line[i])
+	{
+		if (!ft_strchr(" 01NSEW", line[i]))
+			ft_exit("Error: invalid character in map", 1);
+		i++;
+	}
+}
 
 unsigned int	parse_color(char *s)
 {
@@ -82,6 +94,7 @@ static void	parse_map(t_data *data, char **lines, int start)
 	j = start;
 	while (lines[j])
 	{
+		validate_map_line(lines[j]);
 		data->map[i] = ft_strdup(lines[j]);
 		if (!data->map[i])
 			ft_exit("Error duplicating map line", 1);

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:43:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:03:30 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:09:35 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ size_t	ft_stralen(char **arr)
 void	free_data(t_data *data)
 {
 	if (data->map)
-		ft_frearr((void **)data->map, ft_stralen(data->map));
+		ft_frearr((void **)data->map, data->map_h);
 	if (data->wall_txt[0])
 		mlx_delete_texture(data->wall_txt[0]);
 	if (data->wall_txt[1])
