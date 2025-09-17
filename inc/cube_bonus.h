@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:48:08 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 18:29:16 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,6 @@ typedef struct s_arena
 	size_t		index;
 	char		data[];
 }				t_arena;
-
-typedef	struct s_sprite
-{
-	double			x;
-	double			y;
-	mlx_texture_t	*txt;
-}	t_sprite;
-
-typedef	struct s_sprite_data
-{
-	int				order[20];
-	double			sp_dist[20];
-	t_sprite		sp[20];
-	double			inv;
-	double			z_dist[WIDTH];
-	int				startY;
-	int				endY;
-	int				startX;
-	int				endX;
-	double			trX;
-	double			trY;
-}	t_sp_data;
-
 
 typedef	struct s_ray
 {
@@ -153,7 +130,6 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
-	t_sp_data		*sps;
 	mlx_image_t		*floor;
 	unsigned int	**wabuffer;
 	unsigned int	**buffer;

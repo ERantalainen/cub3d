@@ -78,7 +78,6 @@ void	render_minimap(t_data *data)
 		}
 		y++;
 	}
-
 	mlx_image_to_window(data->mlx, data->minimap, 0, 0);
 	mlx_set_instance_depth(data->minimap->instances, 1);
 

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:03:15 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:08:10 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,8 @@ void			render_minimap(t_data *data);
 void			render_frame(t_data	*data, t_player player, int x, int tex_x);
 /* Render the frame after raycasting math is done
 	int x - the x cordinate of the slice being rendered
-	tex_x - the x position on the texture being cassted*/void			RayCaster(t_player player);
-void			floor_caster(t_data *data, t_ray ray, t_player player);
+	tex_x - the x position on the texture being cassted*/
+	void	raycaster(t_player player);
 /* Gets the color of a pixel
 	int index - the index in texture->pixels array
 	mlx_texture_t *txt - the texture to find pixel from*/

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 16:05:09 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 17:09:53 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:15:53 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	parse_texture_line(t_data *data, char *line)
 		|| (!ft_strncmp(line, "WE ", 3) && !data->wall_txt[WE])
 		|| (!ft_strncmp(line, "EA ", 3) && !data->wall_txt[EA]))
 		ft_exit("Error loading wall texture", 1);
+
 }
 
 int	flood_fill(char **map, int row, int col)

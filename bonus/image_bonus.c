@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 00:09:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:59:31 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 18:30:03 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	*ray_call(void *param)
 	thread = (t_thr *)param;
 	max = (thread->n + 1) * SLICE;
 	start = thread->n * SLICE;
-	RayCaster(thread->data->player, start, max);
+	raycaster(thread->data->player, start, max);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:48:48 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:50:55 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:45:10 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ void	*flr_mlt(void	*param)
 }
 
 static void	floor_calc(t_data *data, t_ray ray, int y, bool floor);
-
 void	*floor_caster(t_data *data, t_ray ray, int y, t_thr *thr)
 {
-	int		pos;
+	int	pos;
 	float	z;
 	bool	floor;
 
@@ -63,8 +62,8 @@ void	*floor_caster(t_data *data, t_ray ray, int y, t_thr *thr)
 
 static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 {
-	int				pos_x;
-	int				pos_y;
+	int				posX;
+	int				posY;
 	unsigned int	pixel[2];
 	int				tex_pos;
 	int				x;
@@ -72,10 +71,10 @@ static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 	x = 0;
 	while (x < WIDTH)
 	{
-		pos_x = (int)(ray.floorX);
-		pos_y = (int)(ray.floorY);
-		ray.floorTX = (int)(data->flr_txt->width * (ray.floorX - pos_x));
-		ray.floorTY = (int)(data->flr_txt->height * (ray.floorY - pos_y));
+		posX = (int)(ray.floorX);
+		posY = (int)(ray.floorY);
+		ray.floorTX = (int)(data->flr_txt->width * (ray.floorX - posX)) & (data->flr_txt->width - 1);
+		ray.floorTY = (int)(data->flr_txt->height * (ray.floorY - posY)) & (data->flr_txt->height - 1);
 		ray.floorX += ray.F_StepX;
 		ray.floorY += ray.F_StepY;
 		tex_pos = (data->flr_txt->width * ray.floorTY + ray.floorTX) * 4;
