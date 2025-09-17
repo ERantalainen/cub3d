@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:36:36 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:57:04 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	validate_map_line(const char *line)
 {
 	int i = 0;
 
-	while (line[i])
+	while (line && line[i])
 	{
 		if (!ft_strchr(" 01NSEW", line[i]))
 			ft_exit("Error: invalid character in map", 1);

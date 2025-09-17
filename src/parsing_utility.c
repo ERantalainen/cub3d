@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:34:53 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:34:00 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:47:01 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	parse_asset_line(t_data *data, char *line, int *have_f, int *have_c)
 	}
     else if (ft_strchr(" 01NSEW", line[0]))
 		return (0);
-    printf("line: %s", line);
 	ft_exit("Error: invalid line in asset section of .cub file", 1);
 	return (0);
 }
