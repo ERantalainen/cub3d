@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 17:40:51 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:52:51 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	start_game(t_data *data)
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_key_hook(data->mlx, key_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
-	puts("here start");
 	ft_memset(data->floor->pixels, 0, sizeof(data->floor->pixels));
 	mlx_image_to_window(data->mlx, data->floor, 0, 0);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
@@ -58,7 +57,7 @@ static void	compass(t_data *data)
 	free(fp);
 }
 
-static void clear(t_data	*data)
+static void	clear(t_data *data)
 {
 	ft_memset(data->floor->pixels, 0, sizeof(data->floor->pixels));
 	ft_memset(data->wall_full->pixels, 0, (WIDTH * HEIGHT) * 4);
@@ -66,13 +65,14 @@ static void clear(t_data	*data)
 
 void	draw_game(t_data	*data)
 {
-	static double	posY = 0.0;
-	static double	posX = 0.0;
-	static double	dirX = 0.0;
-	static double	dirY = 0.0;
+	static double	pos_y = 0.0;
+	static double	pos_x = 0.0;
+	static double	dir_x = 0.0;
+	static double	dir_y = 0.0;
 	static double	pitch = 0;
-	if ((data->player.pos[0] != posY || data->player.pos[1] != posX)
-		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX
+
+	if ((data->player.pos[0] != pos_y || data->player.pos[1] != pos_x)
+		|| data->player.dir[1] != dir_y || data->player.dir[0] != dir_x
 		|| data->player.pitch != pitch)
 	{
 		clear(data);
@@ -80,10 +80,10 @@ void	draw_game(t_data	*data)
 		compass(data);
 		data->player.mm->instances->x = floor(data->player.pos[1]) * MM;
 		data->player.mm->instances->y = floor(data->player.pos[0]) * MM;
-		posY = data->player.pos[0];
-		posX = data->player.pos[1];
-		dirX = data->player.dir[0];
-		dirY = data->player.dir[1];
+		pos_y = data->player.pos[0];
+		pos_x = data->player.pos[1];
+		dir_x = data->player.dir[0];
+		dir_y = data->player.dir[1];
 	}
 	else
 		return ;
@@ -110,5 +110,5 @@ void	game_hook(void *param)
 		ft_move_west(data, SPEED);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		ft_move_east(data, SPEED);
-	 draw_game(data);
+	draw_game(data);
 }

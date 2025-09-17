@@ -6,37 +6,36 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/03 15:16:25 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:45:37 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-static void calc_ray(t_player *player, int x);
+static void	calc_ray(t_player *player, int x);
 static void	calc_step(t_player *pr, int x);
 static void	dda(t_player *player, int x);
 static void	wall_dist(t_player *player, int dir, int x);
 
-void	RayCaster(t_player player, int x, int max)
+void	raycaster(t_player player, int x, int max)
 {
-	double	cameraX;
+	double	camera_x;
 	t_data	*data;
 
 	data = get_data();
-
 	while (x < max)
 	{
 		player.map_pos[0] = (int)player.pos[0];
 		player.map_pos[1] = (int)player.pos[1];
-		cameraX = 2 * x / (double)WIDTH - 1;
-		player.ray.rayX = player.pdx + player.planeX * cameraX;
-		player.ray.rayY = player.pdy + player.planeY * cameraX;
+		camera_x = 2 * x / (double)WIDTH - 1;
+		player.ray.rayX = player.pdx + player.planeX * camera_x;
+		player.ray.rayY = player.pdy + player.planeY * camera_x;
 		calc_ray(&player, x);
 		x++;
 	}
 }
 
-static	void calc_ray(t_player *player, int x)
+static void	calc_ray(t_player *player, int x)
 {
 	player->ray.deltaY = 0;
 	if (player->ray.rayX != 0)
@@ -94,10 +93,7 @@ static void	dda(t_player *player, int x)
 			player->map_pos[0] += player->ray.stepY;
 			player->ray.side = 1;
 		}
-		if ((player->map_pos[0] < 0 || player->map_pos[0] >= data->map_h)
-		||	player->map_pos[1] < 0 || player->map_pos[1] >= data->map_w)
-			break ;
-		if  (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
+		if (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
 			break ;
 	}
 	wall_dist(player, player->ray.side, x);
@@ -122,7 +118,6 @@ static void	wall_dist(t_player *pr, int dir, int x)
 		pr->ray.point = pr->pos[0] + pr->ray.distance * pr->ray.rayY;
 	else
 		pr->ray.point = pr->pos[1] + pr->ray.distance * pr->ray.rayX;
-	pr->ray.point -= floor(pr->ray.point);
 	pr->ray.point -= floor(pr->ray.point);
 	if (pr->ray.side == 0 && pr->pos[1] > pr->map_pos[1])
 		pr->ray.side = EA;

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 21:24:24 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 17:34:46 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 15:03:37 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	mini_helper(t_data *data, unsigned int color, int x, int y)
 		while (col < MM)
 		{
 			if (row == 0 || row == MM - 1 || col == 0 || col == MM - 1)
-				mlx_put_pixel(data->minimap, y + col, x + row, make_color(255, 0, 0, 255));
+				place_pixel(data->minimap, y + col, x + row, make_color(255, 0, 0, 255));
 			else
 				mlx_put_pixel(data->minimap, y + col, x + row, color);
 			col++;
@@ -32,7 +32,6 @@ static void	mini_helper(t_data *data, unsigned int color, int x, int y)
 		row++;
 	}
 }
-extern mlx_errno_t mlx_errno;
 
 void	make_player(t_data *data)
 {

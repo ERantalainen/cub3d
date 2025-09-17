@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 02:05:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 16:15:33 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 15:01:36 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 17:29:07 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:48:06 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	require_assets_present(t_data *data, int have_f, int have_c)
 {
 	if (!data->wall_txt[NO] || !data->wall_txt[SO] || !data->ceil_txt
-		|| !data->wall_txt[WE] || !data->wall_txt[EA] || !data->floor_txt)
+		|| !data->wall_txt[WE] || !data->wall_txt[EA] || !data->flr_txt)
 		ft_exit("Error: missing one or more wall textures (NO/SO/WE/EA)", 1);
 	if (have_f == 0 || have_c == 0)
 		ft_exit("Error: missing floor or ceiling color (F/C)", 1);
@@ -32,14 +32,14 @@ static void	parse_texture_line(t_data *data, char *line)
 	else if (!ft_strncmp(line, "EA ", 3))
 		data->wall_txt[EA] = mlx_load_png(line + 3);
 	else if (!ft_strncmp(line, "FT ", 3))
-		data->floor_txt = mlx_load_png(line + 3);
+		data->flr_txt = mlx_load_png(line + 3);
 	else if (!ft_strncmp(line, "CT ", 3))
 		data->ceil_txt = mlx_load_png(line + 3);
 	if ((!ft_strncmp(line, "NO ", 3) && !data->wall_txt[NO])
 		|| (!ft_strncmp(line, "SO ", 3) && !data->wall_txt[SO])
 		|| (!ft_strncmp(line, "WE ", 3) && !data->wall_txt[WE])
 		|| (!ft_strncmp(line, "EA ", 3) && !data->wall_txt[EA])
-		|| (!ft_strncmp(line, "FT ", 3) && !data->floor_txt)
+		|| (!ft_strncmp(line, "FT ", 3) && !data->flr_txt)
 		|| (!ft_strncmp(line, "CT ", 3) && !data->ceil_txt))
 		ft_exit("Error loading wall texture", 1);
 }

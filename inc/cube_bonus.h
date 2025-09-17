@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 16:46:42 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:48:08 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ typedef	struct s_player
 typedef struct s_data
 {
 	mlx_texture_t	*wall_txt[4];
-	mlx_texture_t	*floor_txt;
+	mlx_texture_t	*flr_txt;
 	mlx_texture_t	*ceil_txt;
 	mlx_image_t		*wall_img[4];
 	unsigned int	f_c;
@@ -180,6 +180,7 @@ typedef struct s_spawn
 
 /*Returns a pointer to the data struct*/
 t_data			*get_data();
+void			free_data(t_data *data);
 void			init_mlx_and_data(t_data *data);
 
 // Utility
@@ -188,6 +189,9 @@ void	place_pixel(mlx_image_t *img, unsigned int pixel, int x, int y);
 
 /* Allocates N bytes from the memory arena*/
 void			*arena_malloc(size_t n);
+
+/* Frees all memory arenas*/
+void			free_arenas(void);
 
 /* Exits the program.
 	int code - exit code to exit with
@@ -238,7 +242,7 @@ char 			**read_lines(const char *filename, int *count);
 int		flood_fill(char **map, int row, int col);
 
 void			render_frame(t_player pr, int x, int dir);
-void			RayCaster(t_player player, int x, int max);
+void			raycaster(t_player player, int x, int max);
 void			multi_caster(t_data	*data);
 void			*floor_caster(t_data *data, t_ray ray, int x, t_thr *thr);
 void			*flr_mlt(void	*param);

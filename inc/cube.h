@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 16:46:52 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:36:25 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,20 @@ typedef struct s_spawn
 }	t_spawn;
 
 // Data
+
 /*Returns a pointer to the data struct*/
 t_data			*get_data();
 void			init_mlx_and_data(t_data *data);
 
+/* Frees the data struct pointed to by t_data *data*/
+void	free_data(t_data *data);
+
 // Utility
+
 /* Allocates N bytes from the memory arena*/
 void			*arena_malloc(size_t n);
+/* Frees all memory arenas*/
+void			free_arenas(void);
 /* Exits the program.
 	int code - exit code to exit with
 	char *s - string to print to stderr, if NULL won't print anything*/

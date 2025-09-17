@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 15:24:30 by erantala         ###   ########.fr       */
+/*   Created: 2025/09/17 14:16:48 by erantala          #+#    #+#             */
+/*   Updated: 2025/09/17 14:17:12 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,9 @@ static void	dda(t_player *player, int x)
 			player->map_pos[0] += player->ray.stepY;
 			player->ray.side = 1;
 		}
-                if (player->map_pos[0] < 0 || player->map_pos[0] >= data->map_h)
-                        break ;
-                if (player->map_pos[1] < 0
-                        || player->map_pos[1] >= (int)ft_strlen(data->map[player->map_pos[0]]))
-                        break ;
-                if (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
-                        break ;
-        }
+		if (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
+			break ;
+	}
 	wall_dist(player, player->ray.side, x);
 }
 
@@ -124,7 +119,6 @@ static void	wall_dist(t_player *pr, int dir, int x)
 		pr->ray.point = pr->pos[0] + pr->ray.distance * pr->ray.rayY;
 	else
 		pr->ray.point = pr->pos[1] + pr->ray.distance * pr->ray.rayX;
-	pr->ray.point -= floor(pr->ray.point);
 	pr->ray.point -= floor(pr->ray.point);
 	if (pr->ray.side == 0 && pr->pos[1] > pr->map_pos[1])
 		pr->ray.side = EA;
