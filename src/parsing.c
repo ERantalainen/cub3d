@@ -5,15 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< Updated upstream
-/*   Created: 2025/08/18 15:39:01 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/18 15:39:02 by erantala         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-=======
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:05:13 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/09/17 15:50:30 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +105,3 @@ void	parse_cub_file(t_data *data, const char *filename)
 	parse_map(data, lines, map_start);
 	free(lines);
 }
->>>>>>> Stashed changes

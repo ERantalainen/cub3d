@@ -1,51 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast.c                                          :+:      :+:    :+:   */
+/*   rayCast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2025/09/01 15:23:55 by erantala         ###   ########.fr       */
-=======
-/*   Updated: 2025/09/17 14:53:04 by dimendon         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Created: 2025/09/17 14:16:48 by erantala          #+#    #+#             */
+/*   Updated: 2025/09/17 14:17:12 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-static void	calc_ray(t_player *player, int x);
+static void calc_ray(t_player *player, int x);
 static void	calc_step(t_player *pr, int x);
 static void	dda(t_player *player, int x);
 static void	wall_dist(t_player *player, int dir, int x);
 
-void	ray_caster(t_player player)
+void	RayCaster(t_player player)
 {
 	int		x;
-<<<<<<< Updated upstream
 	double	cameraX;
-	t_data	*data;
-=======
-	double	camera_x;
->>>>>>> Stashed changes
 
-	data = get_data();
 	x = 0;
+
 	while (x < WIDTH)
 	{
 		player.map_pos[0] = (int)player.pos[0];
 		player.map_pos[1] = (int)player.pos[1];
-		camera_x = 2 * x / (double)WIDTH - 1;
-		player.ray.rayX = player.pdx + player.planeX * camera_x;
-		player.ray.rayY = player.pdy + player.planeY * camera_x;
+		cameraX = 2 * x / (double)WIDTH - 1;
+		player.ray.rayX = player.pdx + player.planeX * cameraX;
+		player.ray.rayY = player.pdy + player.planeY * cameraX;
 		calc_ray(&player, x);
 		x++;
 	}
 }
 
-static void	calc_ray(t_player *player, int x)
+static	void calc_ray(t_player *player, int x)
 {
 	player->ray.deltaY = 0;
 	if (player->ray.rayX != 0)
@@ -59,7 +50,7 @@ static void	calc_ray(t_player *player, int x)
 	calc_step(player, x);
 }
 
-static void	calc_step(t_player *pr, int x)
+static	void	calc_step(t_player *pr, int x)
 {
 	if (pr->ray.rayX < 0)
 	{
@@ -103,19 +94,7 @@ static void	dda(t_player *player, int x)
 			player->map_pos[0] += player->ray.stepY;
 			player->ray.side = 1;
 		}
-<<<<<<< Updated upstream
-		if ((player->map_pos[0] < 0 || player->map_pos[0] >= data->map_h)
-		||	player->map_pos[1] < 0 || player->map_pos[1] >= data->map_w)
-			break ;
-		if  (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
-=======
-		if (player->map_pos[0] < 0 || player->map_pos[0] >= data->map_h)
-			break ;
-		if (player->map_pos[1] < 0
-			|| player->map_pos[1] >= (int)ft_strlen(data->map[player->map_pos[0]]))
-			break ;
 		if (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
->>>>>>> Stashed changes
 			break ;
 	}
 	wall_dist(player, player->ray.side, x);
@@ -140,7 +119,6 @@ static void	wall_dist(t_player *pr, int dir, int x)
 		pr->ray.point = pr->pos[0] + pr->ray.distance * pr->ray.rayY;
 	else
 		pr->ray.point = pr->pos[1] + pr->ray.distance * pr->ray.rayX;
-	pr->ray.point -= floor(pr->ray.point);
 	pr->ray.point -= floor(pr->ray.point);
 	if (pr->ray.side == 0 && pr->pos[1] > pr->map_pos[1])
 		pr->ray.side = EA;

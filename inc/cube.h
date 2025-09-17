@@ -6,11 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2025/09/11 16:29:02 by erantala         ###   ########.fr       */
-=======
-/*   Updated: 2025/09/17 14:52:18 by dimendon         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2025/09/17 15:54:51 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +33,6 @@
 # define MM 10
 # define SPEED 0.05
 # define ROT 0.05
-
-# define DEFMAP "1111111111111111 \
-				100111000011110111 \
-				101111000111110001 \
-				100001011100000111 \
-				11100101 100000101 \
-				1110000111000000N1 \
-				111111111111111111"
-
-# define DNO "./textures/dlv_metaltrm4a.png"
-# define DSO "./textures/dlv_metaltrm1b.png"
-# define DWE "./textures/dlv_metalpan4a.png"
-# define DEA "./textures/dlv_metaltrm4c.png"
 
 # define PI 3.14159
 
@@ -109,8 +92,6 @@ typedef	struct s_player
 	mlx_image_t	*arrow;
 }	t_player;
 
-#include <pthread.h>
-
 typedef struct s_data
 {
 	mlx_texture_t	*wall_txt[4];
@@ -124,88 +105,70 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
-	unsigned int	buffer[HEIGHT + 1][WIDTH + 1];
-	unsigned int	wabuffer[HEIGHT + 1][WIDTH + 1];
-	unsigned int	temps[WIDTH/400][WIDTH][HEIGHT];
-	pthread_t		cast[WIDTH/400];
-	volatile int	n;
 }	t_data;
 
-// Default
-
-t_data	*load_default();
+typedef struct s_spawn
+{
+	int  row;
+	int  col;
+	char c;
+}	t_spawn;
 
 // Data
+
 /*Returns a pointer to the data struct*/
-t_data	*get_data();
+t_data			*get_data();
+void			init_mlx_and_data(t_data *data);
+
+/* Frees the data struct pointed to by t_data *data*/
+void	free_data(t_data *data);
 
 // Utility
 
 /* Allocates N bytes from the memory arena*/
-void	*arena_malloc(size_t n);
+void			*arena_malloc(size_t n);
+/* Frees all memory arenas*/
+void			free_arenas(void);
 /* Exits the program.
 	int code - exit code to exit with
 	char *s - string to print to stderr, if NULL won't print anything*/
-void	ft_exit(char *s, int code);
-/* Function hook for MLX close*/
-void	ft_close(void *s);
-/*Adds string s1 to string s2, using the memory arena */
-char	*ft_stradd(char *s1, char *s2);
+void			ft_exit(char *s, int code);
+void			ft_close(void *s);
+char			*ft_stradd(char *s1, char *s2);
+
 /* Creates an unsigned int color value that  can be used with mlx
 	unsigned char r - red channel
 	unsigned char g - green channel
 	unsigned char b - blue channel
 	unsigned char a - alpha channel */
-unsigned int make_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+unsigned int	make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
 // Setting up game
 
-/* Loads initial game  data from data struct*/
-void	load_game(t_data	*data);
-/* Creates the player icon for the minimap*/
-void	make_player(t_data *data);
+t_data			*load_data(const char *filename);
+void			make_player(t_data *data);
+t_spawn			find_spawn(char **map, int map_h);
+void			set_player_direction(t_data *data, char c);
 
 // Main game functionality
 
-
-/* Starts the core game functionality*/
-void	start_game(t_data *data);
-/* Function for handling the player looking right
-	rot - speed of turn*/
-void	ft_look_right(t_data *data, double rot);
-/* Function for handling the player looking left
-	rot - speed of turn*/
-void	ft_look_left(t_data *data, double rot);
-/* MLX mousehook to track the mouse movement*/
-void	cursor_pos(double xpos, double ypos, void *param);
-
-/* Movement function for moving forward*/
-void	ft_move_north(t_data *data);
-/* Movement function for moving backwards*/
-void	ft_move_south(t_data *data);
-/* Movement function for moving left*/
-void	ft_move_west(t_data *data);
-/* Movement function for moving right*/
-void	ft_move_east(t_data *data);
-/* Minimap function to create the minimap*/
-void	render_minimap(t_data *data);
+void			start_game(t_data *data);
+void			ft_look_right(t_data *data, double rot);
+void			ft_look_left(t_data *data, double rot);
+void			cursor_pos(double xpos, double ypos, void *param);
+void			ft_move_north(t_data *data);
+void			ft_move_south(t_data *data);
+void			ft_move_west(t_data *data);
+void			ft_move_east(t_data *data);
+void			render_minimap(t_data *data);
 
 // RayCasting
 
+void			render_frame(t_data	*data, t_player player, int x, int tex_x);
 /* Render the frame after raycasting math is done
 	int x - the x cordinate of the slice being rendered
 	tex_x - the x position on the texture being cassted*/
-<<<<<<< Updated upstream
-void	render_frame(t_data	*data, t_player player, int x, int tex_x);
-/* Core raycasting loop, calculates the height of the walls*/
-void	RayCaster(t_player player);
-/* Gets the color of a pixel
-	int index - the index in texture->pixels array
-	mlx_texture_t *txt - the texture to find pixel from*/
-unsigned int get_color(mlx_texture_t *txt, int index);
-#endif
-=======
-void			ray_caster(t_player player);
+void			RayCaster(t_player player);
 void			floor_caster(t_data *data, t_ray ray, t_player player);
 /* Gets the color of a pixel
 	int index - the index in texture->pixels array
@@ -229,4 +192,3 @@ void			parse_color_line(t_data *data, char *line, int *have_f, int *have_c);
 void			parse_texture_line(t_data *data, char *line);
 
 #endif
->>>>>>> Stashed changes

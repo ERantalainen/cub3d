@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   memory_arena.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:05:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:45:27 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:19:41 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
 t_arena	**new_arena(t_arena **curr, int count, size_t n);
-
 t_arena	**get_arenas(t_arena **new)
 {
 	static t_arena	**arenas = NULL;

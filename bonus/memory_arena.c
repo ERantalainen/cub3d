@@ -6,13 +6,14 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:05:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/01 18:50:14 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 15:03:06 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "cube_bonus.h"
 
 t_arena	**new_arena(t_arena **curr, int count, size_t n);
+
 t_arena	**get_arenas(t_arena **new)
 {
 	static t_arena	**arenas = NULL;
@@ -98,7 +99,7 @@ void	*arena_malloc(size_t n)
 	uintptr_t	alignment;
 
 	arena = find_arena(n + 16);
-	start = (uintptr_t)&arena->data[arena->index];
+	start = (uintptr_t)(&arena->data[arena->index]);
 	alignment = (start + (ALIGNMENT - 1)) & ~(ALIGNMENT - 1);
 	alg_i = alignment - (uintptr_t)arena->data;
 	ret = &arena->data[alg_i];

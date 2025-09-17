@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpelline <jpelline@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 14:26:04 by jpelline          #+#    #+#             */
-/*   Updated: 2025/04/29 18:31:56 by jpelline         ###   ########.fr       */
+/*   Created: 2025/09/12 15:40:01 by erantala          #+#    #+#             */
+/*   Updated: 2025/09/12 15:40:01 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

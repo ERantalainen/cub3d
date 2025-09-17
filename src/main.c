@@ -6,25 +6,23 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:36:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/10 14:48:47 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:35:47 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-<<<<<<< Updated upstream
-int main (int argc, char **argv)
-=======
-int	main(int argc, char **argv)
->>>>>>> Stashed changes
+int main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_data	*data;
+	int		i;
 
-	data = load_default();
-	for (int i = 0; data->map[i]; i++)
-		puts(data->map[i]);
-	load_game(data);
-	return (1);
+	if (argc != 2)
+		ft_exit("Usage: ./cub3D <map.cub>", 1);
+	data = load_data(argv[1]);
+	if (!data)
+		ft_exit("Failed to load game data", 1);
+	i = 0;
+	start_game(data);
+	return (0);
 }

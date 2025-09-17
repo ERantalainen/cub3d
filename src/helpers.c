@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:04:28 by erantala          #+#    #+#             */
-/*   Updated: 2025/08/30 01:05:47 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:36:35 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	ft_exit(char *s, int code)
 	t_data	*data;
 
 	data = get_data();
-	(void)data;
+	free_data(data);
+	free_arenas();
 	(void)write(2, s, ft_strlen(s));
 	(void)write(2, "\n", 1);
-	exit(code);
+	exit (code);
 }
 
-unsigned int	make_color(unsigned int r, unsigned int g, unsigned int b,
-		unsigned int a)
+unsigned int make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
@@ -44,7 +44,7 @@ char	*ft_stradd(char *s1, char *s2)
 	i = 0;
 	pos = 0;
 	res = arena_malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	while (s1[pos])
+	while(s1[pos])
 	{
 		res[pos] = s1[pos];
 		pos++;

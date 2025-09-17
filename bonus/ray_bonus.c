@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 05:01:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/02 13:58:03 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/12 17:33:46 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static t_thr	*alloc_threads(t_thr *thr)
 	thr = arena_malloc(sizeof(t_thr) * (COUNT * 2));
 	return (thr);
 }
-time_t	get_time(void);
 
 void	multi_caster(t_data	*data)
 {

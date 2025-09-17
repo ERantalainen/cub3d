@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:48:48 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/03 18:04:18 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 14:50:55 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	*flr_mlt(void	*param)
 }
 
 static void	floor_calc(t_data *data, t_ray ray, int y, bool floor);
+
 void	*floor_caster(t_data *data, t_ray ray, int y, t_thr *thr)
 {
-	int	pos;
+	int		pos;
 	float	z;
 	bool	floor;
 
@@ -62,8 +63,8 @@ void	*floor_caster(t_data *data, t_ray ray, int y, t_thr *thr)
 
 static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 {
-	int				posX;
-	int				posY;
+	int				pos_x;
+	int				pos_y;
 	unsigned int	pixel[2];
 	int				tex_pos;
 	int				x;
@@ -71,14 +72,14 @@ static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 	x = 0;
 	while (x < WIDTH)
 	{
-		posX = (int)(ray.floorX);
-		posY = (int)(ray.floorY);
-		ray.floorTX = (int)(data->floor_txt->width * (ray.floorX - posX)) & (data->floor_txt->width - 1);
-		ray.floorTY = (int)(data->floor_txt->height * (ray.floorY - posY)) & (data->floor_txt->height - 1);
+		pos_x = (int)(ray.floorX);
+		pos_y = (int)(ray.floorY);
+		ray.floorTX = (int)(data->flr_txt->width * (ray.floorX - pos_x));
+		ray.floorTY = (int)(data->flr_txt->height * (ray.floorY - pos_y));
 		ray.floorX += ray.F_StepX;
 		ray.floorY += ray.F_StepY;
-		tex_pos = (data->floor_txt->width * ray.floorTY + ray.floorTX) * 4;
-		pixel[0] = get_color(data->floor_txt, tex_pos);
+		tex_pos = (data->flr_txt->width * ray.floorTY + ray.floorTX) * 4;
+		pixel[0] = get_color(data->flr_txt, tex_pos);
 		pixel[1] = get_color(data->ceil_txt, tex_pos);
 		if (!flr)
 			place_pixel(data->floor, pixel[1], x, y);
