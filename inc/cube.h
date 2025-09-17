@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2025/09/11 16:29:02 by erantala         ###   ########.fr       */
+=======
+/*   Updated: 2025/09/17 14:52:18 by dimendon         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +195,7 @@ void	render_minimap(t_data *data);
 /* Render the frame after raycasting math is done
 	int x - the x cordinate of the slice being rendered
 	tex_x - the x position on the texture being cassted*/
+<<<<<<< Updated upstream
 void	render_frame(t_data	*data, t_player player, int x, int tex_x);
 /* Core raycasting loop, calculates the height of the walls*/
 void	RayCaster(t_player player);
@@ -199,3 +204,29 @@ void	RayCaster(t_player player);
 	mlx_texture_t *txt - the texture to find pixel from*/
 unsigned int get_color(mlx_texture_t *txt, int index);
 #endif
+=======
+void			ray_caster(t_player player);
+void			floor_caster(t_data *data, t_ray ray, t_player player);
+/* Gets the color of a pixel
+	int index - the index in texture->pixels array
+	mlx_texture_t *txt - the texture to find pixel from*/
+unsigned int	get_color(mlx_texture_t *txt, int index);
+void			multi_caster(t_data	*data);
+
+// Parsing
+void			parse_cub_file(t_data *data, const char *filename);
+unsigned int 	parse_color(char *s);
+
+// Parsing Helpers
+char 			**read_lines(const char *filename);
+int				count_map_lines(char **lines, int start);
+
+// Parsing Utility
+int				flood_fill(char **map, int row, int col);
+void 			require_assets_present(t_data *data, int have_f, int have_c);
+int				parse_asset_line(t_data *data, char *line, int *have_f, int *have_c);
+void			parse_color_line(t_data *data, char *line, int *have_f, int *have_c);
+void			parse_texture_line(t_data *data, char *line);
+
+#endif
+>>>>>>> Stashed changes

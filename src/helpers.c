@@ -26,10 +26,11 @@ void	ft_exit(char *s, int code)
 	(void)data;
 	(void)write(2, s, ft_strlen(s));
 	(void)write(2, "\n", 1);
-	exit (code);
+	exit(code);
 }
 
-unsigned int make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
+unsigned int	make_color(unsigned int r, unsigned int g, unsigned int b,
+		unsigned int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
@@ -43,7 +44,7 @@ char	*ft_stradd(char *s1, char *s2)
 	i = 0;
 	pos = 0;
 	res = arena_malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	while(s1[pos])
+	while (s1[pos])
 	{
 		res[pos] = s1[pos];
 		pos++;

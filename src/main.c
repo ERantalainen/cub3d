@@ -12,7 +12,11 @@
 
 #include "cube.h"
 
+<<<<<<< Updated upstream
 int main (int argc, char **argv)
+=======
+int	main(int argc, char **argv)
+>>>>>>> Stashed changes
 {
 	(void)argc;
 	(void)argv;

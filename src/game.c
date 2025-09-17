@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2025/09/01 15:24:17 by erantala         ###   ########.fr       */
+=======
+/*   Updated: 2025/09/17 14:53:58 by dimendon         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	game_hook(void *param);
+void		game_hook(void *param);
 
 void	start_game(t_data *data)
 {
@@ -20,8 +24,12 @@ void	start_game(t_data *data)
 	mlx_close_hook(data->mlx, ft_close, NULL);
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
+<<<<<<< Updated upstream
 	puts("here start");
 	RayCaster(data->player);
+=======
+	ray_caster(data->player);
+>>>>>>> Stashed changes
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	render_minimap(data);
 	mlx_image_to_window(data->mlx, data->player.mm, ceil(data->player.pos[1]), round((data->player.pos[0])));
@@ -54,25 +62,36 @@ static void	compass(t_data *data)
 	free(fp);
 }
 
-void	draw_game(t_data	*data)
+void	draw_game(t_data *data)
 {
-	static double	posY = 0.0;
-	static double	posX = 0.0;
-	static double	dirX = 0.0;
-	static double	dirY = 0.0;
+	static double	pos_y = 0.0;
+	static double	pos_x = 0.0;
+	static double	dir_x = 0.0;
+	static double	dir_y = 0.0;
 
-	if ((data->player.pos[0] != posY || data->player.pos[1] != posX)
-		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
+	if ((data->player.pos[0] != pos_y || data->player.pos[1] != pos_x)
+		|| data->player.dir[1] != dir_y || data->player.dir[0] != dir_x)
 	{
 		ft_memset(data->wall_full->pixels, 0, WIDTH * HEIGHT * 4);
-		RayCaster(data->player);
+		ray_caster(data->player);
 		compass(data);
+<<<<<<< Updated upstream
 		data->player.mm->instances->x = floor(data->player.pos[1]) * 10;
 		data->player.mm->instances->y = floor(data->player.pos[0]) * 10;
 		posY = data->player.pos[0];
 		posX = data->player.pos[1];
 		dirX = data->player.dir[0];
 		dirY = data->player.dir[1];
+=======
+		data->player.mm->instances->x = floor(data->player.pos[1] * MM) - MM
+			/ 2;
+		data->player.mm->instances->y = floor(data->player.pos[0] * MM) - MM
+			/ 2;
+		pos_y = data->player.pos[0];
+		pos_x = data->player.pos[1];
+		dir_x = data->player.dir[0];
+		dir_y = data->player.dir[1];
+>>>>>>> Stashed changes
 	}
 	else
 		return ;
@@ -97,5 +116,5 @@ void	game_hook(void *param)
 		ft_look_left(data, ROT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		ft_look_right(data, ROT);
-	 draw_game(data);
+	draw_game(data);
 }
