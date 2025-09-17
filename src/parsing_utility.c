@@ -74,7 +74,6 @@ void	parse_texture_line(t_data *data, char *line)
 
 int	flood_fill(char **map, int row, int col)
 {
-
 	if (!map[row])
 		ft_exit("Invalid Map", 1);
 	if (!map[row][col] || map[row][col] == ' ')

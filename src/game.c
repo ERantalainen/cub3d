@@ -12,7 +12,7 @@
 
 #include "cube.h"
 
-void	game_hook(void *param);
+void		game_hook(void *param);
 
 void	start_game(t_data *data)
 {
@@ -51,7 +51,7 @@ static void	compass(t_data *data)
 	free(fp);
 }
 
-void	draw_game(t_data	*data)
+void	draw_game(t_data *data)
 {
 	static double	posY = 0.0;
 	static double	posX = 0.0;
@@ -64,8 +64,10 @@ void	draw_game(t_data	*data)
 		ft_memset(data->wall_full->pixels, 0, WIDTH * HEIGHT * 4);
 		RayCaster(data->player);
 		compass(data);
-		data->player.mm->instances->x = floor(data->player.pos[1] * MM) - MM / 2;
-		data->player.mm->instances->y = floor(data->player.pos[0] * MM) - MM / 2;
+		data->player.mm->instances->x = floor(data->player.pos[1] * MM) - MM
+			/ 2;
+		data->player.mm->instances->y = floor(data->player.pos[0] * MM) - MM
+			/ 2;
 		posY = data->player.pos[0];
 		posX = data->player.pos[1];
 		dirX = data->player.dir[0];
@@ -94,5 +96,5 @@ void	game_hook(void *param)
 		ft_look_left(data, ROT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		ft_look_right(data, ROT);
-	 draw_game(data);
+	draw_game(data);
 }
