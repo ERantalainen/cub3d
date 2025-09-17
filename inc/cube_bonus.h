@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 18:29:16 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 18:35:53 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@
 
 # define ARENA_SIZE 32768
 # define ALIGNMENT 16
+
+typedef unsigned int t_uint;
 
 typedef struct s_arena
 {

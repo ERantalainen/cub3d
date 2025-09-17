@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 21:24:24 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 17:28:27 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 18:37:01 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	mini_helper(t_data *data, unsigned int color, int x, int y)
 	int				row;
 	unsigned int	edge;
 
-	edge =  make_color(255, 0, 0, 255);
+	edge = make_color(255, 0, 0, 255);
 	row = 0;
 	while (row < MM)
 	{
@@ -74,7 +74,8 @@ void	render_minimap(t_data *data)
 			if (data->map[y][x] == '1')
 				mini_helper(data, make_color(0, 0, 0, 255), y * MM, x * MM);
 			else if (data->map[y][x] != ' ')
-				mini_helper(data, make_color(255, 255, 255, 255), y * MM, x * MM);
+				mini_helper(data, make_color(255, 255,
+						255, 255), y * MM, x * MM);
 			x++;
 		}
 		y++;
