@@ -6,51 +6,32 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:48:06 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/20 22:50:27 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-static void	require_assets_present(t_data *data, int have_f, int have_c)
+static void	validate_map_line(const char *line)
 {
-	if (!data->wall_txt[NO] || !data->wall_txt[SO] || !data->ceil_txt
-		|| !data->wall_txt[WE] || !data->wall_txt[EA] || !data->flr_txt)
-		ft_exit("Error: missing one or more wall textures (NO/SO/WE/EA)", 1);
-	if (have_f == 0 || have_c == 0)
-		ft_exit("Error: missing floor or ceiling color (F/C)", 1);
+	int	i;
+
+	i = 0;
+	while (line && line[i])
+	{
+		if (!ft_strchr(" 01NSEW", line[i]))
+			ft_exit("Error: invalid character in map", 1);
+		i++;
+	}
 }
 
-static void	parse_texture_line(t_data *data, char *line)
+unsigned int	parse_color(char *s)
 {
-	if (!ft_strncmp(line, "NO ", 3))
-		data->wall_txt[NO] = mlx_load_png(line + 3);
-	else if (!ft_strncmp(line, "SO ", 3))
-		data->wall_txt[SO] = mlx_load_png(line + 3);
-	else if (!ft_strncmp(line, "WE ", 3))
-		data->wall_txt[WE] = mlx_load_png(line + 3);
-	else if (!ft_strncmp(line, "EA ", 3))
-		data->wall_txt[EA] = mlx_load_png(line + 3);
-	else if (!ft_strncmp(line, "FT ", 3))
-		data->flr_txt = mlx_load_png(line + 3);
-	else if (!ft_strncmp(line, "CT ", 3))
-		data->ceil_txt = mlx_load_png(line + 3);
-	if ((!ft_strncmp(line, "NO ", 3) && !data->wall_txt[NO])
-		|| (!ft_strncmp(line, "SO ", 3) && !data->wall_txt[SO])
-		|| (!ft_strncmp(line, "WE ", 3) && !data->wall_txt[WE])
-		|| (!ft_strncmp(line, "EA ", 3) && !data->wall_txt[EA])
-		|| (!ft_strncmp(line, "FT ", 3) && !data->flr_txt)
-		|| (!ft_strncmp(line, "CT ", 3) && !data->ceil_txt))
-		ft_exit("Error loading wall texture", 1);
-}
-
-static unsigned int parse_color(char *s)
-{
-		char			**rgb;
-		unsigned int	r;
-		unsigned int	g;
-		unsigned int	b;
-		int			 i;
+	char			**rgb;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+	int				i;
 
 	while (*s == ' ' || *s == '\t')
 		s++;
@@ -69,75 +50,72 @@ static unsigned int parse_color(char *s)
 	free(rgb);
 	if (r > 255 || g > 255 || b > 255)
 		ft_exit("Error: color values must be between 0 and 255", 1);
-	return make_color(r, g, b, 255);
+	return (make_color(r, g, b, 255));
 }
 
-static void	parse_color_line(t_data *data, char *line, int *have_f, int *have_c)
+static void	parse_assets(t_data *data, char **lines, int *map_start)
 {
-	if (!ft_strncmp(line, "F ", 2))
+	int		j;
+	int		have_f;
+	int		have_c;
+	char	*line;
+
+	have_f = 0;
+	have_c = 0;
+	j = 0;
+	while (lines[j])
 	{
-		data->f_c = parse_color(line + 2);
-		*have_f = 1;
+		line = lines[j];
+		if (line[0] == '\0')
+		{
+			free(line);
+			j++;
+			continue ;
+		}
+		if (!parse_asset_line(data, line, &have_f, &have_c))
+			break ;
+		free(line);
+		j++;
 	}
-	else if (!ft_strncmp(line, "C ", 2))
-	{
-		data->r_c = parse_color(line + 2);
-		*have_c = 1;
-	}
+	*map_start = j;
+	require_assets_present(data, have_f, have_c);
 }
 
-static void	parse_map_line(t_data *data, char *line, int *i)
+static void	parse_map(t_data *data, char **lines, int start)
 {
-	if (line[0] != '\0')
+	int	i;
+	int	j;
+	int	map_lines;
+
+	map_lines = count_map_lines(lines, start);
+	data->map = malloc(sizeof(char *) * (map_lines + 1));
+	if (!data->map)
+		ft_exit("Error allocating map array", 1);
+	i = 0;
+	j = start;
+	while (lines[j])
 	{
-		data->map[*i] = ft_strdup(line);
-		if (!data->map[*i])
+		validate_map_line(lines[j]);
+		data->map[i] = ft_strdup(lines[j]);
+		if (!data->map[i])
 			ft_exit("Error duplicating map line", 1);
-		(*i)++;
+		free(lines[j]);
+		i++;
+		j++;
 	}
+	data->map[i] = NULL;
+	data->map_h = map_lines;
 }
 
 void	parse_cub_file(t_data *data, const char *filename)
 {
 	char	**lines;
-	int		line_count;
-	int		i;
-	int		j;
-	int		have_f;
-	int		have_c;
+	int		map_start;
 
-	lines = read_lines(filename, &line_count);
-	if (line_count == 0)
+	lines = read_lines(filename);
+	if (!lines || !lines[0])
 		ft_exit("Error: empty .cub file", 1);
-	data->map = malloc(sizeof(char *) * (line_count + 1));
-	if (!data->map)
-		ft_exit("Error allocating map array", 1);
-	i = 0;
-	have_f = 0;
-	have_c = 0;
-	j = 0;
-	while (j < line_count)
-	{
-		char *line = lines[j];
-
-		if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
-			|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
-			parse_texture_line(data, line);
-		else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
-			parse_color_line(data, line, &have_f, &have_c);
-		else if (!ft_strncmp(line, "FT ", 3) || !ft_strncmp(line, "CT ", 3))
-		{
-			parse_texture_line(data, line);
-		}
-		else
-			parse_map_line(data, line, &i);
-		free(line);
-		j++;
-	}
+	parse_assets(data, lines, &map_start);
+	parse_map(data, lines, map_start);
 	free(lines);
-	data->map[i] = NULL;
-	data->map_h = i;
-	if (data->map_h == 0)
-		ft_exit("Error: no map data found in .cub", 1);
-	require_assets_present(data, have_f, have_c);
 }
