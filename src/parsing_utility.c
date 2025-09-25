@@ -5,20 +5,71 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/12 15:34:53 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:47:01 by dimendon         ###   ########.fr       */
+/*   Created: 2025/09/17 16:05:09 by erantala          #+#    #+#             */
+/*   Updated: 2025/09/25 19:05:41 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
+static void	parse_color_line(t_data *data, char *line, int *have_f, int *have_c)
+{
+	if (!ft_strncmp(line, "F ", 2))
+	{
+		data->f_c = parse_color(line + 2, 'F');
+		*have_f = 1;
+	}
+	else if (!ft_strncmp(line, "C ", 2))
+	{
+		data->r_c = parse_color(line + 2, 'C');
+		*have_c = 1;
+	}
+}
+
+static void	parse_texture_line(t_data *data, char *line)
+{
+	int	tex_index;
+	int	count;
+
+	while (*line == ' ' || *line == '\t')
+		line++;
+
+	if (!ft_strncmp(line, "NO", 2))
+		tex_index = NO;
+	else if (!ft_strncmp(line, "SO", 2))
+		tex_index = SO;
+	else if (!ft_strncmp(line, "WE", 2))
+		tex_index = WE;
+	else if (!ft_strncmp(line, "EA", 2))
+		tex_index = EA;
+	else
+		ft_exit("Error: invalid texture identifier", 1);
+
+	line += 2;
+	count = 0;
+	while (line[count] == ' ' || line[count] == '\t')
+		count++;
+	if (data->wall_txt[tex_index])
+		ft_exit("Error: duplicate wall texture", 1);
+	data->wall_txt[tex_index] = mlx_load_png(line + count);
+	error_check(data->wall_txt[tex_index], tex_index);
+}
+
 void	require_assets_present(t_data *data, int have_f, int have_c)
 {
-	if (!data->wall_txt[NO] || !data->wall_txt[SO] || !data->wall_txt[WE]
-		|| !data->wall_txt[EA])
-		ft_exit("Error: missing one or more wall textures (NO/SO/WE/EA)", 1);
-	if (have_f == 0 || have_c == 0)
-		ft_exit("Error: missing floor or ceiling color (F/C)", 1);
+	if (!data->wall_txt[NO])
+		ft_exit("Error: missing north wall texture (NO)", 1);
+	if (!data->wall_txt[SO])
+		ft_exit("Error: missing south wall texture (SO)", 1);
+	if (!data->wall_txt[WE])
+		ft_exit("Error: missing west wall texture (WE)", 1);
+	if (!data->wall_txt[EA])
+		ft_exit("Error: missing east wall texture (EA)", 1);
+
+	if (!have_f)
+		ft_exit("Error: missing floor color (F)", 1);
+	if (!have_c)
+		ft_exit("Error: missing ceiling color (C)", 1);
 }
 
 int	parse_asset_line(t_data *data, char *line, int *have_f, int *have_c)
@@ -38,41 +89,10 @@ int	parse_asset_line(t_data *data, char *line, int *have_f, int *have_c)
 	{
 		return (1);
 	}
-    else if (ft_strchr(" 01NSEW", line[0]))
+	else if (ft_strchr(" 01NSEW", line[0]))
 		return (0);
 	ft_exit("Error: invalid line in asset section of .cub file", 1);
 	return (0);
-}
-
-void	parse_color_line(t_data *data, char *line, int *have_f, int *have_c)
-{
-	if (!ft_strncmp(line, "F ", 2))
-	{
-		data->f_c = parse_color(line + 2);
-		*have_f = 1;
-	}
-	else if (!ft_strncmp(line, "C ", 2))
-	{
-		data->r_c = parse_color(line + 2);
-		*have_c = 1;
-	}
-}
-
-void	parse_texture_line(t_data *data, char *line)
-{
-	if (!ft_strncmp(line, "NO ", 3))
-		data->wall_txt[NO] = mlx_load_png(line + 3);
-	else if (!ft_strncmp(line, "SO ", 3))
-		data->wall_txt[SO] = mlx_load_png(line + 3);
-	else if (!ft_strncmp(line, "WE ", 3))
-		data->wall_txt[WE] = mlx_load_png(line + 3);
-	else if (!ft_strncmp(line, "EA ", 3))
-		data->wall_txt[EA] = mlx_load_png(line + 3);
-	if ((!ft_strncmp(line, "NO ", 3) && !data->wall_txt[NO])
-		|| (!ft_strncmp(line, "SO ", 3) && !data->wall_txt[SO])
-		|| (!ft_strncmp(line, "WE ", 3) && !data->wall_txt[WE])
-		|| (!ft_strncmp(line, "EA ", 3) && !data->wall_txt[EA]))
-		ft_exit("Error loading wall texture", 1);
 }
 
 int	flood_fill(char **map, int row, int col)
@@ -81,7 +101,9 @@ int	flood_fill(char **map, int row, int col)
 		ft_exit("Invalid Map", 1);
 	if (!map[row][col] || map[row][col] == ' ')
 		ft_exit("Invalid Map", 1);
-	if (map[row][col] == '1' || map[row][col] == 'V')
+	if (map[row][col] == '1' || map[row][col] == 'V'
+		|| map[row][col] == 'N' || map[row][col] == 'S'
+		|| map[row][col] == 'E' || map[row][col] == 'W')
 		return (0);
 	map[row][col] = 'V';
 	flood_fill(map, row + 1, col);

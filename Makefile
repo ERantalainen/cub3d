@@ -20,12 +20,12 @@ SRCF = main.c data.c camera.c helpers.c memory_arena.c \
 	game_load.c game_load_helpers.c game.c rayCast.c image.c \
 	parsing.c parsing_helpers.c minimap.c parsing_utility.c
 
-SRBF = main_bonus.c data_bonus.c camera_bonus.c default_bonus.c helpers_bonus.c memory_arena.c \
+SRBF = main_bonus.c data_bonus.c camera_bonus.c helpers_bonus.c memory_arena.c \
 	memory_arena_helpers.c movement_bonus.c \
 	load_bonus.c game_bonus.c cast_bonus.c image_bonus.c \
 	minimap_bonus.c \
 	ray_bonus.c floor_bonus.c key_hook.c parsing_helpers_bonus.c \
-	parsing_bonus.c parsing_utility_bonus.c game_load_bonus.c game_load_helpers_bonus.c
+	parsing_bonus.c parsing_utility_bonus.c game_load_bonus.c game_load_helpers_bonus.c \
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCF))
 SRCB = $(addprefix $(BN_DIR), $(SRBF))
@@ -38,7 +38,7 @@ INC = ./inc
 NAME = cub3d
 BNAME = cub3d_bonus
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -pthread -Iinc -Ilibft -I./MLX42/include/MLX42/ 
+CFLAGS = -Wall -Wextra -Werror -pthread -Iinc -Ilibft -I./MLX42/include/MLX42/
 EFLAGS = -Llibft -lft -L./MLX42/build -ldl -lglfw -pthread -lm
 MAKE = @make -s
 MLX42 = MLX42/build/libmlx42.a

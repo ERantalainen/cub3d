@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:48:48 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:50:55 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/20 22:47:06 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,15 @@ static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 	int				tex_pos;
 	int				x;
 
-	x = 0;
-	while (x < WIDTH)
+	x = -1;
+	while (++x < WIDTH)
 	{
 		pos_x = (int)(ray.floorX);
 		pos_y = (int)(ray.floorY);
-		ray.floorTX = (int)(data->flr_txt->width * (ray.floorX - pos_x));
-		ray.floorTY = (int)(data->flr_txt->height * (ray.floorY - pos_y));
+		ray.floorTX = (int)(data->flr_txt->width * (ray.floorX - pos_x))
+			& (data->flr_txt->width - 1);
+		ray.floorTY = (int)(data->flr_txt->height * (ray.floorY - pos_y))
+			& (data->flr_txt->height - 1);
 		ray.floorX += ray.F_StepX;
 		ray.floorY += ray.F_StepY;
 		tex_pos = (data->flr_txt->width * ray.floorTY + ray.floorTX) * 4;
@@ -85,6 +87,5 @@ static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 			place_pixel(data->floor, pixel[1], x, y);
 		else
 			place_pixel(data->floor, pixel[0], x, y);
-		x++;
 	}
 }

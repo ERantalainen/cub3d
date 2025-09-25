@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:48:08 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/21 23:15:32 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,35 +61,14 @@
 # define ARENA_SIZE 32768
 # define ALIGNMENT 16
 
+typedef unsigned int t_uint;
+
 typedef struct s_arena
 {
 	size_t		max;
 	size_t		index;
 	char		data[];
 }				t_arena;
-
-typedef	struct s_sprite
-{
-	double			x;
-	double			y;
-	mlx_texture_t	*txt;
-}	t_sprite;
-
-typedef	struct s_sprite_data
-{
-	int				order[20];
-	double			sp_dist[20];
-	t_sprite		sp[20];
-	double			inv;
-	double			z_dist[WIDTH];
-	int				startY;
-	int				endY;
-	int				startX;
-	int				endX;
-	double			trX;
-	double			trY;
-}	t_sp_data;
-
 
 typedef	struct s_ray
 {
@@ -153,7 +132,6 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
-	t_sp_data		*sps;
 	mlx_image_t		*floor;
 	unsigned int	**wabuffer;
 	unsigned int	**buffer;
@@ -236,10 +214,18 @@ void			multi_caster(t_data	*data);
 
 // Parsing
 void			parse_cub_file(t_data *data, const char *filename);
+unsigned int 	parse_color(char *s);
 
 // Parsing Helpers
-char 			**read_lines(const char *filename, int *count);
-int		flood_fill(char **map, int row, int col);
+char 			**read_lines(const char *filename);
+int				count_map_lines(char **lines, int start);
+
+// Parsing Utility
+int				flood_fill(char **map, int row, int col);
+void 			require_assets_present(t_data *data, int have_f, int have_c);
+int				parse_asset_line(t_data *data, char *line, int *have_f, int *have_c);
+void			parse_color_line(t_data *data, char *line, int *have_f, int *have_c);
+void			parse_texture_line(t_data *data, char *line);
 
 void			render_frame(t_player pr, int x, int dir);
 void			raycaster(t_player player, int x, int max);

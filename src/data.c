@@ -6,22 +6,22 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:43:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 17:06:19 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/09/25 19:27:07 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-t_data	*get_data(void)
+t_data  *get_data(void)
 {
-	static t_data	data;
+	static t_data   data;
 
 	return (&data);
 }
 
 void	init_mlx_and_data(t_data *data)
 {
-	mlx_t	*mlx;
+	mlx_t *mlx;
 
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
@@ -44,7 +44,6 @@ void	free_data(t_data *data)
 {
 	if (data->map)
 		ft_frearr((void **)data->map, data->map_h);
-		
 	if (data->wall_txt[0])
 		mlx_delete_texture(data->wall_txt[0]);
 	if (data->wall_txt[1])
@@ -55,4 +54,6 @@ void	free_data(t_data *data)
 		mlx_delete_texture(data->wall_txt[3]);
 	if (data->mlx)
 		mlx_terminate(data->mlx);
+	if (data->lines)
+        free(data->lines);
 }

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:17:09 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:27:23 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:04:07 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	draw_roof(t_data *data, int high, int y, int x)
 static void	draw_floor(t_data *data, int low, int y, int x)
 {
 	if (y > low && y < HEIGHT)
-		mlx_put_pixel(data->wall_full, x, y, data->f_c);
+			mlx_put_pixel(data->wall_full, x, y, data->f_c);
 }
 
 static void	make_roof(t_data *data, t_player player, int x)

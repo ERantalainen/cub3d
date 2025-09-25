@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 15:54:51 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/09/25 19:12:59 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_data
 	t_player		player;
 	mlx_image_t		*wall_full;
 	mlx_image_t		*minimap;
+	char 			**lines;
 }	t_data;
 
 typedef struct s_spawn
@@ -168,8 +169,7 @@ void			render_frame(t_data	*data, t_player player, int x, int tex_x);
 /* Render the frame after raycasting math is done
 	int x - the x cordinate of the slice being rendered
 	tex_x - the x position on the texture being cassted*/
-void			RayCaster(t_player player);
-void			floor_caster(t_data *data, t_ray ray, t_player player);
+	void	raycaster(t_player player);
 /* Gets the color of a pixel
 	int index - the index in texture->pixels array
 	mlx_texture_t *txt - the texture to find pixel from*/
@@ -178,17 +178,17 @@ void			multi_caster(t_data	*data);
 
 // Parsing
 void			parse_cub_file(t_data *data, const char *filename);
-unsigned int 	parse_color(char *s);
+unsigned int 	parse_color(char *s, char id);
 
 // Parsing Helpers
 char 			**read_lines(const char *filename);
 int				count_map_lines(char **lines, int start);
+void			check_digits_only(char *s, char id);
+void			error_check(void *tex_ptr, int tex_index);
 
 // Parsing Utility
 int				flood_fill(char **map, int row, int col);
 void 			require_assets_present(t_data *data, int have_f, int have_c);
 int				parse_asset_line(t_data *data, char *line, int *have_f, int *have_c);
-void			parse_color_line(t_data *data, char *line, int *have_f, int *have_c);
-void			parse_texture_line(t_data *data, char *line);
 
 #endif

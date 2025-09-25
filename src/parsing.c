@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:57:04 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/09/25 19:14:07 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	validate_map_line(const char *line)
 	}
 }
 
-unsigned int	parse_color(char *s)
+unsigned int	parse_color(char *s, char id)
 {
 	char			**rgb;
 	unsigned int	r;
@@ -34,6 +34,7 @@ unsigned int	parse_color(char *s)
 
 	while (*s == ' ' || *s == '\t')
 		s++;
+	check_digits_only(s, id);
 	rgb = ft_split(s, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
 		ft_exit("Error: invalid color format", 1);
@@ -110,11 +111,27 @@ void	parse_cub_file(t_data *data, const char *filename)
 {
 	char	**lines;
 	int		map_start;
+	int		i;
+	int		j;
 
 	lines = read_lines(filename);
+	data->lines = lines;
 	if (!lines || !lines[0])
 		ft_exit("Error: empty .cub file", 1);
 	parse_assets(data, lines, &map_start);
 	parse_map(data, lines, map_start);
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == '0')
+				flood_fill(data->map, i, j);
+			j++;
+		}
+		i++;
+	}
 	free(lines);
+	data->lines = NULL;
 }

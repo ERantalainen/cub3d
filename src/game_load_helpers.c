@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_load_helpers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:00:09 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:03:41 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

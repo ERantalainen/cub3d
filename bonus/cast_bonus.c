@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:45:37 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/21 23:15:09 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static void	wall_dist(t_player *player, int dir, int x);
 void	raycaster(t_player player, int x, int max)
 {
 	double	camera_x;
-	t_data	*data;
 
-	data = get_data();
 	while (x < max)
 	{
 		player.map_pos[0] = (int)player.pos[0];

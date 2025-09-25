@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 21:26:37 by jpelline          #+#    #+#             */
-/*   Updated: 2025/09/17 15:01:50 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:41:54 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	free_arenas(void)
 
 	i = 0;
 	arenas = get_arenas(NULL);
+	if (!arenas)
+		return ;
 	while (arenas[i])
 	{
 		free(arenas[i]);

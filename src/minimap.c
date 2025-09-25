@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 21:24:24 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/10 17:15:08 by dimendon         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   minimap.c										  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: erantala <erantala@student.hive.fi>		+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/08/21 21:24:24 by erantala		  #+#	#+#			 */
+/*   Updated: 2025/09/17 16:05:37 by erantala		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "cube.h"
@@ -50,8 +50,8 @@ void	make_player(t_data *data)
 			col = 0;
 			while (col < MM - 1)
 			{
-				mlx_put_pixel(data->player.mm, col, row, make_color(0, 255, 0,
-						255));
+				mlx_put_pixel(data->player.mm, col, row,
+					make_color(0, 255, 0, 255));
 				col++;
 			}
 			row++;
@@ -70,18 +70,20 @@ void	render_minimap(t_data *data)
 		x = 0;
 		while (data->map[y][x])
 		{
-			if (data->map[y][x] == '1')
-				mini_helper(data, make_color(0, 0, 0, 255), y * MM, x * MM);
-			else if (data->map[y][x] != ' ')
-				mini_helper(data, make_color(255, 255, 255, 255), y * MM, x
-					* MM);
+						if (data->map[y][x] == '1')
+								mini_helper(data, make_color(0, 0, 0, 255), y * MM, x * MM);
+						else if (data->map[y][x] != ' ')
+								mini_helper(data, make_color(255, 255, 255, 255), y * MM, x * MM);
 			x++;
 		}
 		y++;
 	}
 	mlx_image_to_window(data->mlx, data->minimap, 0, 0);
 	mlx_set_instance_depth(data->minimap->instances, 1);
-	mlx_image_to_window(data->mlx, data->player.mm, (int)(data->player.pos[1]
-			* MM) - (MM / 2), (int)(data->player.pos[0] * MM) - (MM / 2));
+
+	mlx_image_to_window(data->mlx, data->player.mm,
+				(int)(data->player.pos[1] * MM) - (MM / 2),
+				(int)(data->player.pos[0] * MM) - (MM / 2));
 	mlx_set_instance_depth(data->player.mm->instances, 2);
 }
+

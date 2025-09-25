@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 05:01:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 17:33:46 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/20 22:51:19 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static t_thr	*alloc_threads(t_thr *thr)
 
 void	multi_caster(t_data	*data)
 {
-	static t_thr *thr = NULL;
-	int			i;
+	static t_thr	*thr = NULL;
+	int				i;
 
 	i = 0;
 	if (!thr)

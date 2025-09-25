@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:16:48 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:17:12 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 15:12:00 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	calc_step(t_player *pr, int x);
 static void	dda(t_player *player, int x);
 static void	wall_dist(t_player *player, int dir, int x);
 
-void	RayCaster(t_player player)
+void	raycaster(t_player player)
 {
 	int		x;
 	double	cameraX;

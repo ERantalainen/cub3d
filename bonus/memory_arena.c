@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:05:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 15:03:06 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/17 18:28:42 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,20 @@ t_arena	*find_arena(size_t n)
 
 void	*arena_malloc(size_t n)
 {
-	t_arena		*arena;
-	void		*ret;
-	size_t		alg_i;
-	uintptr_t	start;
-	uintptr_t	alignment;
+	t_arena					*arena;
+	size_t					alg_i;
+	uintptr_t				start;
+	uintptr_t				alignment;
+	static pthread_mutex_t	*lock = NULL;
 
+	if (lock == NULL)
+		pthread_mutex_init(lock, NULL);
+	pthread_mutex_lock(lock);
 	arena = find_arena(n + 16);
 	start = (uintptr_t)(&arena->data[arena->index]);
 	alignment = (start + (ALIGNMENT - 1)) & ~(ALIGNMENT - 1);
 	alg_i = alignment - (uintptr_t)arena->data;
-	ret = &arena->data[alg_i];
 	arena->index = alg_i + n;
-	return (ret);
+	pthread_mutex_unlock(lock);
+	return (&arena->data[alg_i]);
 }

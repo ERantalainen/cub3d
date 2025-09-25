@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/12 14:13:31 by erantala         ###   ########.fr       */
+/*   Updated: 2025/09/21 23:10:41 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	start_game(t_data *data)
 	mlx_close_hook(data->mlx, ft_close, NULL);
 	mlx_loop_hook(data->mlx, game_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
-	RayCaster(data->player);
+	raycaster(data->player);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	render_minimap(data);
 	mlx_loop(data->mlx);
@@ -62,12 +62,10 @@ void	draw_game(t_data *data)
 		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
 	{
 		ft_memset(data->wall_full->pixels, 0, WIDTH * HEIGHT * 4);
-		RayCaster(data->player);
+		raycaster(data->player);
 		compass(data);
-		data->player.mm->instances->x = floor(data->player.pos[1] * MM) - MM
-			/ 2;
-		data->player.mm->instances->y = floor(data->player.pos[0] * MM) - MM
-			/ 2;
+		data->player.mm->instances->x = floor(data->player.pos[1] * MM) - MM / 2;
+		data->player.mm->instances->y = floor(data->player.pos[0] * MM) - MM / 2;
 		posY = data->player.pos[0];
 		posX = data->player.pos[1];
 		dirX = data->player.dir[0];
