@@ -38,7 +38,7 @@ INC = ./inc
 NAME = cub3d
 BNAME = cub3d_bonus
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -pthread -Iinc -Ilibft -I./MLX42/include/MLX42/
+CFLAGS = -Wall -Wextra -Werror -pthread -Iinc -Ilibft -I./MLX42/include/MLX42/ -fsanitize=address
 EFLAGS = -Llibft -lft -L./MLX42/build -ldl -lglfw -pthread -lm
 MAKE = @make -s
 MLX42 = MLX42/build/libmlx42.a

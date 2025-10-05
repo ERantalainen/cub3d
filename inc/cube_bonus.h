@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/21 23:15:32 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:27:10 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ void			ft_move_west(t_data *data, float speed);
 void			ft_move_east(t_data *data, float speed);
 void			render_minimap(t_data *data);
 void			key_hook(mlx_key_data_t keydata, void *param);
+void			set_player_pos(t_data *data);
 
 // RayCasting
 

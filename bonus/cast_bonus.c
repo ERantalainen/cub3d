@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:58:59 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/21 23:15:09 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:30:11 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ static void	dda(t_player *player, int x)
 			player->map_pos[0] += player->ray.stepY;
 			player->ray.side = 1;
 		}
+		if (!data->map[player->map_pos[0]][player->map_pos[1]])
+			break ;
 		if (data->map[player->map_pos[0]][player->map_pos[1]] == '1')
 			break ;
 	}

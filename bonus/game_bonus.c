@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 23:07:32 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:52:51 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:28:11 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	start_game(t_data *data)
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
 	mlx_set_instance_depth(data->wall_full->instances, 1);
 	render_minimap(data);
+	mlx_image_to_window(data->mlx, data->minimap, 0, 0);
+	mlx_set_instance_depth(data->minimap->instances, 2);
 	mlx_image_to_window(data->mlx, data->player.mm, 1, 1);
 	mlx_set_instance_depth(data->player.mm->instances, 3);
 	mlx_loop(data->mlx);
@@ -61,6 +63,7 @@ static void	clear(t_data *data)
 {
 	ft_memset(data->floor->pixels, 0, sizeof(data->floor->pixels));
 	ft_memset(data->wall_full->pixels, 0, (WIDTH * HEIGHT) * 4);
+	ft_memset(data->minimap->pixels, 0, sizeof(data->minimap->pixels));
 }
 
 void	draw_game(t_data	*data)
@@ -78,8 +81,8 @@ void	draw_game(t_data	*data)
 		clear(data);
 		multi_caster(data);
 		compass(data);
-		data->player.mm->instances->x = floor(data->player.pos[1]) * MM;
-		data->player.mm->instances->y = floor(data->player.pos[0]) * MM;
+		render_minimap(data);
+		set_player_pos(data);
 		pos_y = data->player.pos[0];
 		pos_x = data->player.pos[1];
 		dir_x = data->player.dir[0];
