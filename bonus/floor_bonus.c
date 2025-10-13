@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:48:48 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/20 22:47:06 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/13 03:48:01 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,21 @@ void	*flr_mlt(void	*param)
 	t_data	*data;
 	int		max;
 	int		start;
+	t_ray	ray;
 
 	data = get_data();
 	thread = (t_thr *)param;
+	ray = data->player.ray;
 	start = thread->n * VSLICE;
 	if (thread->n == 0)
 		start += 1;
 	max = (VSLICE * (thread->n + 1));
 	thread->max = max;
-	data->player.ray.rayDirX[0] = data->player.pdx - data->player.planeX;
-	data->player.ray.rayDirX[1] = data->player.pdx + data->player.planeX;
-	data->player.ray.rayDirY[0] = data->player.pdy - data->player.planeY;
-	data->player.ray.rayDirY[1] = data->player.pdy + data->player.planeY;
-	floor_caster(data, data->player.ray, start, thread);
+	ray.rayDirX[0] = data->player.pdx - data->player.planeX;
+	ray.rayDirX[1] = data->player.pdx + data->player.planeX;
+	ray.rayDirY[0] = data->player.pdy - data->player.planeY;
+	ray.rayDirY[1] = data->player.pdy + data->player.planeY;
+	floor_caster(data, ray, start, thread);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/10/05 16:00:04 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/13 03:34:19 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	set_player_spawn(t_data *data)
 static void	init_player_and_images(t_data *data)
 {
 	ft_memset(&data->player, 0, sizeof(t_player));
-	ft_memset(&data->player.ray, 0, sizeof(t_ray));
 	set_player_spawn(data);
 	make_player(data);
 	data->minimap = mlx_new_image(data->mlx, 11 * MM,

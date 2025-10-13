@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/10/05 16:27:10 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/13 03:42:28 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ typedef	struct s_player
 	double		dir[2];
 	double		pitch;
 	double		angleX;
-	double		angleY;
-	double		planeX;
-	double		planeY;
-	double		pdx;
-	double		pdy;
-	t_ray		ray;
+	double				angleY;
+	double				planeX;
+	double				planeY;
+	double				pdx;
+	double				pdy;
+	volatile t_ray		ray;
 	mlx_image_t	*mm;
 	mlx_image_t	*arrow;
 }	t_player;
