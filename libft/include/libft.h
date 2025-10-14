@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:02:54 by jpelline          #+#    #+#             */
-/*   Updated: 2025/09/12 15:51:38 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:06:31 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_strdup(const char *s);
 char				*ft_strndup(char *s, size_t n);
 int					ft_strcmp(const char *s1, const char *s2);
+size_t				ft_stralen(char **s);
 int					ft_countchar(char *s, int c);
 
 // PART 2

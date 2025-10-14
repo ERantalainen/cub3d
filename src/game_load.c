@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:03:52 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:58:12 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	set_player_spawn(t_data *data)
 	t_spawn	spawn;
 
 	spawn = find_spawn(data->map, data->map_h);
-	// Centering
 	data->player.pos[0] = spawn.row + 0.5;
 	data->player.pos[1] = spawn.col + 0.5;
 	set_player_direction(data, spawn.c);
@@ -29,7 +28,6 @@ static void	init_player_and_images(t_data *data)
 	ft_memset(&data->player, 0, sizeof(t_player));
 	ft_memset(&data->player.ray, 0, sizeof(t_ray));
 	set_player_spawn(data);
-	make_player(data);
 	data->minimap = mlx_new_image(data->mlx, data->map_w * MM, data->map_h
 			* MM);
 	if (!data->minimap)
@@ -57,7 +55,7 @@ static void	set_map_dimensions(t_data *data)
 
 t_data	*load_data(const char *filename)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = get_data();
 	init_mlx_and_data(data);

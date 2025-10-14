@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:29:43 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 17:08:10 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:12:35 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define ARENA_SIZE 32768
 # define ALIGNMENT 8
 
+typedef unsigned int	t_uint;
+
 typedef struct s_arena
 {
 	size_t		max;
@@ -46,45 +48,44 @@ typedef struct s_arena
 	char		data[];
 }				t_arena;
 
-typedef	struct s_ray
+typedef struct s_ray
 {
-	double	rayX;
-	double	rayY;
-	double	sideX;
-	double	sideY;
-	double	deltaX;
-	double	deltaY;
-	int		stepX;
-	int		stepY;
+	double	ray_x;
+	double	ray_y;
+	double	side_x;
+	double	side_y;
+	double	delta_x;
+	double	delta_y;
+	int		step_x;
+	int		step_y;
 	double	distance;
 	long	height;
 	int		bottom;
-	long		top;
+	long	top;
 	double	point;
 	int		tex_x;
 	int		side;
 	int		txt_size;
-	float	rayDirX[2];
-	float	rayDirY[2];
-	float	F_StepX;
-	float	F_StepY;
-	float	floorX;
-	float	floorY;
+	float	ray_dirx[2];
+	float	ray_diry[2];
+	float	f_stepx;
+	float	f_stepy;
+	float	floor_x;
+	float	floor_y;
 	float	f_dist;
-	int		floorTX;
-	int		floorTY;
+	int		floor_tx;
+	int		floor_ty;
 }	t_ray;
 
-
-typedef	struct s_player
+typedef struct s_player
 {
 	double		pos[2];
 	int			map_pos[2];
 	double		dir[2];
-	double		angleX;
-	double		angleY;
-	double		planeX;
-	double		planeY;
+	double		angle_x;
+	double		angle_y;
+	double		plane_x;
+	double		plane_y;
 	double		pdx;
 	double		pdy;
 	t_ray		ray;
@@ -109,19 +110,19 @@ typedef struct s_data
 
 typedef struct s_spawn
 {
-	int  row;
-	int  col;
-	char c;
+	int		row;
+	int		col;
+	char	c;
 }	t_spawn;
 
 // Data
 
 /*Returns a pointer to the data struct*/
-t_data			*get_data();
+t_data			*get_data(void);
 void			init_mlx_and_data(t_data *data);
 
 /* Frees the data struct pointed to by t_data *data*/
-void	free_data(t_data *data);
+void			free_data(t_data *data);
 
 // Utility
 
@@ -141,7 +142,7 @@ char			*ft_stradd(char *s1, char *s2);
 	unsigned char g - green channel
 	unsigned char b - blue channel
 	unsigned char a - alpha channel */
-unsigned int	make_color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+unsigned int	make_color(t_uint r, t_uint g, unsigned int b, unsigned int a);
 
 // Setting up game
 
@@ -168,7 +169,7 @@ void			render_frame(t_data	*data, t_player player, int x, int tex_x);
 /* Render the frame after raycasting math is done
 	int x - the x cordinate of the slice being rendered
 	tex_x - the x position on the texture being cassted*/
-	void	raycaster(t_player player);
+void			raycaster(t_player player);
 /* Gets the color of a pixel
 	int index - the index in texture->pixels array
 	mlx_texture_t *txt - the texture to find pixel from*/
@@ -177,17 +178,17 @@ void			multi_caster(t_data	*data);
 
 // Parsing
 void			parse_cub_file(t_data *data, const char *filename);
-unsigned int 	parse_color(char *s);
+unsigned int	parse_color(char *s);
 
 // Parsing Helpers
-char 			**read_lines(const char *filename);
+char			**read_lines(const char *filename);
 int				count_map_lines(char **lines, int start);
 
 // Parsing Utility
 int				flood_fill(char **map, int row, int col);
-void 			require_assets_present(t_data *data, int have_f, int have_c);
-int				parse_asset_line(t_data *data, char *line, int *have_f, int *have_c);
-void			parse_color_line(t_data *data, char *line, int *have_f, int *have_c);
+void			require_assets_present(t_data *d, int c[2], char **ln, int i);
+int				parse_asset_line(t_data *data, char *line, int have_col[2]);
+void			parse_color_line(t_data *data, char *line, int *f, int *c);
 void			parse_texture_line(t_data *data, char *line);
 
 #endif

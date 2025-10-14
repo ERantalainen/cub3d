@@ -17,7 +17,7 @@ NAME		:= libft.a
 CC			:= cc
 
 # Compiler flags
-CFLAGS		:= -Wall -Wextra -Werror
+CFLAGS		:= -Wall -Wextra -Werror -g
 AR			:= ar rcs
 
 # Directory structure
@@ -76,7 +76,8 @@ STR_SRCS := \
 	ft_reverse_string.c \
 	ft_strndup.c \
 	ft_strcmp.c \
-	ft_stradup.c
+	ft_stradup.c \
+	ft_stralen.c
 
 # Memory management functions
 MEM_SRCS := \

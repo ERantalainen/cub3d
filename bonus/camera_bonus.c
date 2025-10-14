@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:59:56 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 14:44:24 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:02:59 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	ft_look_left(t_data *dt, double rt)
 	temp_x = dt->player.pdx;
 	dt->player.pdx = dt->player.pdx * cos(-rt) - dt->player.pdy * sin(-rt);
 	dt->player.pdy = temp_x * sin(-rt) + dt->player.pdy * cos(-rt);
-	temp_x = dt->player.planeX;
-	tmp = dt->player.planeX * cos(-rt) - dt->player.planeY * sin(-rt);
-	dt->player.planeX = tmp;
-	dt->player.planeY = temp_x * sin(-rt) + dt->player.planeY * cos(-rt);
+	temp_x = dt->player.plane_x;
+	tmp = dt->player.plane_x * cos(-rt) - dt->player.plane_y * sin(-rt);
+	dt->player.plane_x = tmp;
+	dt->player.plane_y = temp_x * sin(-rt) + dt->player.plane_y * cos(-rt);
 	dt->player.dir[0] -= rt;
 	if (dt->player.dir[0] < 0)
 		dt->player.dir[0] += 2 * PI;
@@ -37,10 +37,10 @@ void	ft_look_right(t_data *dt, double rt)
 	temp_x = dt->player.pdx;
 	dt->player.pdx = dt->player.pdx * cos(rt) - dt->player.pdy * sin(rt);
 	dt->player.pdy = temp_x * sin(rt) + dt->player.pdy * cos(rt);
-	temp_x = dt->player.planeX;
-	tmp = dt->player.planeX * cos(rt) - dt->player.planeY * sin(rt);
-	dt->player.planeX = tmp;
-	dt->player.planeY = temp_x * sin(rt) + dt->player.planeY * cos(rt);
+	temp_x = dt->player.plane_x;
+	tmp = dt->player.plane_x * cos(rt) - dt->player.plane_y * sin(rt);
+	dt->player.plane_x = tmp;
+	dt->player.plane_y = temp_x * sin(rt) + dt->player.plane_y * cos(rt);
 	dt->player.dir[0] += rt;
 	if (dt->player.dir[0] > 2 * PI)
 		dt->player.dir[0] -= 2 * PI;

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/21 23:09:50 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:24:24 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	parse_assets(t_data *data, char **lines, int *map_start)
 		j++;
 	}
 	*map_start = j;
-	require_assets_present(data, have_f, have_c);
+	require_assets_present(data, j, lines);
 }
 
 static void	parse_map(t_data *data, char **lines, int start)
@@ -114,7 +114,9 @@ void	parse_cub_file(t_data *data, const char *filename)
 
 	lines = read_lines(filename);
 	if (!lines || !lines[0])
+	{
 		ft_exit("Error: empty .cub file", 1);
+	}
 	parse_assets(data, lines, &map_start);
 	parse_map(data, lines, map_start);
 	free(lines);

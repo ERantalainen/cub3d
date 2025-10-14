@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:43:47 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/21 23:09:22 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:02:59 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ void	set_player_vertical(t_data *data, char c)
 	{
 		data->player.pdx = 0.0;
 		data->player.pdy = -1.0;
-		data->player.planeX = 0.66;
-		data->player.planeY = 0.0;
+		data->player.plane_x = 0.66;
+		data->player.plane_y = 0.0;
 	}
 	else if (c == 'S')
 	{
 		data->player.pdx = 0.0;
 		data->player.pdy = 1.0;
-		data->player.planeX = -0.66;
-		data->player.planeY = 0.0;
+		data->player.plane_x = -0.66;
+		data->player.plane_y = 0.0;
 	}
 }
 
@@ -77,15 +77,15 @@ void	set_player_horizontal(t_data *data, char c)
 	{
 		data->player.pdx = 1.0;
 		data->player.pdy = 0.0;
-		data->player.planeX = 0.0;
-		data->player.planeY = 0.66;
+		data->player.plane_x = 0.0;
+		data->player.plane_y = 0.66;
 	}
 	else if (c == 'W')
 	{
 		data->player.pdx = -1.0;
 		data->player.pdy = 0.0;
-		data->player.planeX = 0.0;
-		data->player.planeY = -0.66;
+		data->player.plane_x = 0.0;
+		data->player.plane_y = -0.66;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 00:09:31 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 18:30:03 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:03:29 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	render_frame(t_player pr, int x, int dir)
 	data = get_data();
 	pr.ray.txt_size = data->wall_txt[pr.ray.side]->height;
 	pr.ray.tex_x = (int)(pr.ray.point * pr.ray.txt_size);
-	if (dir == 0 && pr.ray.rayX > 0)
+	if (dir == 0 && pr.ray.ray_x > 0)
 		pr.ray.tex_x = pr.ray.txt_size - pr.ray.tex_x - 1;
-	if (dir == 1 && pr.ray.rayY > 0)
+	if (dir == 1 && pr.ray.ray_y > 0)
 		pr.ray.tex_x = pr.ray.txt_size - pr.ray.tex_x - 1;
 	step = 1.0 * pr.ray.txt_size / pr.ray.height;
 	pos = (pr.ray.top - pr.pitch - HEIGHT / 2 + pr.ray.height / 2) * step;

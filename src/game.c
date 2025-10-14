@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:24:04 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/21 23:10:41 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:24:28 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	start_game(t_data *data)
 	mlx_cursor_hook(data->mlx, cursor_pos, data);
 	raycaster(data->player);
 	mlx_image_to_window(data->mlx, data->wall_full, 0, 0);
-	render_minimap(data);
 	mlx_loop(data->mlx);
 }
 
@@ -51,25 +50,23 @@ static void	compass(t_data *data)
 	free(fp);
 }
 
-void	draw_game(t_data *data)
+void	draw_game(t_data *dt)
 {
-	static double	posY = 0.0;
-	static double	posX = 0.0;
-	static double	dirX = 0.0;
-	static double	dirY = 0.0;
+	static double	pos_y = 0.0;
+	static double	pos_x = 0.0;
+	static double	dir_x = 0.0;
+	static double	dir_y = 0.0;
 
-	if ((data->player.pos[0] != posY || data->player.pos[1] != posX)
-		|| data->player.dir[1] != dirY || data->player.dir[0] != dirX)
+	if ((dt->player.pos[0] != pos_y || dt->player.pos[1] != pos_x)
+		|| dt->player.dir[1] != dir_y || dt->player.dir[0] != dir_x)
 	{
-		ft_memset(data->wall_full->pixels, 0, WIDTH * HEIGHT * 4);
-		raycaster(data->player);
-		compass(data);
-		data->player.mm->instances->x = floor(data->player.pos[1] * MM) - MM / 2;
-		data->player.mm->instances->y = floor(data->player.pos[0] * MM) - MM / 2;
-		posY = data->player.pos[0];
-		posX = data->player.pos[1];
-		dirX = data->player.dir[0];
-		dirY = data->player.dir[1];
+		ft_memset(dt->wall_full->pixels, 0, WIDTH * HEIGHT * 4);
+		raycaster(dt->player);
+		compass(dt);
+		pos_y = dt->player.pos[0];
+		pos_x = dt->player.pos[1];
+		dir_x = dt->player.dir[0];
+		dir_y = dt->player.dir[1];
 	}
 	else
 		return ;

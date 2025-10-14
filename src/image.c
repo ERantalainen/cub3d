@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:17:09 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 16:04:07 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:03:29 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ unsigned int	get_color(mlx_texture_t *txt, int index)
 	alpha = txt->pixels[index + 3];
 	return (red << 24 | green << 16 | blue << 8 | alpha);
 }
+
 static void	draw_roof(t_data *data, int high, int y, int x)
 {
 	if (y < high)
@@ -36,7 +37,7 @@ static void	draw_roof(t_data *data, int high, int y, int x)
 static void	draw_floor(t_data *data, int low, int y, int x)
 {
 	if (y > low && y < HEIGHT)
-			mlx_put_pixel(data->wall_full, x, y, data->f_c);
+		mlx_put_pixel(data->wall_full, x, y, data->f_c);
 }
 
 static void	make_roof(t_data *data, t_player player, int x)
@@ -75,9 +76,9 @@ void	render_frame(t_data *data, t_player player, int x, int dir)
 
 	player.ray.txt_size = data->wall_txt[player.ray.side]->height;
 	player.ray.tex_x = (int)(player.ray.point * player.ray.txt_size);
-	if (dir == 0 && player.ray.rayX > 0)
+	if (dir == 0 && player.ray.ray_x > 0)
 		player.ray.tex_x = player.ray.txt_size - player.ray.tex_x - 1;
-	if (dir == 1 && player.ray.rayY > 0)
+	if (dir == 1 && player.ray.ray_y > 0)
 		player.ray.tex_x = player.ray.txt_size - player.ray.tex_x - 1;
 	step = 1.0 * player.ray.txt_size / player.ray.height;
 	pos = (player.ray.top - HEIGHT / 2 + player.ray.height / 2) * step;

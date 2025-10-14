@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 14:13:08 by erantala          #+#    #+#             */
-/*   Updated: 2025/06/02 13:54:49 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:25:06 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 void	ft_frearr(void **s, int lines)
 {
-	while (lines >= 0)
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i] && i < lines)
 	{
-		free(s[lines]);
-		lines--;
+		free(s[i]);
+		i++;
 	}
 	free(s);
 }

@@ -6,19 +6,25 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:34:53 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/25 15:01:36 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:02:12 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-void	require_assets_present(t_data *data, int have_f, int have_c)
+void	require_assets_present(t_data *data, int j, char **ln)
 {
+	int	i;
+
+	i = 0;
 	if (!data->wall_txt[NO] || !data->wall_txt[SO] || !data->wall_txt[WE]
 		|| !data->wall_txt[EA] || !data->flr_txt || !data->ceil_txt)
-		ft_exit("Error: missing one or more textures", 1);
-	if (have_f == 0 || have_c == 0)
-		ft_exit("Error: missing floor or ceiling color (F/C)", 1);
+	{
+		while ((ln + j)[i])
+			free((ln + j)[i++]);
+		free(ln);
+		ft_exit("Error: missing one or more wall textures (NO/SO/WE/EA)", 1);
+	}
 }
 
 int	parse_asset_line(t_data *data, char *line, int *have_f, int *have_c)
@@ -37,7 +43,6 @@ int	parse_asset_line(t_data *data, char *line, int *have_f, int *have_c)
 	}
 	else if (ft_strchr(" 01NSEW", line[0]))
 		return (0);
-	puts(line);
 	ft_exit("Error: invalid line in asset section of .cub file", 1);
 	return (0);
 }

@@ -18,7 +18,7 @@ OBJ_DIR = obj/
 SRCF = main.c data.c camera.c helpers.c memory_arena.c \
 	memory_arena_helpers.c movement.c \
 	game_load.c game_load_helpers.c game.c rayCast.c image.c \
-	parsing.c parsing_helpers.c minimap.c parsing_utility.c
+	parsing.c parsing_helpers.c parsing_utility.c
 
 SRBF = main_bonus.c data_bonus.c camera_bonus.c helpers_bonus.c memory_arena.c \
 	memory_arena_helpers.c movement_bonus.c \
@@ -35,10 +35,10 @@ OBJB = $(addprefix $(OBJ_DIR), $(SRBF:.c=.o))
 
 HEADERS = ./inc/cube.h
 INC = ./inc
-NAME = cub3d
-BNAME = cub3d_bonus
+NAME = cub3D
+BNAME = cub3D_bonus
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -pthread -Iinc -Ilibft -I./MLX42/include/MLX42/ -g
+CFLAGS = -Wall -Wextra -Werror -pthread -Iinc -Ilibft -I./MLX42/include/MLX42/
 EFLAGS = -Llibft -lft -L./MLX42/build -ldl -lglfw -pthread -lm
 MAKE = @make -s
 MLX42 = MLX42/build/libmlx42.a

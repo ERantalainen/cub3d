@@ -6,7 +6,7 @@
 /*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 17:10:01 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:58:41 by erantala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	validate_map_line(const char *line)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (line && line[i])
 	{
 		if (!ft_strchr(" 01NSEW", line[i]))
@@ -55,12 +56,11 @@ unsigned int	parse_color(char *s)
 static void	parse_assets(t_data *data, char **lines, int *map_start)
 {
 	int		j;
-	int		have_f;
-	int		have_c;
+	int		have_col[2];
 	char	*line;
 
-	have_f = 0;
-	have_c = 0;
+	have_col[0] = 0;
+	have_col[1] = 0;
 	j = 0;
 	while (lines[j])
 	{
@@ -71,13 +71,13 @@ static void	parse_assets(t_data *data, char **lines, int *map_start)
 			j++;
 			continue ;
 		}
-		if (!parse_asset_line(data, line, &have_f, &have_c))
+		if (!parse_asset_line(data, line, have_col))
 			break ;
 		free(line);
 		j++;
 	}
 	*map_start = j;
-	require_assets_present(data, have_f, have_c);
+	require_assets_present(data, have_col, lines, j);
 }
 
 static void	parse_map(t_data *data, char **lines, int start)
@@ -113,7 +113,10 @@ void	parse_cub_file(t_data *data, const char *filename)
 
 	lines = read_lines(filename);
 	if (!lines || !lines[0])
+	{
+		ft_frearr((void **)lines, ft_stralen(lines));
 		ft_exit("Error: empty .cub file", 1);
+	}
 	parse_assets(data, lines, &map_start);
 	parse_map(data, lines, map_start);
 	free(lines);
