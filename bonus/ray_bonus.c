@@ -18,7 +18,7 @@ static t_thr	*alloc_threads(t_thr *thr)
 	return (thr);
 }
 
-void	multi_caster(t_data	*data)
+void	multi_caster(t_data *data)
 {
 	static t_thr	*thr = NULL;
 	int				i;

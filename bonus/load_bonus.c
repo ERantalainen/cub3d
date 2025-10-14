@@ -12,7 +12,7 @@
 
 #include "cube_bonus.h"
 
-void	load_images(t_data	*data)
+void	load_images(t_data *data)
 {
 	data->wall_img[NO] = mlx_texture_to_image(data->mlx, data->wall_txt[NO]);
 	if (!data->wall_img[NO])
@@ -34,7 +34,7 @@ void	load_images(t_data	*data)
 		ft_exit("Error", 1);
 }
 
-char	find_start_pos(t_data	*data)
+char	find_start_pos(t_data *data)
 {
 	int	row;
 	int	col;
@@ -46,7 +46,7 @@ char	find_start_pos(t_data	*data)
 		while (data->map[row][col])
 		{
 			if ((data->map[row][col] == 'N' || data->map[row][col] == 'S')
-			|| data->map[row][col] == 'E' || data->map[row][col] == 'W')
+				|| data->map[row][col] == 'E' || data->map[row][col] == 'W')
 			{
 				data->player.pos[1] = col;
 				data->player.pos[0] = row;
@@ -60,7 +60,7 @@ char	find_start_pos(t_data	*data)
 	return (0);
 }
 
-void	load_game(t_data	*data)
+void	load_game(t_data *data)
 {
 	char	dir;
 

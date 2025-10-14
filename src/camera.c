@@ -17,8 +17,7 @@ void	ft_look_left(t_data *d, double rot)
 	double	temp_x;
 
 	temp_x = d->player.pdx;
-	d->player.pdx = d->player.pdx * cos(-rot) - d->player.pdy
-		* sin(-rot);
+	d->player.pdx = d->player.pdx * cos(-rot) - d->player.pdy * sin(-rot);
 	d->player.pdy = temp_x * sin(-rot) + d->player.pdy * cos(-rot);
 	temp_x = d->player.plane_x;
 	d->player.plane_x = d->player.plane_x * cos(-rot) - d->player.plane_y
@@ -34,8 +33,7 @@ void	ft_look_right(t_data *d, double rot)
 	double	temp_x;
 
 	temp_x = d->player.pdx;
-	d->player.pdx = d->player.pdx * cos(rot) - d->player.pdy
-		* sin(rot);
+	d->player.pdx = d->player.pdx * cos(rot) - d->player.pdy * sin(rot);
 	d->player.pdy = temp_x * sin(rot) + d->player.pdy * cos(rot);
 	temp_x = d->player.plane_x;
 	d->player.plane_x = d->player.plane_x * cos(rot) - d->player.plane_y

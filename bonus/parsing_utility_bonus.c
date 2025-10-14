@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utility_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:34:53 by erantala          #+#    #+#             */
-/*   Updated: 2025/10/14 13:02:12 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:17:21 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	parse_texture_line(t_data *data, char *line)
 		|| (!ft_strncmp(line, "SO ", 3) && !data->wall_txt[SO])
 		|| (!ft_strncmp(line, "WE ", 3) && !data->wall_txt[WE])
 		|| (!ft_strncmp(line, "EA ", 3) && !data->wall_txt[EA])
-		|| (!ft_strncmp(line, "FT ", 3) && !data->flr_txt)
-		|| (!ft_strncmp(line, "CT ", 3) && !data->ceil_txt))
+		|| (!ft_strncmp(line, "FT ", 3) && !data->flr_txt) || (!ft_strncmp(line,
+				"CT ", 3) && !data->ceil_txt))
 		ft_exit("Error loading wall texture", 1);
 }
 

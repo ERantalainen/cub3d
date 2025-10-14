@@ -47,7 +47,7 @@ static void	calc_ray(t_player *player, int x)
 	calc_step(player, x);
 }
 
-static	void	calc_step(t_player *pr, int x)
+static void	calc_step(t_player *pr, int x)
 {
 	if (pr->ray.ray_x < 0)
 	{

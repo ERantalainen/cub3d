@@ -51,8 +51,8 @@ void	make_player(t_data *data)
 			col = 0;
 			while (col < MM - 1)
 			{
-				mlx_put_pixel(data->player.mm, col, row,
-					make_color(0, 255, 0, 255));
+				mlx_put_pixel(data->player.mm, col, row, make_color(0, 255, 0,
+						255));
 				col++;
 			}
 			row++;
@@ -76,11 +76,11 @@ void	render_minimap(t_data *data)
 		while (data->map[y][x] && x < floor(data->player.pos[1]) + 5)
 		{
 			if (data->map[y][x] == '1')
-				mini_helper(data, make_color(0, 0, 0, 255),
-					pos_y * MM, pos_x * MM);
+				mini_helper(data, make_color(0, 0, 0, 255), pos_y * MM, pos_x
+					* MM);
 			else if (data->map[y][x] != ' ')
-				mini_helper(data, make_color(255, 255,
-						255, 255), pos_y * MM, pos_x * MM);
+				mini_helper(data, make_color(255, 255, 255, 255), pos_y * MM,
+					pos_x * MM);
 			x++;
 			pos_x++;
 		}

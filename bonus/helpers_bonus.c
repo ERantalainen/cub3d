@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:04:28 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 18:36:29 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:16:38 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_exit(char *s, int code)
 	free_arenas();
 	(void)write(2, s, ft_strlen(s));
 	(void)write(2, "\n", 1);
-	exit (code);
+	exit(code);
 }
 
 unsigned int	make_color(t_uint r, t_uint g, t_uint b, t_uint a)

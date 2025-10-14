@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:22:23 by erantala          #+#    #+#             */
-/*   Updated: 2025/10/14 13:09:24 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:14:21 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ unsigned int	parse_color(char *s);
 // Parsing Helpers
 char			**read_lines(const char *filename);
 int				count_map_lines(char **lines, int start);
+void			free_rest(t_data *data, char **line, int j, int i);
 
 // Parsing Utility
 int				flood_fill(char **map, int row, int col);

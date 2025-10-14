@@ -12,7 +12,7 @@
 
 #include "cube_bonus.h"
 
-void	game_hook(void *param);
+void		game_hook(void *param);
 
 void	start_game(t_data *data)
 {
@@ -66,7 +66,7 @@ static void	clear(t_data *data)
 	ft_memset(data->minimap->pixels, 0, sizeof(data->minimap->pixels));
 }
 
-void	draw_game(t_data	*data)
+void	draw_game(t_data *data)
 {
 	static double	pos_y = 0.0;
 	static double	pos_x = 0.0;

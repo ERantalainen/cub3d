@@ -12,7 +12,7 @@
 
 #include "cube_bonus.h"
 
-void	*flr_mlt(void	*param)
+void	*flr_mlt(void *param)
 {
 	t_thr	*thread;
 	t_data	*data;
@@ -63,7 +63,7 @@ void	*floor_caster(t_data *data, t_ray ray, int y, t_thr *thr)
 	return (NULL);
 }
 
-static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
+static void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 {
 	int				pos_x;
 	int				pos_y;
@@ -76,10 +76,10 @@ static	void	floor_calc(t_data *data, t_ray ray, int y, bool flr)
 	{
 		pos_x = (int)(ray.floor_x);
 		pos_y = (int)(ray.floor_y);
-		ray.floor_tx = (int)(data->flr_txt->width * (ray.floor_x - pos_x))
-			& (data->flr_txt->width - 1);
-		ray.floor_ty = (int)(data->flr_txt->height * (ray.floor_y - pos_y))
-			& (data->flr_txt->height - 1);
+		ray.floor_tx = (int)(data->flr_txt->width * (ray.floor_x
+					- pos_x)) & (data->flr_txt->width - 1);
+		ray.floor_ty = (int)(data->flr_txt->height * (ray.floor_y
+					- pos_y)) & (data->flr_txt->height - 1);
 		ray.floor_x += ray.f_stepx;
 		ray.floor_y += ray.f_stepy;
 		tex_pos = (data->flr_txt->width * ray.floor_ty + ray.floor_tx) * 4;

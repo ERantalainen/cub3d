@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 15:38:57 by erantala          #+#    #+#             */
-/*   Updated: 2025/09/17 17:09:48 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:17:11 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+void	free_rest(t_data *data, char **line, int j, int i)
+{
+	while (line && line[j])
+		free(line[j++]);
+	while (i > 0)
+		free(data->map[--i]);
+	free(data->map);
+	data->map = NULL;
+	free(line);
+	ft_exit("Invalid characters in map or memory allocation failed.", 1);
+}
 
 int	count_map_lines(char **lines, int start)
 {

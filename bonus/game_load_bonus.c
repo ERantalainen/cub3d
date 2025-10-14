@@ -28,8 +28,7 @@ static void	init_player_and_images(t_data *data)
 	ft_memset(&data->player, 0, sizeof(t_player));
 	set_player_spawn(data);
 	make_player(data);
-	data->minimap = mlx_new_image(data->mlx, 11 * MM,
-			11 * MM);
+	data->minimap = mlx_new_image(data->mlx, 11 * MM, 11 * MM);
 	if (!data->minimap)
 		ft_exit("Error creating minimap image", 1);
 	data->wall_full = mlx_new_image(data->mlx, WIDTH, HEIGHT);

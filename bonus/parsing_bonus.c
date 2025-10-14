@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erantala <erantala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:24:13 by erantala          #+#    #+#             */
-/*   Updated: 2025/10/14 12:24:24 by erantala         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:13:37 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-static void	validate_map_line(const char *line)
+static int	validate_map_line(const char *line)
 {
 	int	i;
 
@@ -20,9 +20,10 @@ static void	validate_map_line(const char *line)
 	while (line && line[i])
 	{
 		if (!ft_strchr(" 01NSEW", line[i]))
-			ft_exit("Error: invalid character in map", 1);
+			return (0);
 		i++;
 	}
+	return (1);
 }
 
 unsigned int	parse_color(char *s)
@@ -95,10 +96,11 @@ static void	parse_map(t_data *data, char **lines, int start)
 	j = start;
 	while (lines[j])
 	{
-		validate_map_line(lines[j]);
+		if (!validate_map_line(lines[j]))
+			free_rest(data, lines, j, i);
 		data->map[i] = ft_strdup(lines[j]);
 		if (!data->map[i])
-			ft_exit("Error duplicating map line", 1);
+			free_rest(data, lines, j, i);
 		free(lines[j]);
 		i++;
 		j++;
